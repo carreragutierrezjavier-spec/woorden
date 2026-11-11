@@ -1,6 +1,6 @@
 /* Woorden · funciona sin conexión. Con red, siempre intenta traer la versión nueva; sin red, usa la guardada. */
-const CACHE='woorden-400';
-const V='?v=400';
+const CACHE='woorden-401';
+const V='?v=401';
 const ASSETS=['./','index.html','manifest.webmanifest','css/app.css'+V,
   'js/data-base.js'+V,'js/data-more.js'+V,'js/data-grammar.js'+V,'js/data-build.js'+V,'js/core.js'+V,'js/game.js'+V,'js/play.js'+V,'js/ui.js'+V,
   'fonts/fraunces.woff2','fonts/plex-400.woff2','fonts/plex-500.woff2','fonts/plex-600.woff2',

@@ -231,7 +231,7 @@ function showFb(o){
   if(o.extra) fb.appendChild(H('p.fbx',{text:o.extra}));
   const b=H('button.btn.solid.big',{type:'button',text:'Seguir',onclick:advance}); fb.appendChild(b);
   R.key=e=>{ if(e.key==='Enter'){ e.preventDefault(); advance(); } };
-  if(o.kind==='ok'&&o.auto!==false) R.autoT=setTimeout(()=>{ if(R) advance(); },o.auto||1300);
+  if(o.kind==='ok'&&o.auto!==false) R.autoT=setTimeout(()=>{ if(R) advance(); },o.auto||1150);
 }
 function renderPowers(){
   const p=$('powers'); p.innerHTML=''; const list=[];
