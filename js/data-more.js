@@ -19,7 +19,7 @@ const WT_MORE=[
 
 ['stad',null,`het centrum=el centro; de wijk=el barrio; de toren=la torre; de molen=el molino; de stoep=la acera; het zebrapad=el paso de cebra; de rotonde=la rotonda; het kruispunt=el cruce; de bioscoop=el cine; het theater=el teatro; de kroeg=el bar (de barrio); het terras=la terraza; de slager=el carnicero; de kapper=el peluquero; de politie=la policía; de brandweer=los bomberos; het fietspad=el carril bici; de snelweg=la autopista; de parkeerplaats=el aparcamiento; de speeltuin=el parque infantil; de ingang=la entrada (puerta); de uitgang=la salida (puerta); de inwoner=el habitante; de gemeente=el municipio, el ayuntamiento`],
 
-['familie',null,`het gezin=la familia (padres e hijos); de echtgenoot=el esposo (formal); de echtgenote=la esposa (formal); de partner=la pareja; de schoonouders=los suegros; de kleinzoon=el nieto; de kleindochter=la nieta; de jongen=el chico; het meisje=la chica; de mens=el ser humano; de mensen=la gente (plural); de volwassene=el adulto; de gast=el invitado; de buitenlander=el extranjero (persona); de relatie=la relación; getrouwd=casado; gescheiden=divorciado; vrijgezel=soltero; zwanger=embarazada; de bruiloft=la boda; de trouwdag=el aniversario de boda; het afspraakje=la cita (romántica); de knuffel=el abrazo; de ruzie=la discusión, la pelea; de kennis=el conocido, el conocimiento`],
+['familie',null,`het gezin=la familia (padres e hijos); de echtgenoot=el esposo (formal); de echtgenote=la esposa (formal); de partner=la pareja; de schoonouders=los suegros; de kleinzoon=el nieto; de kleindochter=la nieta; de jongen=el chico; het meisje=la chica; de mens=el ser humano; de mensen=la gente (plural); de volwassene=el adulto; de gast=el invitado; de buitenlander=el extranjero (persona); de relatie=la relación; getrouwd=casado; gescheiden=divorciado; vrijgezel=soltero; zwanger=embarazada; de bruiloft=la boda; de trouwdag=el día de la boda, el aniversario de boda; het afspraakje=la cita (romántica); de knuffel=el abrazo; de ruzie=la discusión, la pelea; de kennis=el conocido, el conocimiento`],
 
 ['sport',null,`de speler=el jugador; de tegenstander=el rival; de aanvaller=el atacante; de verdediger=el defensor; de aanvoerder=el capitán (de un equipo); de overwinning=la victoria; de nederlaag=la derrota; de competitie=la liga; het toernooi=el torneo; het doelpunt=el gol; de overtreding=la falta; de strafworp=el penalti (waterpolo, balonmano); de wissel=el cambio, el suplente; de conditie=la forma física; de zwemmer=el nadador; de kampioen=el campeón; de medaille=la medalla; het record=el récord`],
 
@@ -110,7 +110,7 @@ const VERBS_MORE=[
 ['ontmoeten','conocer (por primera vez), encontrarse con','ontmoette','ontmoetten','ontmoet','hebben'],['verdienen','ganar (dinero), merecer','verdiende','verdienden','verdiend','hebben'],
 ['vertrouwen','confiar','vertrouwde','vertrouwden','vertrouwd','hebben'],['knuffelen','abrazar','knuffelde','knuffelden','geknuffeld','hebben'],
 ['beloven','prometer','beloofde','beloofden','beloofd','hebben'],['bestellen','pedir (en un bar o una tienda)','bestelde','bestelden','besteld','hebben'],
-['rennen','correr (deprisa)','rende','renden','gerend','hebben / zijn'],['wandelen','pasear','wandelde','wandelden','gewandeld','hebben'],
+['rennen','correr (deprisa)','rende','renden','gerend','hebben / zijn'],['wandelen','pasear','wandelde','wandelden','gewandeld','hebben / zijn'],
 ['regenen','llover','regende','regenden','geregend','hebben'],['sparen','ahorrar','spaarde','spaarden','gespaard','hebben'],
 ['ruilen','cambiar (una cosa por otra)','ruilde','ruilden','geruild','hebben'],['bezorgen','repartir, entregar a domicilio','bezorgde','bezorgden','bezorgd','hebben'],
 ['pinnen','pagar con tarjeta','pinde','pinden','gepind','hebben'],['passen','probarse, caber, encajar','paste','pasten','gepast','hebben'],
@@ -142,7 +142,7 @@ const VERBS_MORE=[
 ['aanzetten','encender (un aparato)','zette aan','zetten aan','aangezet','hebben'],['uitzetten','apagar (un aparato)','zette uit','zetten uit','uitgezet','hebben'],
 ['indienen','presentar (una solicitud o una queja)','diende in','dienden in','ingediend','hebben'],['toegeven','admitir','gaf toe','gaven toe','toegegeven','hebben'],
 ['opzoeken','buscar (un dato), consultar','zocht op','zochten op','opgezocht','hebben'],['doorbrengen','pasar (tiempo)','bracht door','brachten door','doorgebracht','hebben'],
-['samenwonen','vivir juntos, compartir piso','woonde samen','woonden samen','samengewoond','hebben'],['instappen','subir (a un vehículo)','stapte in','stapten in','ingestapt','zijn'],
+['samenwonen','vivir juntos, convivir (sin decir con quién se entiende «en pareja»)','woonde samen','woonden samen','samengewoond','hebben'],['instappen','subir (a un vehículo)','stapte in','stapten in','ingestapt','zijn'],
 ['uitstappen','bajar (de un vehículo)','stapte uit','stapten uit','uitgestapt','zijn'],['overstappen','hacer transbordo','stapte over','stapten over','overgestapt','zijn'],
 ['afmaken','terminar (acabar del todo)','maakte af','maakten af','afgemaakt','hebben'],['aannemen','aceptar, contratar','nam aan','namen aan','aangenomen','hebben'],
 ['opgeven','rendirse, abandonar','gaf op','gaven op','opgegeven','hebben'],['voorbereiden','preparar','bereidde voor','bereidden voor','voorbereid','hebben'],

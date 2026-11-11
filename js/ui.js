@@ -1,7 +1,7 @@
 'use strict';
 /* Woorden · pantallas: Hoy, Practicar, Palabras y Yo */
 
-const VERSION='4.0.1';
+const VERSION='4.0.2';
 let curTab='home', sheetOpen=false, sheetRebuild=null;
 const TABS=['home','practice','dict','me'];
 function showTab(name){
