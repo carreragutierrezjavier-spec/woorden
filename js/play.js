@@ -26,7 +26,7 @@ function nextNewWords(n){
 }
 function nextGrammar(n){
   const due=ALLG.filter(g=>isDue(g.k)).sort((a,b)=>S.it[a.k].d-S.it[b.k].d);
-  const out=shuffle(due.slice(0,Math.ceil(n*0.6)));
+  const out=shuffle(due.slice(0,Math.max(1,n-2)));      /* primero lo pendiente; siempre queda hueco para un par de ejercicios nuevos */
   const need=n-out.length, fresh=[];
   const weakSk=weaknesses().filter(w=>w.cat.slice(0,2)==='g:').map(w=>w.cat.slice(2));
   for(const sk of [...new Set([...weakSk,...GKEYS])]){
@@ -40,16 +40,22 @@ function nextGrammar(n){
 }
 
 /* ---------- pasos ---------- */
+/* modo de las palabras: 'type' = escribir en cuanto se ha visto una vez (por defecto) · 'mix' = primero elegir, luego escribir · 'mc' = solo elegir */
+const wmode=()=>S.opt.wmode||'type';
 function wordStep(w,force){
-  const st=stage(w.k); let t;
+  const st=stage(w.k), mode=wmode(); let t;
   if(force) t=force;
-  else if(st<=1) t='mc-es';
-  else if(st===2) t=(voice&&Math.random()<0.5)?'mc-ear':'mc-nl';
+  else if(st<=0) t='mc-es';
+  else if(mode==='mc') t=(st>=2&&voice&&Math.random()<0.3)?'mc-ear':(Math.random()<0.5?'mc-es':'mc-nl');
+  else if(mode==='mix'&&st<=1) t='mc-es';
+  else if(mode==='mix'&&st===2) t=(voice&&Math.random()<0.5)?'mc-ear':'mc-nl';
   else if(isPhrase(w.nl)) t='tiles';
-  else if(st>=4&&voice&&Math.random()<0.35) t='ear';
+  else if(st>=3&&voice&&Math.random()<0.3) t='ear';
   else t='type';
   return {t,w,key:w.k,cat:'w:'+w.th};
 }
+/* segunda vez que sale una palabra nueva en la misma sesión */
+const secondType=w=>wmode()==='type'?(isPhrase(w.nl)?'tiles':'type'):'mc-nl';
 function isIrregular(v){ const a=first(v[2]).split(' ')[0], b=first(v[3]).split(' ')[0]; return !(/(te|de)$/.test(a)&&/(ten|den)$/.test(b)); }
 const isSep=v=>v[2].includes(' ');
 const verbCat=v=>isSep(v)?'verbs-sep':(isIrregular(v)?'verbs-irr':'verbs-reg');
@@ -61,7 +67,7 @@ const puzStep=p=>p&&({t:'tiles',p,key:'p:'+p.n,cat:'puz:'+p.sub});
 const pairStep=p=>({t:'pair',p,key:'m:'+p[0]+'/'+p[1],cat:'pairs'});
 const dehetStep=w=>w&&({t:'dehet',w,key:'d:'+w.nl,cat:'dehet'});
 const numStep=type=>({t:'num',q:makeNum(type||pick(['n1','n2','n2','n3','y','t','t','t']))});
-const newSteps=(w,slot,i)=>[[slot-0.5+i*0.01,{t:'mc-es',w,key:w.k,cat:'w:'+w.th,nw:true}],[slot+6.5+i*0.01,{t:'mc-nl',w,key:w.k,cat:'w:'+w.th}]];
+const newSteps=(w,slot,i)=>[[slot-0.5+i*0.01,{t:'mc-es',w,key:w.k,cat:'w:'+w.th,nw:true}],[slot+6.5+i*0.01,{t:secondType(w),w,key:w.k,cat:'w:'+w.th}]];
 
 function extraSteps(n){
   const vs=pickBy(VERBS,v=>'v:'+v[0],2), ps=pickBy(ALLPUZ,p=>'p:'+p.n,2), cs=pickBy(CHAT,c=>'h:'+c.q,1), ls=pickBy(LANDEN,l=>'c:'+l[1],1);
@@ -136,7 +142,7 @@ function play(kind,arg){
 }
 function startRun(cfg){
   stopTimer(); hush();
-  R=Object.assign({i:0,ok:0,bad:0,xp:0,coins:0,combo:0,maxCombo:0,misses:[],crits:0,news:0,t0:Date.now(),answered:false,key:null},cfg);
+  R=Object.assign({i:0,ok:0,bad:0,xp:0,coins:0,combo:0,maxCombo:0,misses:[],newWords:[],crits:0,news:0,t0:Date.now(),answered:false,key:null},cfg);
   $('end').hidden=true; $('play').hidden=false; document.body.classList.add('playing');
   $('pTitle').textContent=R.title; $('pXp').textContent='+0 XP';
   $('prail').classList.toggle('timer',!!R.timed);
@@ -163,6 +169,9 @@ function nextStep(){
   $('fb').hidden=true;
   const st=$('stage'); st.innerHTML=''; st.className='stage t-'+R.cur.t; $('play').scrollTop=0;
   RENDER[R.cur.t](R.cur,st);
+  /* si la pregunta nueva no se escribe, se cierra el teclado */
+  if(!st.querySelector('input.txt')){ const a=document.activeElement; if(a&&a.blur&&a!==document.body) a.blur(); }
+  fitPlay();
   renderPowers();
 }
 function advance(){
@@ -192,7 +201,7 @@ function answer(o){
     else if(o.good&&early) it.r++;
     else wasNew=mark(o.key,o.good,!!s.re);
   }
-  if(wasNew&&o.key.slice(0,2)==='w:'){ R.news++; L.n++; ev({t:'new'}); }
+  if(wasNew&&o.key.slice(0,2)==='w:'){ R.news++; L.n++; if(s.w) R.newWords.push(s.w); ev({t:'new'}); }
   if(o.good){
     R.ok++; life('ok'); setCombo(R.combo+1);
     const steps=Math.min(4,Math.floor(R.combo/5));
@@ -231,6 +240,7 @@ function showFb(o){
   if(o.extra) fb.appendChild(H('p.fbx',{text:o.extra}));
   const b=H('button.btn.solid.big',{type:'button',text:'Seguir',onclick:advance}); fb.appendChild(b);
   R.key=e=>{ if(e.key==='Enter'){ e.preventDefault(); advance(); } };
+  { const a=document.activeElement; if(a&&a.classList&&a.classList.contains('txt')) requestAnimationFrame(()=>{ try{ a.scrollIntoView({block:'nearest'}); }catch(e){} }); }
   if(o.kind==='ok'&&o.auto!==false) R.autoT=setTimeout(()=>{ if(R) advance(); },o.auto||1150);
 }
 function renderPowers(){
@@ -273,6 +283,19 @@ function optionList(st,opts,labelFn,isRight,onPick){
   R.key=e=>{ const n=+e.key; if(n>=1&&n<=opts.length){ e.preventDefault(); choose(opts[n-1],box.children[n-1]); } };
   st.appendChild(box); return box;
 }
+/* teclado: entre dos preguntas de escribir no se cierra. El campo contestado se bloquea sin quitarle el foco,
+   y el foco pasa al campo nuevo en el mismo instante en que se cambia de pregunta. */
+function lockInput(inp){ inp.dataset.locked=inp.value; inp.setAttribute('aria-readonly','true'); }
+document.addEventListener('beforeinput',e=>{ const t=e.target; if(t&&t.dataset&&('locked' in t.dataset)) e.preventDefault(); },true);
+document.addEventListener('input',e=>{ const t=e.target; if(t&&t.dataset&&('locked' in t.dataset)) t.value=t.dataset.locked; },true);
+function focusNow(inp){ try{ inp.focus({preventScroll:true}); }catch(e){ try{ inp.focus(); }catch(e2){} } }
+/* con el teclado abierto (iPhone), la partida se ajusta a la parte visible: la respuesta queda justo encima del teclado */
+function fitPlay(){
+  const vv=window.visualViewport, p=$('play'); if(!vv||!p) return;
+  if(!p.hidden&&window.innerHeight-vv.height>120){ p.style.top=vv.offsetTop+'px'; p.style.bottom='auto'; p.style.height=vv.height+'px'; }
+  else{ p.style.top=''; p.style.bottom=''; p.style.height=''; }
+}
+if(window.visualViewport){ visualViewport.addEventListener('resize',fitPlay); visualViewport.addEventListener('scroll',fitPlay); }
 function textInput(ph,mode){
   return H('input.txt',{type:'text',autocomplete:'off',autocapitalize:'off',autocorrect:'off',spellcheck:'false',enterkeyhint:'done',placeholder:ph,inputmode:mode||null});
 }
@@ -331,17 +354,18 @@ RENDER.type=RENDER.ear=function(s,st){
       warned=true; hintEl.textContent='«'+inp.value.trim()+'» también vale para eso, pero busco otra palabra.'; inp.value=''; inp.focus(); return;
     }
     const j=give?{v:'bad',note:''}:judgeWord(inp.value,w.nl), good=j.v==='ok';
-    inp.disabled=true; inp.blur(); inp.classList.add(good?'f-ok':'f-bad'); chk.disabled=true; skipRow.remove();
+    lockInput(inp); inp.classList.add(good?'f-ok':'f-bad'); chk.disabled=true; skipRow.remove();
     if(hasArt&&(good||j.art)) stat('article',good);
     card.classList.add(good?'flash-ok':'flash-bad');
     answer({good,near:j.v==='near',xp:10,partial:j.v==='near'?3:0,key:s.key,cat:s.cat,miss:[first(w.nl),w.es],type:'type',listen:ear});
     autoSay(w.nl,0.9);
-    showFb({kind:j.v,title:good?'Correcto':(j.v==='near'?'Casi':(give?'Era esto':'No era eso')),nl:w.nl,es:w.es,note:j.note,speak:w.nl});
+    showFb({kind:j.v,title:good?'Correcto':(j.v==='near'?'Casi':(give?'Era esto':'No era eso')),nl:w.nl,es:w.es,note:j.note,speak:w.nl,
+      extra:(!good&&!give)?'Has escrito: «'+inp.value.trim()+'»':''});
   };
   chk.addEventListener('click',()=>submit(false)); skip.addEventListener('click',()=>submit(true));
   R.hintFn=()=>{ if(R.hinted) return false; R.hinted=true; hintEl.textContent='Empieza así: '+hintOf(w.nl); R.hintFn=null; return true; };
   R.key=e=>{ if(e.key==='Enter'){ e.preventDefault(); submit(false); } };
-  setTimeout(()=>{ try{ inp.focus({preventScroll:true}); }catch(e){} },80);
+  focusNow(inp);
 };
 
 /* montar una frase con piezas (frases del cuaderno y expresiones largas) */
@@ -428,7 +452,7 @@ RENDER.verb=function(s,st){
   const submit=give=>{
     if(R.answered) return;
     let n=0; const notes=[];
-    ins.forEach((inp,k)=>{ const m=give?null:eqAny(inp.value,answers[k]); if(m){ n++; const d=diaNote(inp.value,m); if(d) notes.push(d); } inp.classList.add(m?'f-ok':'f-bad'); inp.disabled=true; inp.blur(); });
+    ins.forEach((inp,k)=>{ const m=give?null:eqAny(inp.value,answers[k]); if(m){ n++; const d=diaNote(inp.value,m); if(d) notes.push(d); } inp.classList.add(m?'f-ok':'f-bad'); lockInput(inp); });
     const all=n===4; row.remove();
     if(all) life('verbs');
     card.classList.add(all?'flash-ok':'flash-bad');
@@ -440,7 +464,7 @@ RENDER.verb=function(s,st){
   };
   chk.addEventListener('click',()=>submit(false)); skip.addEventListener('click',()=>submit(true));
   R.key=e=>{ if(e.key!=='Enter') return; e.preventDefault(); const idx=ins.indexOf(document.activeElement); if(idx>=0&&idx<3) ins[idx+1].focus(); else submit(false); };
-  setTimeout(()=>{ try{ ins[0].focus({preventScroll:true}); }catch(e){} },80);
+  focusNow(ins[0]);
 };
 
 /* países: país y nacionalidad */
@@ -455,7 +479,7 @@ RENDER.country=function(s,st){
     if(R.answered) return;
     const m1=give?null:eqAny(i1.value,c[1]), m2=give?null:eqAny(i2.value,c[2]);
     const person=!give&&!m2&&(eqAny(i2.value,c[3])||eqAny(i2.value,c[4]));
-    i1.classList.add(m1?'f-ok':'f-bad'); i2.classList.add(m2?'f-ok':'f-bad'); i1.disabled=i2.disabled=true; i1.blur(); i2.blur(); row.remove();
+    i1.classList.add(m1?'f-ok':'f-bad'); i2.classList.add(m2?'f-ok':'f-bad'); lockInput(i1); lockInput(i2); row.remove();
     const all=!!(m1&&m2);
     card.classList.add(all?'flash-ok':'flash-bad');
     answer({good:all,xp:12,partial:(m1||m2)?4:0,key:s.key,cat:s.cat,miss:[land+' · '+adj,c[0]],type:'country'});
@@ -468,7 +492,7 @@ RENDER.country=function(s,st){
   };
   chk.addEventListener('click',()=>submit(false)); skip.addEventListener('click',()=>submit(true));
   R.key=e=>{ if(e.key!=='Enter') return; e.preventDefault(); if(document.activeElement===i1) i2.focus(); else submit(false); };
-  setTimeout(()=>{ try{ i1.focus({preventScroll:true}); }catch(e){} },80);
+  focusNow(i1);
 };
 
 /* charla con Lotte */
@@ -509,7 +533,7 @@ RENDER.num=function(s,st){
     let good=false; const v=inp.value.replace(/\s/g,'');
     if(q.kind==='time'){ const m=v.match(/^(\d{1,2})(?:[:.,h](\d{2}))?$/); if(m){ const hh=+m[1], mm=m[2]?+m[2]:0; good=((hh%12)*60+mm)===((q.h%12)*60+q.m); } }
     else good=v.replace(/^0+(?=\d)/,'')===q.ans;
-    inp.disabled=true; inp.blur(); inp.classList.add(good?'f-ok':'f-bad'); chk.disabled=true;
+    lockInput(inp); inp.classList.add(good?'f-ok':'f-bad'); chk.disabled=true;
     if(good&&q.kind==='time') life('times');
     answer({good,xp:q.kind==='time'?10:8,cat:q.kind==='time'?'num-time':'num-num',miss:[q.show,q.word],type:'num',listen:true});
     let extra='';
@@ -518,7 +542,7 @@ RENDER.num=function(s,st){
   };
   chk.addEventListener('click',submit);
   R.key=e=>{ if(e.key==='Enter'){ e.preventDefault(); submit(); } };
-  setTimeout(()=>{ try{ inp.focus({preventScroll:true}); }catch(e){} },80);
+  focusNow(inp);
 };
 
 /* pares de sonidos: ¿cuál has oído? */
@@ -558,6 +582,7 @@ RENDER.dehet=function(s,st){
 /* ---------- final de la partida ---------- */
 function endRun(quit){
   stopTimer(); hush();
+  { const a=document.activeElement; if(a&&a.blur&&a!==document.body) a.blur(); }
   if(!R){ leavePlay(); return; }
   clearTimeout(R.autoT);
   const run=R; R=null;
@@ -607,6 +632,12 @@ function showEnd(run,info){
   if(S.day.done&&!S.day.wheel) queue.push(cb=>showWheel(cb));
   const runQ=i=>{ if(i>=queue.length){ hud(); return; } setTimeout(()=>{ if(!$('end').hidden) queue[i](()=>runQ(i+1)); },i?350:900); };
   runQ(0);
+  if(run.newWords.length){
+    box.appendChild(H('h2.endh',{text:run.newWords.length===1?'La palabra nueva de hoy':'Las '+run.newWords.length+' palabras nuevas de hoy'}));
+    const ns=H('div.misses');
+    run.newWords.forEach(w=>ns.appendChild(H('div.miss',null,H('div',null,H('div.a',null,nlNode(w.nl)),H('div.b',{text:w.es})),speakBtn(w.nl,true,0.85))));
+    box.appendChild(ns);
+  }
   if(run.misses.length){
     box.appendChild(H('h2.endh',{text:'Para repasar'}));
     const ms=H('div.misses');
@@ -619,4 +650,4 @@ function showEnd(run,info){
     H('button.btn.big',{type:'button',text:again,onclick:()=>{ $('end').hidden=true; play(run.mode,run.arg); }})));
   e.appendChild(box);
 }
-document.addEventListener('keydown',e=>{ if(R&&!$('play').hidden&&R.key&&$('modal').hidden) R.key(e); });
+document.addEventListener('keydown',e=>{ if(e.repeat) return; if(R&&!$('play').hidden&&R.key&&$('modal').hidden) R.key(e); });

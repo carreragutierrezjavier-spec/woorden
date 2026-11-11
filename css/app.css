@@ -281,6 +281,8 @@ select{font-size:14.5px;padding:9px 12px}
 .sizes button{background:var(--glaze);border:1.5px solid var(--hairline);border-radius:12px;padding:11px 8px;cursor:pointer;display:flex;flex-direction:column;gap:2px;text-align:center}
 .sizes b{font-size:15px}.sizes span{font-size:11.5px;color:var(--muted);line-height:1.3}
 .sizes button.on{border-color:var(--delft);background:var(--delft-soft)}
+.modectl .setnote{margin-top:8px}
+input.txt[aria-readonly]{caret-color:transparent}
 textarea.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;margin-top:10px;resize:vertical;word-break:break-all}
 
 /* ---------- azulejos coleccionables ---------- */

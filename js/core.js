@@ -39,7 +39,7 @@ function blank(){
   return {v:3,it:{},xp:0,coins:0,
     day:{d:0,xp:0,done:false,sess:0,wheel:false,chest:0},
     streak:{last:0,n:0},best:{},
-    opt:{sfx:true,voice:true,vname:'',rate:0.9,size:'normal'},
+    opt:{sfx:true,voice:true,vname:'',rate:0.9,size:'normal',wmode:'type'},
     inv:{freeze:0,time15:0,fifty:0,hint:0},skins:['delft'],skin:'delft',
     stats:{},life:{},mis:{d:0,list:[]},ach:{},tiles:{},log:{},custom:[],pins:['werk','jachtbouw'],nem:{},pend:0};
 }
@@ -181,7 +181,7 @@ function judgeWord(input,answer){
       return {v:'near',art:true,note:'Artículo equivocado: has puesto «'+ia+'» y es «'+aa+'».'};
     }
   }
-  for(const a of alts){ const n=norm(a); if(n.length>=6&&lev(i,n)===1) return {v:'near',note:'Casi: se te ha ido una letra.'}; }
+  for(const a of alts){ const n=norm(a); if(n.length>=6&&lev(i,n)===1) return {v:'near',note:'Se te ha ido una letra.'}; }
   return {v:'bad',note:''};
 }
 const glosses=es=>es.replace(/\([^)]*\)/g,'').split(',').map(g=>norm(g)).filter(Boolean);

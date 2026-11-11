@@ -1,7 +1,7 @@
 'use strict';
 /* Woorden · pantallas: Hoy, Practicar, Palabras y Yo */
 
-const VERSION='4.0.2';
+const VERSION='4.1';
 let curTab='home', sheetOpen=false, sheetRebuild=null;
 const TABS=['home','practice','dict','me'];
 function showTab(name){
@@ -19,8 +19,18 @@ function openSheet(title,build){
   b.innerHTML=''; build(b); $('sheet').hidden=false; $('sheet').scrollTop=0; sheetOpen=true;
 }
 function closeSheet(){ $('sheet').hidden=true; sheetOpen=false; sheetRebuild=null; }
+const WMODES=[['type','Escribir','Después de verla una vez, cada palabra se escribe con su artículo. Es lo que mejor las fija.'],
+  ['mix','Mezcla','Primero eliges entre cuatro; la escribes cuando ya la has acertado un par de veces.'],
+  ['mc','Elegir','Solo elegir entre cuatro. Rápido para el tranvía, pero se queda menos.']];
+function modeCtl(rerender){
+  const cur=S.opt.wmode||'type';
+  return H('div.modectl',null,
+    H('div.seg',null,WMODES.map(m=>H('button'+(cur===m[0]?'.on':''),{type:'button',text:m[1],onclick:()=>{ S.opt.wmode=m[0]; save(); rerender(); }}))),
+    H('p.setnote',{text:WMODES.find(m=>m[0]===cur)[2]}));
+}
 const bar=(pct,cls)=>H('div.bar'+(cls?'.'+cls:''),null,H('i',{style:'width:'+clamp(pct*100,0,100)+'%'}));
 const bar2=(a,b)=>H('div.bar.two',null,H('i.b',{style:'width:'+clamp(b*100,0,100)+'%'}),H('i',{style:'width:'+clamp(a*100,0,100)+'%'}));
+const pl=(n,one,many)=>n+' '+(n===1?one:many);
 const fmt=n=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
 
 /* ======================= HOY ======================= */
@@ -37,7 +47,7 @@ function homeRing(){
 function renderHome(){
   ensureDay(); ensureMissions();
   const el=$('tab-home'); el.innerHTML='';
-  const p=dailyPlan(), steps=p.rev+p.nNew*2+p.cap.gr+p.cap.ex, mins=Math.max(3,Math.round(steps*0.2));
+  const p=dailyPlan(), steps=p.rev+p.nNew*2+p.cap.gr+p.cap.ex, mins=Math.max(3,Math.round(steps*(S.opt.wmode==='mc'?0.17:0.22)));
   const done=S.day.done, parts=[];
   if(p.rev) parts.push(p.rev+(p.rev===1?' repaso':' repasos'));
   if(p.nNew) parts.push(p.nNew+(p.nNew===1?' palabra nueva':' palabras nuevas'));
@@ -116,8 +126,10 @@ function rowItem(title,sub,pctDone,pctSeen,onGo,extra){
 }
 const LV_NAMES={1:'Básico',2:'Intermedio',3:'Trabajo y vida en Holanda'};
 function sheetWords(b){
+  b.appendChild(H('h3.sheeth',{text:'Cómo se preguntan las palabras'}));
+  b.appendChild(modeCtl(()=>{ if(sheetRebuild) sheetRebuild(); }));
   const fails=failWords();
-  if(fails.length) b.appendChild(rowItem('Mis fallos',fails.length+' palabras que se te resisten',null,null,()=>play('fails')));
+  if(fails.length) b.appendChild(rowItem('Mis fallos',pl(fails.length,'palabra que se te resiste','palabras que se te resisten'),null,null,()=>play('fails')));
   b.appendChild(H('p.sheetnote',{text:'La estrella marca tus temas favoritos: la sesión diaria saca de ahí una de cada tres palabras nuevas.'}));
   const groups=[1,2,3];
   groups.forEach(lv=>{
@@ -132,7 +144,7 @@ function themeRow(k){
   const th=THEMES[k], n=th.w.length, d=mastered(th.w), s=learned(th.w), pinned=(S.pins||[]).includes(k);
   const star=H('button.star'+(pinned?'.on':''),{type:'button','aria-label':pinned?'Quitar de favoritos':'Marcar como favorito','aria-pressed':pinned?'true':'false',text:pinned?'★':'☆',
     onclick:()=>{ S.pins=S.pins||[]; if(pinned) S.pins=S.pins.filter(x=>x!==k); else S.pins.push(k); save(); sheetRebuild&&sheetRebuild(); }});
-  return rowItem(th.n,d+' dominadas · '+s+' vistas · '+n+' en total',d/n,s/n,()=>play('theme',k),star);
+  return rowItem(th.n,pl(d,'dominada','dominadas')+' · '+pl(s,'vista','vistas')+' · '+n+' en total',d/n,s/n,()=>play('theme',k),star);
 }
 function sheetGrammar(b){
   b.appendChild(H('h3.sheeth',{text:'Formas'}));
@@ -357,6 +369,9 @@ function meSettings(b){
   b.appendChild(H('h2.sec',{text:'Sesión diaria'}));
   const sizes=[['short','Corta','~5 min · objetivo 150 XP'],['normal','Normal','~10 min · objetivo 250 XP'],['long','Larga','~15 min · objetivo 400 XP']];
   b.appendChild(H('div.sizes',null,sizes.map(s=>H('button'+(S.opt.size===s[0]?'.on':''),{type:'button',onclick:()=>{ S.opt.size=s[0]; save(); renderMe(); hud(); }},H('b',{text:s[1]}),H('span',{text:s[2]})))));
+
+  b.appendChild(H('h2.sec',{text:'Cómo se preguntan las palabras'}));
+  b.appendChild(modeCtl(renderMe));
 
   /* copia */
   b.appendChild(H('h2.sec',{text:'Copia de seguridad'}));
