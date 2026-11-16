@@ -20,12 +20,12 @@ addPuz('relativas',[
 
 addPuz('er',[
 {s:'El lunes no hay trenes.',n:'Maandag rijden er geen treinen.',a:['er rijden maandag geen treinen'],x:'rijdt',t:'Hay + sujeto indefinido = er + verbo. Los días van en minúscula: maandag.'},
-{s:'Hay un problema con la reserva.',n:'Er is een probleem met de reservering.',a:['met de reservering is er een probleem'],x:'zijn',t:'Hay + singular = er is. Para «hay» nunca se usa het is.'},
-{s:'¿Hay algún supermercado por aquí cerca?',n:'Is er hier een supermarkt in de buurt?',a:['is er een supermarkt hier in de buurt'],x:'het',t:'¿Hay…? = Is er …? (verbo + er).'},
+{s:'Hay un problema con la reserva.',n:'Er is een probleem met de reservering.',a:['met de reservering is er een probleem','er is met de reservering een probleem'],x:'zijn',t:'Hay + singular = er is. Para «hay» nunca se usa het is.'},
+{s:'¿Hay algún supermercado por aquí cerca?',n:'Is er hier een supermarkt in de buurt?',a:['is er een supermarkt hier in de buurt','is er hier in de buurt een supermarkt'],x:'het',t:'¿Hay…? = Is er …? (verbo + er).'},
 {s:'Ya estoy acostumbrado.',n:'Ik ben er al aan gewend.',x:'me',t:'gewend zijn aan → er … aan, con el adverbio en medio: er al aan.'},
 {s:'Me arrepiento.',n:'Ik heb er spijt van.',x:'ben',t:'Arrepentirse = spijt hebben van → er spijt van hebben (no es reflexivo).'},
 {s:'¿Fresas? Me he comido diez.',n:'Ik heb er tien gegeten.',x:'ze',t:'Con un número sin sustantivo hace falta er: ik heb er tien gegeten.'},
-{s:'¿Ámsterdam? He estado dos veces.',n:'Ik ben er twee keer geweest.',a:['twee keer ben ik er geweest'],x:'heb',t:'er = allí (un lugar ya mencionado); va justo detrás del verbo.'},
+{s:'¿Ámsterdam? He estado dos veces.',n:'Ik ben er twee keer geweest.',a:['twee keer ben ik er geweest'],x:'heb',t:'er = allí (un lugar ya mencionado); va tras el verbo y el sujeto: ik ben er / ben ik er.'},
 {s:'No tengo tiempo para eso.',n:'Ik heb er geen tijd voor.',x:'om',t:'tijd hebben voor → er … voor.'},
 {s:'¿Qué pone en la carta?',n:'Wat staat er in de brief?',x:'zegt',t:'Lo que pone un texto: wat staat er (in)? Se usa staan.'},
 {s:'¿Queda café?',n:'Is er nog koffie?',x:'heeft',t:'¿Queda…? = Is er nog …? «Hay» es er is, nunca heeft.'},
@@ -50,9 +50,9 @@ addPuz('imperativo',[
 {s:'¡Recoge tu habitación!',n:'Ruim je kamer op!',x:'opruim',t:'opruimen: ruim … op, con el prefijo al final.'},
 {s:'¿Me pasas la sal?',n:'Kun je me het zout aangeven?',x:'aangeeft',t:'Pasar algo en la mesa = aangeven. Modal + infinitivo al final.'},
 {s:'Mándame un mensaje cuando sepas algo.',n:'Stuur me een berichtje als je iets weet.',a:['als je iets weet stuur me een berichtje'],x:'weten',t:'Imperativo + als: en la subordinada, el verbo va al final.'},
-{s:'No se lo digas a nadie.',n:'Zeg het tegen niemand.',x:'niet',t:'Con niemand no hace falta niet: zeg het tegen niemand.'},
+{s:'No se lo digas a nadie.',n:'Zeg het tegen niemand.',x:'niet',t:'niemand ya es negativo: no se añade niet. Zeg het tegen niemand.'},
 {s:'Ponte el abrigo, que hace frío.',n:'Doe je jas aan, het is koud.',a:['het is koud doe je jas aan'],x:'aandoet',t:'Ponerse ropa = aandoen: doe … aan.'},
-{s:'Perdone, ¿me puede ayudar?',n:'Pardon, kunt u me helpen?',x:'kan',t:'Con u: kunt u (no kan u).'},
+{s:'Perdone, ¿me puede ayudar?',n:'Pardon, kunt u me helpen?',x:'kun',t:'Con u, lo normal es kunt u (con -t aunque haya inversión); con je: kun je.'},
 {s:'Mira, ahí viene Lotte.',n:'Kijk, daar komt Lotte aan!',a:['kijk Lotte komt daar aan'],x:'aankomt',t:'aankomen: komt … aan. Tras daar, inversión: daar komt Lotte aan.'}
 ],'Imperativo y peticiones');
 
@@ -65,9 +65,9 @@ addPuz('comparar',[
 {s:'Cuanto antes, mejor.',n:'Hoe eerder, hoe beter.',x:'goed',t:'Cuanto más…, más… = hoe …, hoe … + comparativo.'},
 {s:'Delft no es tan grande como Róterdam.',n:'Delft is niet zo groot als Rotterdam.',x:'dan',t:'niet zo … als = no tan … como (aquí als, no dan).'},
 {s:'Necesito una habitación más grande.',n:'Ik heb een grotere kamer nodig.',x:'groter',t:'Comparativo delante de sustantivo, con -e: een grotere kamer.'},
-{s:'Lo más importante es que estés sano.',n:'Het belangrijkste is dat je gezond bent.',x:'meest',t:'Lo más + adjetivo = het + superlativo: het belangrijkste.'},
+{s:'Lo más importante es que estés sano.',n:'Het belangrijkste is dat je gezond bent.',a:['dat je gezond bent is het belangrijkste'],x:'meest',t:'Lo más + adjetivo = het + superlativo: het belangrijkste.'},
 {s:'Aquí el vino es el doble de caro.',n:'De wijn is hier twee keer zo duur.',a:['hier is de wijn twee keer zo duur'],x:'duurder',t:'El doble de caro = twee keer zo duur (sin comparativo).'},
-{s:'Ahmed es el que nada más rápido del equipo.',n:'Ahmed zwemt het snelst van het team.',x:'sneller',t:'Superlativo como adverbio: het + -st (het snelst).'},
+{s:'Ahmed es el que nada más rápido del equipo.',n:'Ahmed zwemt het snelst van het team.',a:['Ahmed zwemt van het team het snelst','van het team zwemt Ahmed het snelst'],x:'sneller',t:'Superlativo como adverbio: het + -st (het snelst).'},
 {s:'Ahora gano menos que antes.',n:'Ik verdien nu minder dan vroeger.',a:['nu verdien ik minder dan vroeger'],x:'weiniger',t:'weinig → minder → minst (irregular).'},
 {s:'Esta bici es más cara, pero mejor.',n:'Deze fiets is duurder, maar wel beter.',a:['deze fiets is beter maar wel duurder'],x:'duurer',t:'Adjetivos acabados en -r: comparativo con -der: duur → duurder.'},
 {s:'Cuanto más practico, mejor hablo.',n:'Hoe meer ik oefen, hoe beter ik spreek.',x:'oefenen',t:'hoe …, hoe …: en las dos partes el verbo va al final.'},

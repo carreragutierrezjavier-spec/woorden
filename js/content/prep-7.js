@@ -79,7 +79,7 @@ addPrep([
  ['Ik spreek ___ andere Spaans, Engels en Galicisch.','onder','tussen|met|bij','Hablo, entre otros, español, inglés y gallego.','onder andere = entre otros'],
 
  /* boven */
- ['Onze buren wonen ___ ons, op de derde verdieping.','boven','onder|tussen|tegenover','Nuestros vecinos viven encima de nosotros, en el tercer piso.','boven = encima de (sin tocar)'],
+ ['Onze buren wonen ___ ons; we horen ze elke avond lopen.','boven','onder|tussen|tegenover','Nuestros vecinos viven encima de nosotros; los oímos andar todas las noches.','boven = encima de (sin tocar)'],
  ['Er hangt een lamp ___ de eettafel.','boven','op|aan|onder','Sobre la mesa del comedor cuelga una lámpara.','boven = por encima de (sin tocar)'],
  ['Het wordt vandaag ___ de dertig graden.','boven','onder|na|op','Hoy vamos a pasar de los treinta grados.','boven = por encima de (temperatura)'],
  ['Die kamer is ver ___ mijn budget.','boven','uit|tegen|tussen','Esa habitación se sale mucho de mi presupuesto.','boven = por encima de'],

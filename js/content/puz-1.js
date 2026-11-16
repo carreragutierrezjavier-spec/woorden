@@ -15,11 +15,11 @@ addPuz('basis',[
 {s:'Tengo una hermana mayor.',n:'Ik heb een oudere zus.',x:'ouder',t:'Hermana mayor = oudere zus: comparativo con -e delante del sustantivo.'},
 {s:'¿Cómo se deletrea tu apellido?',n:'Hoe spel je je achternaam?',x:'spelt',t:'Con je detrás del verbo se quita la -t: spel je. El segundo je es «tu».'},
 {s:'Llego unos minutos tarde.',n:'Ik ben een paar minuten te laat.',x:'heb',t:'Llegar tarde = te laat zijn, con zijn.'},
-{s:'Comparto casa con otros tres estudiantes.',n:'Ik deel een huis met drie andere studenten.',a:['ik deel met drie andere studenten een huis'],x:'deelt',t:'delen = compartir: ik deel. Otros tres = drie andere (el número va primero).'}
+{s:'Comparto casa con otros tres estudiantes.',n:'Ik deel een huis met drie andere studenten.',a:['ik deel met drie andere studenten een huis','met drie andere studenten deel ik een huis'],x:'deelt',t:'delen = compartir: ik deel. Otros tres = drie andere (el número va primero).'}
 ]);
 
 addPuz('gustos',[
-{s:'¿Te gusta ver el fútbol?',n:'Kijk je graag naar voetbal?',x:'op',t:'Ver (la tele, un partido) = kijken naar. graag va justo detrás del sujeto.'},
+{s:'¿Te gusta ver el fútbol?',n:'Kijk je graag naar voetbal?',x:'op',t:'Ver (la tele, un partido) = kijken naar. graag va tras el verbo y el sujeto: kijk je graag.'},
 {s:'Mis compañeros holandeses prefieren cenar pronto.',n:'Mijn Nederlandse collega’s eten liever vroeg.',x:'eet',t:'Preferir = verbo + liever. collega’s es plural: eten.'},
 {s:'Prefiero ir en bici que en tren.',n:'Ik ga liever met de fiets dan met de trein.',x:'als',t:'liever … dan: tras un comparativo va dan, no als.'},
 {s:'A Daan no le gusta nada el queso.',n:'Daan houdt helemaal niet van kaas.',x:'hou',t:'helemaal niet = nada. niet va delante del complemento con preposición: niet van kaas.'},
@@ -28,7 +28,7 @@ addPuz('gustos',[
 {s:'A mis compañeros de piso les encanta la comida española.',n:'Mijn huisgenoten zijn dol op Spaans eten.',x:'van',t:'Encantar = dol zijn op. Spaans eten: sin artículo y sin -e (eten es het-woord).'},
 {s:'Prefiero no hablar de ello.',n:'Ik praat er liever niet over.',x:'geen',t:'praten over → er … over. liever niet = prefiero no.'},
 {s:'¿Qué tipo de música te gusta?',n:'Wat voor muziek vind je leuk?',x:'welke',t:'Qué tipo de = wat voor. Gustar algo = iets leuk vinden.'},
-{s:'Ahmed prefiere trabajar en casa que en la oficina.',n:'Ahmed werkt liever thuis dan op kantoor.',x:'in',t:'En casa = thuis; en la oficina = op kantoor, sin artículo.'},
+{s:'Ahmed prefiere trabajar en casa que en la oficina.',n:'Ahmed werkt liever thuis dan op kantoor.',a:['thuis werkt Ahmed liever dan op kantoor'],x:'in',t:'En casa = thuis; en la oficina = op kantoor, sin artículo.'},
 {s:'De pequeño me encantaba jugar al fútbol.',n:'Als kind voetbalde ik heel graag.',a:['ik voetbalde als kind heel graag','ik voetbalde heel graag als kind'],x:'voetbalt',t:'Costumbre del pasado: imperfecto (voetbalde). Als kind delante → voetbalde ik.'},
 {s:'Pieter odia madrugar.',n:'Pieter heeft een hekel aan vroeg opstaan.',x:'op',t:'Odiar algo = een hekel hebben aan.'},
 {s:'¿Te gusta tu nuevo trabajo?',n:'Vind je je nieuwe baan leuk?',x:'nieuw',t:'Tras un posesivo, el adjetivo lleva -e: je nieuwe baan.'}
@@ -63,5 +63,5 @@ addPuz('conectores',[
 {s:'Se lo comió todo, aunque no tenía hambre.',n:'Hij at alles op, hoewel hij geen honger had.',a:['hoewel hij geen honger had at hij alles op'],x:'opat',t:'opeten: at … op. hoewel (aunque) manda el verbo al final.'},
 {s:'Como estaba enfermo, no fue a clase.',n:'Omdat hij ziek was, ging hij niet naar de les.',a:['hij ging niet naar de les omdat hij ziek was'],x:'gingen',t:'omdat + verbo al final. Con la subordinada delante, la principal empieza por el verbo: ging hij.'},
 {s:'Si tuviera dinero, me compraría un barco.',n:'Als ik geld had, zou ik een boot kopen.',a:['ik zou een boot kopen als ik geld had'],x:'te',t:'Condición irreal: als + pasado, y zou + infinitivo (sin te).'},
-{s:'Por cierto, ¿has visto mis llaves?',n:'Trouwens, heb jij mijn sleutels gezien?',a:['heb jij trouwens mijn sleutels gezien','heb jij mijn sleutels trouwens gezien'],x:'heeft',t:'trouwens = por cierto. Puede ir delante o dentro de la pregunta.'}
+{s:'Por cierto, ¿has visto mis llaves?',n:'Trouwens, heb jij mijn sleutels gezien?',a:['heb jij trouwens mijn sleutels gezien','heb jij mijn sleutels trouwens gezien','heb jij mijn sleutels gezien trouwens'],x:'heeft',t:'trouwens = por cierto. Puede ir delante, dentro de la pregunta o al final.'}
 ]);

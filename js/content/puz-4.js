@@ -10,7 +10,7 @@ addPuz('preguntas',[
 {s:'¿No tienes frío?',n:'Heb je het niet koud?',x:'ben',t:'Tener frío = het koud hebben (ik ben koud ✗).'},
 {s:'¿Cuánto tengo que pagar de alquiler?',n:'Hoeveel moet ik voor de huur betalen?',a:['hoeveel moet ik betalen voor de huur'],x:'te',t:'Modal en 2.ª posición e infinitivo al final, sin te.'},
 {s:'¿Cuál de los dos te parece más bonito?',n:'Welke van de twee vind je mooier?',a:['welke vind je mooier van de twee'],x:'wat',t:'¿Cuál de…? = welke van… (no wat).'},
-{s:'¿Desde hace cuánto os conocéis?',n:'Hoe lang kennen jullie elkaar al?',x:'zich',t:'Llevar tiempo = presente + al. Conocerse = elkaar kennen.'},
+{s:'¿Cuánto hace que os conocéis?',n:'Hoe lang kennen jullie elkaar al?',x:'zich',t:'Llevar tiempo = presente + al. Conocerse = elkaar kennen.'},
 {s:'¿Qué te ha dicho el médico?',n:'Wat heeft de dokter tegen je gezegd?',x:'aan',t:'Decir algo a alguien = iets tegen iemand zeggen.'},
 {s:'¿Cuántas personas sois?',n:'Met hoeveel personen zijn jullie?',x:'bent',t:'¿Cuántos sois? = met hoeveel zijn jullie?'},
 {s:'¿Qué pasa?',n:'Wat is er aan de hand?',x:'het',t:'Fórmula fija: wat is er aan de hand? = ¿qué pasa?'},
@@ -31,9 +31,9 @@ addPuz('modales',[
 {s:'Podemos quedar mañana si quieres.',n:'We kunnen morgen afspreken als je wilt.',a:['morgen kunnen we afspreken als je wilt','als je wilt kunnen we morgen afspreken'],x:'kan',t:'Modal en 2.ª posición; el separable va entero al final: afspreken.'},
 {s:'¿Me podría decir dónde está la estación?',n:'Kunt u me zeggen waar het station is?',x:'zegt',t:'Con u: kunt u. Pregunta indirecta con el verbo al final: waar … is.'},
 {s:'Javier sabe nadar muy bien.',n:'Javier kan heel goed zwemmen.',x:'weet',t:'Saber hacer algo = kunnen (no weten).'},
-{s:'De pequeña, Lotte quería ser médica.',n:'Lotte wilde vroeger arts worden.',a:['vroeger wilde Lotte arts worden'],x:'wil',t:'Pasado de willen: wilde. Profesión sin artículo: arts worden.'},
+{s:'Antes, Lotte quería ser médica.',n:'Lotte wilde vroeger arts worden.',a:['vroeger wilde Lotte arts worden'],x:'wil',t:'Pasado de willen: wilde. Profesión sin artículo: arts worden.'},
 {s:'¿Podrías ayudarme con el currículum?',n:'Zou je me kunnen helpen met mijn cv?',a:['zou je me met mijn cv kunnen helpen'],x:'kunt',t:'Petición cortés: zou je … kunnen + infinitivo.'},
-{s:'Ahmed no ha podido venir.',n:'Ahmed heeft niet kunnen komen.',x:'gekund',t:'Perfecto con modal: dos infinitivos (kunnen komen), nunca gekund.'},
+{s:'Ahmed no ha podido venir.',n:'Ahmed heeft niet kunnen komen.',x:'gekund',t:'Perfecto de modal + infinitivo: dos infinitivos (heeft … kunnen komen), no gekund.'},
 {s:'Tienes que rellenar este formulario.',n:'Je moet dit formulier invullen.',a:['dit formulier moet je invullen'],x:'deze',t:'formulier es het-woord: dit formulier. El separable va entero al final.'},
 {s:'Mis compañeros de piso quieren comprar un sofá.',n:'Mijn huisgenoten willen een bank kopen.',x:'te',t:'willen + infinitivo al final, sin te. bank = sofá (y también banco).'},
 {s:'Aquí se puede pagar con tarjeta.',n:'Hier kun je pinnen.',x:'kunnen',t:'pinnen = pagar con tarjeta. Con inversión, sin -t: kun je.'}
@@ -41,7 +41,7 @@ addPuz('modales',[
 
 addPuz('futuro',[
 {s:'Este verano voy a hacer un curso de vela.',n:'Deze zomer ga ik een zeilcursus doen.',a:['ik ga deze zomer een zeilcursus doen'],x:'gaan',t:'Planes: gaan + infinitivo al final, sin te.'},
-{s:'Nunca lo olvidaré.',n:'Ik zal het nooit vergeten.',x:'zullen',t:'Promesa o algo seguro: zal + infinitivo al final.'},
+{s:'Nunca lo olvidaré.',n:'Ik zal het nooit vergeten.',a:['nooit zal ik het vergeten'],x:'zullen',t:'Promesa o algo seguro: zal + infinitivo al final.'},
 {s:'¿Pedimos una pizza?',n:'Zullen we een pizza bestellen?',x:'zal',t:'Para proponer algo: Zullen we …? (= ¿…-amos?).'},
 {s:'Esta tarde va a llover.',n:'Het gaat vanmiddag regenen.',a:['vanmiddag gaat het regenen'],x:'te',t:'Ir a + infinitivo = gaan + infinitivo, sin te.'},
 {s:'El año que viene me mudo a Róterdam.',n:'Volgend jaar verhuis ik naar Rotterdam.',a:['ik verhuis volgend jaar naar Rotterdam'],x:'volgende',t:'Con una expresión de futuro basta el presente. jaar es het-woord: volgend jaar.'},
@@ -54,6 +54,6 @@ addPuz('futuro',[
 {s:'Esta noche vamos a ver una película.',n:'Vanavond gaan we een film kijken.',a:['we gaan vanavond een film kijken'],x:'te',t:'vanavond delante → gaan we. gaan + infinitivo al final, sin te.'},
 {s:'Mi hermana va a tener un bebé.',n:'Mijn zus krijgt een baby.',x:'krijg',t:'Tener un bebé = een baby krijgen. El presente basta para el futuro.'},
 {s:'Después del máster voy a buscar trabajo.',n:'Na mijn master ga ik werk zoeken.',a:['ik ga na mijn master werk zoeken','ik ga werk zoeken na mijn master'],x:'zoek',t:'Na mijn master delante → ga ik. gaan + infinitivo al final.'},
-{s:'Ya lo haré luego.',n:'Dat doe ik straks wel.',a:['ik doe dat straks wel'],x:'doet',t:'Futuro cercano: presente + straks. wel = ya (lo haré).'},
+{s:'Ya lo haré luego.',n:'Dat doe ik straks wel.',a:['ik doe dat straks wel','straks doe ik dat wel'],x:'doet',t:'Futuro cercano: presente + straks. wel = ya (lo haré).'},
 {s:'Dentro de dos semanas empiezan las vacaciones.',n:'Over twee weken begint de vakantie.',a:['de vakantie begint over twee weken'],x:'beginnen',t:'Dentro de (en el futuro) = over: over twee weken. vakantie va en singular.'}
 ],'Futuro: gaan y zullen');
