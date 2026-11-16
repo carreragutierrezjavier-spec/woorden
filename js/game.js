@@ -95,7 +95,7 @@ function catInfo(cat){
   }
   if(cat.slice(0,2)==='g:'){
     const k=cat.slice(2), sk=SK[k]; if(!sk) return null;
-    return {label:sk.grp==='prep'&&k!=='prep'?'Preposición «'+sk.n+'»':sk.n,tip:sk.tip,go:()=>play('gram',k)};
+    return {label:sk.grp==='prep'&&k!=='prep'?'Preposición «'+sk.n+'»':sk.n,tip:sk.tip,go:()=>sk.grp==='prep'?play('block','prep'):play('gram',k)};
   }
   if(cat.slice(0,4)==='puz:'){
     const k=cat.slice(4); if(!PUZ[k]) return null;

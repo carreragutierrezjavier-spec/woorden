@@ -39,7 +39,7 @@ function blank(){
   return {v:3,it:{},xp:0,coins:0,
     day:{d:0,xp:0,done:false,sess:0,wheel:false,chest:0},
     streak:{last:0,n:0},best:{},
-    opt:{sfx:true,voice:true,vname:'',rate:0.9,size:'normal',wmode:'type'},
+    opt:{sfx:true,voice:true,vname:'',rate:0.8,size:'normal',wmode:'type'},
     inv:{freeze:0,time15:0,fifty:0,hint:0},skins:['delft'],skin:'delft',
     stats:{},life:{},mis:{d:0,list:[]},ach:{},tiles:{},log:{},custom:[],pins:['werk','jachtbouw'],nem:{},pend:0,
     srs:2,sk:{},td:{d:0,k:{},r:0},flags:[],story:{u:1,done:{},lu:0}};
@@ -50,6 +50,8 @@ function fill(s){
   for(const k in b) if(s[k]==null) s[k]=b[k];
   s.opt=Object.assign(b.opt,s.opt); s.inv=Object.assign(b.inv,s.inv); s.day=Object.assign(b.day,s.day); s.story=Object.assign(b.story,s.story);
   if(oldSrs) migrateSrs(s);
+  /* la voz se entendía mal: más despacio para todos los que la tenían a la velocidad de antes */
+  if(!s.vfix){ s.vfix=1; if(!s.opt.rate||Math.abs(s.opt.rate-0.9)<0.01) s.opt.rate=0.8; else if(Math.abs(s.opt.rate-0.75)<0.01) s.opt.rate=0.65; else if(Math.abs(s.opt.rate-1.05)<0.01) s.opt.rate=0.95; }
   return s;
 }
 /* convierte el progreso de la versión anterior (cajas 0-5) al repaso por días */
@@ -300,7 +302,7 @@ if(window.speechSynthesis){
   try{ speechSynthesis.addEventListener('voiceschanged',loadVoices); }catch(e){ speechSynthesis.onvoiceschanged=loadVoices; }
   setTimeout(loadVoices,600); setTimeout(loadVoices,2000);
 }
-let lastU=null;
+let lastU=null, lastSaid={t:'',at:0};
 function say(text,rate){
   if(!window.speechSynthesis||!text) return;
   try{
@@ -308,7 +310,10 @@ function say(text,rate){
     const u=new SpeechSynthesisUtterance(clean_);
     u.lang=voice?(voice.lang||'nl-NL').replace('_','-'):'nl-NL';
     if(voice) u.voice=voice;
-    u.rate=(rate||1)*(S.opt.rate||0.9);
+    /* si tocas el mismo altavoz dos veces seguidas, la segunda va más despacio */
+    const now=Date.now(), again=lastSaid.t===clean_&&now-lastSaid.at<6000;
+    lastSaid={t:clean_,at:again?0:now};
+    u.rate=(rate||1)*(S.opt.rate||0.8)*(again?0.7:1);
     lastU=u;                       /* evita que el navegador lo descarte a medias */
     const go=()=>{ try{ speechSynthesis.resume(); speechSynthesis.speak(u); }catch(e){} };
     /* en Android, cancelar y hablar seguido se come la frase nueva: se deja un respiro */

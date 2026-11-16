@@ -9,6 +9,7 @@ function startRun(cfg){
   $('end').hidden=true; $('play').hidden=false; document.body.classList.add('playing');
   $('pTitle').textContent=R.title; $('pXp').textContent='+0 XP';
   $('prail').classList.toggle('timer',!!R.timed);
+  $('play').dataset.block=R.block||'';
   if(R.timed){ R.dur=R.timed; R.tStart=Date.now(); TIMER=setInterval(tick,100); }
   /* la ronda no se alarga más de dos pasos: lo fallado que vuelve ocupa el sitio de lo que era relleno */
   if(!R.timed&&R.steps){ R.steps.forEach(s=>{ if(s.opt==null) s.opt=2; }); R.cap=R.steps.length+2; }
@@ -75,7 +76,7 @@ function setCombo(c,silent){
 function critFx(){ const f=H('div.critfx',null,H('b',{text:'¡Golpe crítico!'}),H('span',{text:'XP ×3'})); document.body.appendChild(f); setTimeout(()=>f.remove(),1100); }
 
 /* registra una respuesta: estadísticas, repaso espaciado, XP, combo y misiones */
-const AREA={'mc-es':'v','mc-nl':'v','mc-ear':'v',type:'v',intro:'v',dehet:'g',gap:'g',verb:'g',country:'v',tiles:'f',chat:'c',hear:'l',num:'l',pair:'l',ear:'l'};
+const AREA={'mc-es':'v','mc-nl':'v','mc-ear':'v',type:'v',intro:'v',dehet:'g',gap:'g',verb:'g',vq:'g',vintro:'g',rule:'g',country:'v',tiles:'f',chat:'c',hear:'l',num:'l',pair:'l',ear:'l'};
 const areaOf=s=>s.hear?'l':(s.t==='tiles'&&!s.p?'v':(AREA[s.t]||'v'));
 function answer(o){
   const s=R.cur; R.answered=true;
@@ -133,6 +134,7 @@ function showFb(o){
   if(o.node) fb.appendChild(o.node);
   if(o.note) fb.appendChild(H('p.fbn',{text:o.note}));
   if(o.extra) fb.appendChild(H('p.fbx',{text:o.extra}));
+  if(o.rule) fb.appendChild(H('p.fbr',null,H('b',{text:o.ruleT||'Recuerda: '}),o.rule));
   const b=H('button.btn.solid.big',{type:'button',text:'Seguir',onclick:advance}); fb.appendChild(b);
   if(o.flag){ const fl=H('button.linkbtn.flag',{type:'button',text:'Creo que mi respuesta también vale',onclick:()=>{ flagIt(o.flag); fl.remove(); }}); fb.appendChild(fl); }
   R.key=e=>{ if(e.key==='Enter'){ e.preventDefault(); advance(); } };
@@ -337,6 +339,67 @@ RENDER.tiles=function(s,st){
   R.key=e=>{ if(e.key==='Enter'){ e.preventDefault(); check(); } };
 };
 
+/* el perfecto de ejemplo: ik heb gewerkt, ik ben gegaan, ik heb / ben gefietst */
+function perfLine(v){ const a=auxOf(v), p=first(v[4]); return 'ik '+(a==='zijn'?'ben':a==='hebben'?'heb':'heb / ben')+' '+p; }
+function auxTip(v){
+  const a=auxOf(v);
+  if(a==='zijn') return 'van con zijn los verbos de cambio de estado o de ir hacia un sitio (gaan, komen, worden, beginnen, sterven), y zijn y blijven.';
+  if(a==='los dos') return 'con zijn si dices adónde vas (ik ben naar huis gefietst); con hebben si solo dices que lo hiciste (ik heb gefietst).';
+  return 'la gran mayoría van con hebben; con zijn solo los de cambio de estado o de ir hacia un sitio.';
+}
+function partDistractors(v){
+  const right=v[4].split('|').map(x=>x.trim()), inf=first(v[0]);
+  let c;
+  if(isSep(v)){
+    const pre=first(v[2]).split(' ').pop(), base=inf.slice(pre.length), bs=base.replace(/en$/,'');
+    c=['ge'+inf,pre+'ge'+base,pre+'ge'+bs+'t',pre+'ge'+bs+'d',inf];
+  }else{
+    const stem=inf.replace(/en$/,'').replace(/n$/,'');
+    c=[first(v[2]),first(v[3]),'ge'+inf,'ge'+stem+'d','ge'+stem+'t',inf];
+  }
+  return shuffle([...new Set(c)].filter(x=>x&&!right.includes(x)&&!/\s/.test(x))).slice(0,3);
+}
+RENDER.vq=function(s,st){
+  const v=s.v, aux=s.kind==='aux';
+  const prompt=H('span.vqp',null,H('b',{text:first(v[0])}),H('small',{text:v[1]}));
+  const card=qCard(aux?'Verbos · ¿hebben o zijn?':'Verbos · participio',prompt,aux?'¿Con qué se forma el perfecto?':'Elige el participio'); st.appendChild(card);
+  const right=aux?auxOf(v):first(v[4]);
+  const opts=aux?['hebben','zijn','los dos']:shuffle([right,...partDistractors(v)]);
+  const box=optionList(st,opts,o=>o,o=>o===right,(o,good)=>{
+    card.classList.add(good?'flash-ok':'flash-bad');
+    answer({good,xp:6,key:s.key,cat:s.cat,miss:[first(v[0])+' · '+perfLine(v),v[1]],type:'gap'});
+    autoSay(perfLine(v).replace(' / ben',''),0.9);
+    after(good,{kind:good?'ok':'bad',title:good?'Correcto':'Era «'+right+'»',sol:perfLine(v),speak:perfLine(v).replace(' / ben',''),
+      note:good?'':(aux?'':'Pasado: '+first(v[2])+' · '+first(v[3])),rule:good?'':(aux?auxTip(v):''),ruleT:'hebben o zijn: ',auto:good?1300:false});
+  });
+  if(opts.length===3) box.classList.add('three');
+};
+/* verbo nuevo: antes de preguntarte sus formas, te las enseño */
+RENDER.vintro=function(s,st){
+  const v=s.v, w=ALLW.find(x=>x.th==='verbos'&&x.nl===v[0]), ex=w?exampleFor(w):null;
+  const row=(l,t)=>H('div.vrow',null,H('span',{text:l}),H('b',{text:t}));
+  const card=H('div.qcard.intro',null,
+    H('span.qlabel',{text:'Verbo nuevo'}),
+    H('p.qprompt',{text:first(v[0])}),
+    H('p.introes',{text:v[1]}),
+    speakBtn(()=>first(v[0]),false,0.85),
+    H('div.vforms',null,row('Pasado (ik, hij)',first(v[2])),row('Pasado (wij, zij)',first(v[3])),row('Participio',first(v[4])),row('Perfecto',perfLine(v))),
+    ex?H('div.introex',null,H('p',null,H('span',{text:ex[0]}),speakBtn(ex[0],true,0.9)),H('small',{text:ex[1]})):null);
+  st.appendChild(card);
+  setTimeout(()=>autoSay([first(v[0]),first(v[2]),first(v[3]),first(v[4])].join(', '),0.8),200);
+  const done=()=>{ if(R.answered) return; R.answered=true; award(2); R.autoT=setTimeout(()=>{ if(R) advance(); },60); };
+  st.appendChild(H('button.btn.solid.big',{type:'button',text:'Entendido, pregúntamelo luego',onclick:done}));
+  R.key=e=>{ if(e.key==='Enter'){ e.preventDefault(); done(); } };
+};
+/* regla que no has practicado nunca: primero la explicación */
+RENDER.rule=function(s,st){
+  const sk=SK[s.id]||{n:'',tip:''};
+  st.appendChild(H('div.qcard.intro.rulecard',null,H('span.qlabel',{text:'Regla nueva'}),H('p.qprompt',{text:sk.n}),H('p.ruletxt',{text:sk.tip})));
+  const done=()=>{ if(R.answered) return; R.answered=true; S.ri=S.ri||{}; S.ri[s.id]=1; save(); R.autoT=setTimeout(()=>{ if(R) advance(); },60); };
+  st.appendChild(H('button.btn.solid.big',{type:'button',text:'Vamos',onclick:done}));
+  R.key=e=>{ if(e.key==='Enter'){ e.preventDefault(); done(); } };
+};
+
 /* gramática: hueco con opciones */
 RENDER.gap=function(s,st){
   const g=s.g, sk=SK[g.sk]||{n:'Gramática',tip:''}, hasBlank=g.q.includes('___');
@@ -353,9 +416,12 @@ RENDER.gap=function(s,st){
     card.classList.add(good?'flash-ok':'flash-bad');
     answer({good,xp:8,key:s.key,cat:s.cat,miss:[full,g.es],type:'gap'});
     if(!R.timed) autoSay(spoken,0.9);
-    const tip=g.tip||(good?'':sk.tip);
-    after(good,{kind:good?'ok':'bad',title:good?'Correcto':'Era «'+g.a+'»',sol:good?null:full,speak:spoken,
-      note:tip,auto:good&&!g.tip?1000:(good?2000:false),
+    /* al fallar: la solución, la pista de esta frase y para qué sirve lo correcto (en preposiciones, para qué se usa esa) */
+    const isPrep=sk.grp==='prep', pa=String(g.a).toLowerCase(), ptip=isPrep?PREP_TIPS[pa]:'';
+    const tip=good?g.tip:(g.tip||(isPrep?'':sk.tip));
+    const rule=good?'':(isPrep?ptip:(g.tip&&sk.tip&&sk.tip!==g.tip?sk.tip:''));
+    after(good,{kind:good?'ok':'bad',title:good?'Correcto':(isPrep?'No era «'+o+'», era «'+g.a+'»':'Era «'+g.a+'»'),sol:good?null:full,speak:spoken,
+      note:tip,rule,ruleT:isPrep?'«'+pa+'» se usa para: ':'La regla: ',auto:good&&!g.tip?1000:(good?2000:false),
       flag:(!good&&!String(s.key||'').startsWith('gen:'))?{k:s.key,ans:o,q:g.q,miss:full}:null});
   });
   if(opts.length===2) box.classList.add('two');
@@ -369,21 +435,28 @@ RENDER.verb=function(s,st){
   const defs=[['Infinitivo',sep?'opbellen':'gaan'],['Pasado · ik, hij',sep?'belde op':'ging'],['Pasado · wij, zij',sep?'belden op':'gingen'],['Participio',sep?'opgebeld':'gegaan']];
   const fs=H('div.fields'); const ins=defs.map(d=>{ const [l,i]=field(d[0],d[1]); fs.appendChild(l); return i; });
   st.appendChild(fs);
+  let auxSel=null; const rightAux=auxOf(v);
+  const auxBox=H('div.auxrow',null,H('span.auxlbl',{text:'Perfecto con'}),H('div.seg.aux',null,['hebben','zijn','los dos'].map(a=>H('button',{type:'button',text:a,onclick:e=>{ if(R.answered) return; auxSel=a; [...e.target.parentNode.children].forEach(c=>c.classList.toggle('on',c===e.target)); }}))));
+  st.appendChild(auxBox);
   const chk=H('button.btn.solid',{type:'button',text:'Comprobar'}), skip=H('button.linkbtn',{type:'button',text:'No lo sé'});
   const row=H('div.row',null,chk,skip); st.appendChild(row);
   const answers=[v[0],v[2],v[3],v[4]];
   const submit=give=>{
     if(R.answered) return;
+    if(!give&&!auxSel&&ins.every(i=>i.value.trim())){ toast('Elige también hebben, zijn o los dos.'); return; }
     let n=0; const notes=[];
     ins.forEach((inp,k)=>{ const m=give?null:eqAny(inp.value,answers[k]); if(m){ n++; const d=diaNote(inp.value,m); if(d) notes.push(d); } inp.classList.add(m?'f-ok':'f-bad'); lockInput(inp); });
-    const all=n===4; row.remove();
+    const auxOk=!give&&auxSel===rightAux; if(auxOk) n++;
+    [...auxBox.querySelectorAll('button')].forEach(b=>{ b.disabled=true; if(b.textContent===rightAux) b.classList.add('ok'); else if(b.textContent===auxSel) b.classList.add('bad'); });
+    const all=n===5; row.remove();
     if(all) life('verbs');
     card.classList.add(all?'flash-ok':'flash-bad');
     answer({good:all,xp:20,partial:n*3,key:s.key,cat:s.cat,miss:[v[0]+' · '+first(v[2])+' · '+first(v[3])+' · '+v[4],v[1]],type:'verb'});
     const forms=H('div.forms',null,answers.map(a=>H('span',{text:a.replace('|',' / ')})));
     const line=answers.map(first).join(', ');
     autoSay(line,0.85);
-    showFb({kind:all?'ok':(n?'near':'bad'),title:all?'Las cuatro bien':(give?'Las formas':n+' de 4 bien'),node:forms,note:notes.join(' '),extra:'Perfecto con '+v[5]+'.',speak:line,auto:all?1800:false});
+    showFb({kind:all?'ok':(n?'near':'bad'),title:all?'Todo bien':(give?'Las formas':n+' de 5 bien'),node:forms,note:notes.join(' '),extra:'Perfecto con '+rightAux+': '+perfLine(v)+'.',speak:line,auto:all?1800:false,
+      rule:auxOk||give?'':auxTip(v),ruleT:'hebben o zijn: '});
   };
   chk.addEventListener('click',()=>submit(false)); skip.addEventListener('click',()=>submit(true));
   R.key=e=>{ if(e.key!=='Enter') return; e.preventDefault(); const idx=ins.indexOf(document.activeElement); if(idx>=0&&idx<3) ins[idx+1].focus(); else submit(false); };

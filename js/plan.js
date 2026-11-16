@@ -83,23 +83,9 @@ function newWordsFrom(pool,n){
   }
   return out;
 }
-/* mete cada palabra nueva. Escribiendo, primero se pregunta: si ya la sabes, no hace falta presentarla
-   (y si no, se enseña en ese momento y vuelve unos pasos después). Eligiendo, o si es una frase:
-   presentación y, unos pasos después, la prueba */
-const probeNew=w=>wmode()==='type'&&!isPhrase(w.nl);
-const newProbe=w=>({t:'type',w,key:w.k,cat:'w:'+w.th,probe:true,np:true});
+/* mete cada palabra nueva: primero se presenta (qué significa, un ejemplo y cómo suena) y, unos pasos después, se pregunta */
 function insertNew(steps,news,start){
-  const pr=news.filter(probeNew), intro=news.filter(w=>!probeNew(w));
-  if(pr.length){
-    /* repartidas a lo largo de la ronda */
-    const head=steps.slice(0,start||0), rest=steps.slice(start||0), out=[];
-    while(rest.length||pr.length){
-      const takeNew=pr.length&&(!rest.length||Math.random()<pr.length/(pr.length+rest.length));
-      out.push(takeNew?newProbe(pr.shift()):rest.shift());
-    }
-    steps=head.concat(out);
-  }
-  intro.forEach((w,i)=>{
+  news.forEach((w,i)=>{
     const pos=Math.min(steps.length,(start||0)+i*3);
     steps.splice(pos,0,introStep(w));
     steps.splice(Math.min(steps.length,pos+3+rnd(0,2)),0,testStep(w));
@@ -115,6 +101,133 @@ function skillScore(id){
   return (st.acc<0.7?2.2:1.5)+stale*0.6;
 }
 const nextNewSkills=()=>CURR.filter(id=>hasStuff(id)&&!skillState(id).n);
+
+/* ---------- bloques de gramática ---------- */
+/* qué reglas hay en cada bloque (en verbos, también «las cuatro formas»: v4) */
+const PUZK=()=>Object.keys(PUZ);
+function blockSkills(bk){
+  if(bk==='frases') return PUZK().map(k=>'puz:'+k);
+  const ids=SKEYS.filter(id=>id!=='prep'&&hasStuff(id)&&SK[id].grp===bk);
+  return bk==='verbos'?['v4',...ids]:ids;
+}
+const blockLast=bk=>Math.max(0,...blockSkills(bk).map(id=>(S.sk[id]||{}).ls||0));
+function blockState(bk){
+  const ids=blockSkills(bk), st=ids.map(skillState);
+  return {n:ids.length,done:st.filter(x=>x.done).length,started:st.filter(x=>x.n>0).length,answers:st.reduce((a,x)=>a+x.n,0),last:blockLast(bk)};
+}
+/* peso de cada regla: lo que fallas, mucho; lo que llevas tiempo sin tocar, algo más; lo dominado, poco */
+function wantOf(id){
+  const st=skillState(id), stale=st.ls?Math.min(14,T()-st.ls)/7:0;
+  if(!st.n) return 1;
+  if(st.done) return 0.3+stale*0.3;
+  return (st.acc<0.75?2.6:1.6)+stale*0.5;
+}
+const currIdx=id=>{ const i=CURR.indexOf(id); return i<0?(id==='v4'?6:99):i; };
+/* elige las reglas de la ronda: las empezadas según lo que más hace falta y, como mucho, dos nuevas */
+function chooseSkills(ids,k){
+  const started=ids.filter(id=>skillState(id).n>0), fresh=ids.filter(id=>!skillState(id).n).sort((a,b)=>currIdx(a)-currIdx(b));
+  const open=started.filter(id=>!skillState(id).done).length;
+  const nNew=Math.min(fresh.length,started.length<2?2:open<4?1:(Math.random()<0.4?1:0));
+  const out=fresh.slice(0,nNew);
+  const ranked=started.map(id=>[id,wantOf(id)*(0.6+Math.random()*0.8)]).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);
+  for(const id of ranked){ if(out.length>=k) break; out.push(id); }
+  for(const id of fresh.slice(nNew)){ if(out.length>=Math.min(k,2)) break; out.push(id); }
+  return out;
+}
+/* reparte n preguntas entre las reglas, según su peso */
+function share(ids,n,wFn){
+  const w=ids.map(id=>Math.max(0.05,wFn(id))), tot=w.reduce((a,b)=>a+b,0), cnt={};
+  ids.forEach((id,i)=>{ cnt[id]=Math.max(1,Math.floor(n*w[i]/tot)); });
+  let left=n-Object.values(cnt).reduce((a,b)=>a+b,0);
+  const order=ids.map((id,i)=>[id,w[i]]).sort((a,b)=>b[1]-a[1]);
+  for(let i=0;left>0;i=(i+1)%order.length){ cnt[order[i][0]]++; left--; }
+  for(let i=order.length-1;left<0&&i>=0;i--){ if(cnt[order[i][0]]>1){ cnt[order[i][0]]--; left++; } }
+  /* ninguna regla se come más del 40 % de la ronda */
+  if(ids.length>1){
+    const cap=Math.max(2,Math.ceil(n*0.4));
+    ids.forEach(id=>{ while(cnt[id]>cap){ const o=ids.filter(x=>x!==id).sort((a,b)=>cnt[a]-cnt[b])[0]; cnt[id]--; cnt[o]++; } });
+  }
+  return cnt;
+}
+/* verbos: los que tocan repasar y, si no, los más básicos que aún no has visto */
+function verbPick(n){
+  const key=v=>'v:'+v[0];
+  const out=dueOf(VERBS,key).slice(0,n);
+  if(out.length<n){
+    const lim=BASE_VERBS+VERBS.filter(v=>seen(key(v))).length+20;
+    out.push(...shuffle(VERBS.slice(0,lim).filter(v=>!seen(key(v))&&avail(key(v))&&!out.includes(v))).slice(0,n-out.length));
+  }
+  if(out.length<n) out.push(...VERBS.filter(v=>seen(key(v))&&avail(key(v))&&!out.includes(v)).sort((a,b)=>(S.it[key(a)].ls||0)-(S.it[key(b)].ls||0)).slice(0,n-out.length));
+  return out;
+}
+const auxOf=v=>/hebben/.test(v[5])&&/zijn/.test(v[5])?'los dos':(/zijn/.test(v[5])?'zijn':'hebben');
+/* pregunta rápida de un verbo: con qué auxiliar va, o cuál es el participio (con opciones, sin escribir) */
+function vqStep(v,kind){
+  if(kind==='aux') return {t:'vq',v,kind,key:'gen:vq:aux:'+v[0],cat:'g:hebzijn',skid:'hebzijn'};
+  return {t:'vq',v,kind:'part',key:'gen:vq:part:'+v[0],cat:'verbs',skid:'v4'};
+}
+function verbSteps(n){
+  /* como mucho dos verbos nuevos por ronda (cada uno se presenta y luego se pregunta) */
+  const out=[]; let fresh=0;
+  verbPick(n+3).forEach(v=>{
+    if(out.length>=n) return;
+    if(!seen('v:'+v[0])){ if(fresh>=2) return; fresh++; out.push({t:'vintro',v,key:null,opt:0},Object.assign(verbStep(v),{after:true,opt:0})); }
+    else out.push(Math.random()<0.5?verbStep(v):vqStep(v,'part'));
+  });
+  if(out.length<n) out.push(...auxSteps(n-out.length));
+  return out;
+}
+function auxSteps(n){
+  /* sobre todo verbos con zijn o con los dos, que son los que cuestan */
+  const seenV=VERBS.filter(v=>seen('v:'+v[0])||seen('w:'+v[0])), pool=seenV.length>=12?seenV:VERBS.slice(0,BASE_VERBS);
+  const z=pool.filter(v=>/zijn/.test(v[5])), h=pool.filter(v=>!/zijn/.test(v[5]));
+  const out=[];
+  for(let i=0;i<n;i++){ const src=(Math.random()<0.65&&z.length)?z:h; const v=pick(src); if(!out.some(s=>s.v===v)) out.push(vqStep(v,'aux')); }
+  return out;
+}
+/* frases para montar: los grupos que más fallas, y alguno nuevo */
+function puzBlockSteps(n){
+  const ids=chooseSkills(blockSkills('frases'),4), cnt=share(ids,n,wantOf), out=[];
+  ids.forEach(id=>{ const k=id.slice(4); out.push(...pickBank(PUZ[k][1],p=>'p:'+p.n,cnt[id]).map(p=>puzStep(p))); });
+  return shuffle(out);
+}
+/* la ronda de un bloque */
+function blockSteps(bk,n){
+  n=n||Math.max(10,roundN());
+  if(bk==='frases') return puzBlockSteps(n);
+  let steps=[];
+  if(bk==='prep'){
+    /* todas las preposiciones a la vez, para que no se pueda adivinar; más frases de las que fallas */
+    const ids=blockSkills('prep'), cnt={};
+    const w=ids.map(id=>wantOf(id)*(id==='prep:otras'?0.6:1));
+    for(let i=0;i<n;i++){
+      let x=Math.random()*w.reduce((a,b)=>a+b,0), j=0;
+      for(;j<ids.length-1;j++){ x-=w[j]; if(x<=0) break; }
+      if((cnt[ids[j]]||0)>=Math.ceil(n/3)) { i--; w[j]=0; if(!w.some(Boolean)) break; continue; }
+      cnt[ids[j]]=(cnt[ids[j]]||0)+1;
+    }
+    Object.entries(cnt).forEach(([id,c])=>steps.push(...pickBank(SK[id].items,g=>g.k,c).map(gapStep)));
+    return shuffle(steps);
+  }
+  const ids=chooseSkills(blockSkills(bk),4), cnt=share(ids,n,id=>wantOf(id)*(id==='v4'?1.3:1));
+  ids.forEach(id=>{
+    const c=cnt[id];
+    if(id==='v4') steps.push(...verbSteps(Math.max(2,Math.round(c*0.8))));
+    else if(id==='hebzijn'){ const a=Math.floor(c/2); steps.push(...auxSteps(a),...skillSteps(id,c-a)); }
+    else steps.push(...skillSteps(id,c));
+  });
+  steps=shuffle(steps.filter(Boolean));
+  /* un verbo nuevo: primero se presenta y unos pasos después se pregunta */
+  steps.filter(s=>s.after).forEach(s=>{
+    const i=steps.indexOf(s), j=steps.findIndex(x=>x.t==='vintro'&&x.v===s.v);
+    if(j>i){ steps.splice(i,1); steps.splice(Math.min(steps.length,j+2+rnd(0,2)),0,s); }
+  });
+  /* una regla que no has practicado nunca: primero te la explico */
+  const firstOf={};
+  steps.forEach((s,i)=>{ const id=s.skid; if(id&&id!=='v4'&&firstOf[id]==null&&!skillState(id).n&&!(S.ri||{})[id]&&SK[id]&&SK[id].tip) firstOf[id]=i; });
+  Object.entries(firstOf).sort((a,b)=>b[1]-a[1]).forEach(([id,i])=>steps.splice(i,0,{t:'rule',id,key:null,opt:0}));
+  return steps;
+}
 function pickSkills(k){
   const started=SKEYS.filter(id=>id!=='prep'&&hasStuff(id)&&skillState(id).n>0);
   const scored=started.map(id=>[id,skillScore(id)+Math.random()*0.8]);
@@ -175,10 +288,11 @@ function exampleFor(w){
   }
   const f=first(w.nl), core=norm(strip(f));
   if(core.includes(' ')) return null;
-  const forms=[core];
+  /* cada forma, con todas sus palabras (stond … op cuenta solo si están las dos) */
+  const groups=[[core]];
   const v=w.th==='verbos'&&VERBS.find(x=>x[0]===w.nl);
-  if(v) [v[2],v[3],v[4]].forEach(x=>first(x).split(' ').forEach(y=>forms.push(norm(y))));
-  const ids=[...new Set(forms.flatMap(t=>EXIDX[t]||[]))];
+  if(v) [v[2],v[3],v[4]].forEach(x=>groups.push(first(x).split(' ').map(y=>norm(y))));
+  const ids=[...new Set(groups.flatMap(g=>{ const ls=g.map(t=>EXIDX[t]||[]); return ls[0].filter(i=>ls.every(l=>l.includes(i))); }))];
   if(!ids.length) return null;
   const s=sentPool()[ids.sort((a,b)=>sentPool()[a].nl.length-sentPool()[b].nl.length)[Math.min(ids.length-1,rnd(0,2))]];
   return [s.nl,s.es];
@@ -222,7 +336,7 @@ function planRound(){
   let nRev=Math.min(due.length,Math.round((due.length>30?6:4)*sc));
   if(nRev<2&&unseen>nNew) nNew=Math.min(unseen,nNew+1);
   const nGram=Math.max(2,Math.round(3*sc));
-  const nOther=Math.max(1,N-(nNew*(wmode()==='type'?1:2)+nRev+nGram));
+  const nOther=Math.max(1,N-(nNew*2+nRev+nGram));
   const skills=pickSkills(nGram>=4?2:(Math.random()<0.5?2:1));
   return NEXT={t:T(),at:Date.now(),N,nNew,nRev,nGram,nOther,skills,due:due.length,news:newWordsFrom(ALLW,nNew),revs:due.slice(0,nRev)};
 }
@@ -242,9 +356,9 @@ function roundSteps(){
 function poolSteps(pool){
   const N=Math.max(10,roundN());
   const due=dueOf(pool,w=>w.k), un=pool.filter(w=>!seen(w.k)&&avail(w.k)).length;
-  /* escribiendo, las nuevas se preguntan primero (las que ya sabes cuestan un paso): caben más por ronda */
-  const pr=wmode()==='type', cost=pr?1:2;
-  let nNew=Math.min(un,pr?(due.length>8?4:due.length>3?6:8):(due.length>8?3:due.length>3?4:6));
+  /* cada nueva ocupa dos pasos: presentación y pregunta */
+  const cost=2;
+  let nNew=Math.min(un,due.length>8?3:due.length>3?4:6);
   const steps=shuffle(due.slice(0,Math.max(0,N-nNew*cost)).map(dueStep));
   const fill=N-nNew*cost-steps.length;
   if(fill>0) steps.push(...shuffle(pool.filter(w=>seen(w.k)&&!isDue(w.k)&&avail(w.k)).sort((a,b)=>(S.it[a.k].iv-S.it[b.k].iv)||(S.it[a.k].ls-S.it[b.k].ls)).slice(0,fill)).map(w=>fillStep(wordStep(w))));
@@ -283,6 +397,7 @@ function play(kind,arg){
   else if(kind==='fails') cfg={title:'Mis fallos',steps:failWords().slice(0,14).map(w=>wordStep(w))};
   else if(kind==='gram'){ const sk=SK[arg]; cfg={title:sk.grp==='prep'&&arg!=='prep'?'Preposición '+sk.n:sk.n,steps:skillSteps(arg,12)}; }
   else if(kind==='gramgrp') cfg={title:(SKGROUPS.find(g=>g.k===arg)||{n:'Gramática'}).n,steps:groupSkillSteps(arg)};
+  else if(kind==='block'){ const b=BLOCKS.find(x=>x.k===arg); cfg={title:b.n,steps:blockSteps(arg),block:b.c}; }
   else if(kind==='verbs'){
     const src=arg==='irr'?VERBS.filter(v=>!isSep(v)&&isIrregular(v)):arg==='reg'?VERBS.filter(v=>!isSep(v)&&!isIrregular(v)):arg==='sep'?VERBS.filter(isSep):arg==='basic'?VERBS.slice(0,BASE_VERBS):VERBS;
     cfg={title:'Verbos: las cuatro formas',steps:pickSrs(src,v=>'v:'+v[0],8).map(verbStep)};
@@ -311,5 +426,7 @@ function play(kind,arg){
   cfg.steps=(cfg.steps||[]).filter(Boolean);
   if(!cfg.timed&&!cfg.steps.length){ toast('Aquí no hay nada que practicar ahora mismo. Vuelve mañana.'); return; }
   cfg.mode=kind; cfg.arg=arg;
+  /* cuántas veces has hecho cada grupo o bloque: lo menos hecho sale arriba */
+  if(['sub','group','block','random','countries'].includes(kind)){ S.gp=S.gp||{}; const gk=kind+':'+(arg||''); S.gp[gk]=(S.gp[gk]||0)+1; }
   startRun(cfg);
 }

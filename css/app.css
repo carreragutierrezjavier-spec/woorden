@@ -532,5 +532,51 @@ textarea.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;m
 .chqes{font-size:13.5px;color:var(--muted)}
 .chquiz .mtitle{margin-top:8px}
 .chquiz .btn{margin-top:12px}
+
+/* ---------- v5.1: azulejos grandes de colores, guía y verbos ---------- */
+:root{--c1:#2B57B5;--c1s:#DFE7F8;--c2:#B9510A;--c2s:#FBE5D2;--c3:#1C744A;--c3s:#DAF0E3;--c4:#6A3FA3;--c4s:#ECE3F7;--c5:#0E6A79;--c5s:#D6EDF0;--c6:#AA3127;--c6s:#F8DEDA;--trk:rgba(20,29,51,.1)}
+@media (prefers-color-scheme:dark){:root{--c1:#93B3EF;--c1s:#1A2A48;--c2:#F2A463;--c2s:#3A2513;--c3:#76D3A3;--c3s:#14301F;--c4:#C7AAF2;--c4s:#291E3F;--c5:#70CAD7;--c5s:#10303A;--c6:#F49C90;--c6s:#3B1815;--trk:rgba(255,255,255,.12)}}
+.c1{--tc:var(--c1);--ts:var(--c1s)}.c2{--tc:var(--c2);--ts:var(--c2s)}.c3{--tc:var(--c3);--ts:var(--c3s)}
+.c4{--tc:var(--c4);--ts:var(--c4s)}.c5{--tc:var(--c5);--ts:var(--c5s)}.c6{--tc:var(--c6);--ts:var(--c6s)}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.tile2{text-align:left;border:0;border-radius:18px;background:var(--ts);color:var(--ink);padding:16px 15px 15px;min-height:128px;
+  display:flex;flex-direction:column;gap:7px;cursor:pointer;transition:transform .12s ease}
+.tile2:active{transform:scale(.97)}
+.tile2.wide{grid-column:1/-1;min-height:0;width:100%;margin-top:6px}
+.tgrid .tile2.wide{margin-top:0}
+.t2-t{font-family:var(--display);font-weight:600;font-size:21px;line-height:1.12;color:var(--tc);text-wrap:balance}
+.t2-s{font-size:13px;line-height:1.35;color:var(--ink);opacity:.72;flex:1}
+.t2-bar{display:block;height:6px;border-radius:99px;background:var(--trk);overflow:hidden}
+.t2-bar i{display:block;height:100%;border-radius:99px;background:var(--tc)}
+.guide{display:grid;grid-template-columns:1fr auto;gap:3px 12px;width:100%;text-align:left;border:0;border-radius:18px;background:var(--tc);
+  color:var(--porcelain);padding:15px 16px;margin:12px 0 4px;cursor:pointer}
+.guide .gd-k{grid-column:1/-1;font-size:12.5px;font-weight:500;opacity:.85}
+.guide .gd-t{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.15}
+.guide .gd-w{grid-column:1;font-size:13.5px;opacity:.9;line-height:1.35}
+.guide .gd-go{grid-column:2;grid-row:2/4;align-self:center;background:var(--porcelain);color:var(--tc);font-weight:600;font-size:14px;padding:8px 14px;border-radius:999px}
+#tab-home .guide{margin:0 0 12px}
+.sheeth.c1,.sheeth.c2,.sheeth.c3,.sheeth.c4,.sheeth.c5,.sheeth.c6{color:var(--tc);font-size:15px;font-family:var(--display)}
+.linkbtn.more{display:block;margin:4px auto 0}
+.rowitem.static .ri-main{cursor:default}
+/* verbos */
+.auxrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.auxlbl{font-size:14px;color:var(--muted)}
+.seg.aux button{font-size:15px;padding:9px 15px}
+.seg.aux button.ok{background:var(--ok);border-color:var(--ok);color:var(--on-solid)}
+.seg.aux button.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.vqp{display:flex;flex-direction:column;align-items:center;gap:2px}
+.vqp small{font-family:var(--body);font-size:16px;color:var(--muted)}
+.opts.three{grid-template-columns:1fr 1fr 1fr}
+.opts.three .opt{justify-content:center;text-align:center;font-weight:600;min-height:60px}
+.opts.three .opt .k{display:none}
+.vforms{width:100%;display:grid;gap:5px;margin-top:8px;padding-top:10px;border-top:1px solid var(--hairline)}
+.vrow{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--muted)}
+.vrow b{font-family:var(--display);font-weight:600;font-size:17px;color:var(--ink)}
+.rulecard .ruletxt{font-size:16px;line-height:1.5;text-align:left;margin-top:6px;color:var(--ink)}
+.fbr{font-size:13.5px;margin-top:8px;color:var(--ink);line-height:1.45}
+.fbr b{color:inherit}
+#play[data-block="1"] #pbarFill{background:var(--c1)}#play[data-block="2"] #pbarFill{background:var(--c2)}#play[data-block="3"] #pbarFill{background:var(--c3)}
+#play[data-block="4"] #pbarFill{background:var(--c4)}#play[data-block="5"] #pbarFill{background:var(--c5)}
+
 @media (max-width:359px){.blocks{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.hero{padding:28px 18px 20px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
