@@ -1,7 +1,7 @@
 'use strict';
 /* Woorden · pantallas: Hoy, Practicar, Diccionario y Yo */
 
-const VERSION='5.1';
+const VERSION='5.2';
 let curTab='home', sheetStack=[];
 const TABS=['home','practice','dict','me'];
 function showTab(name){
@@ -189,11 +189,12 @@ function rowItem(title,sub,pctDone,pctSeen,onGo,extra,cls){
 }
 const wcount=ws=>{ const n=ws.length, d=mastered(ws), s=learned(ws); return {n,d,s,txt:pl(s,'vista','vistas')+' · '+pl(d,'dominada','dominadas')+' · '+n+' en total'}; };
 function sheetVocab(b){
-  b.appendChild(tile('Al azar: de todo','Palabras de cualquier tema. Las que no has visto, como prueba: si la sabes, la doy por sabida.',null,()=>play('random'),1,true));
+  b.appendChild(tile('Al azar: de todo','Palabras nuevas y repasos de cualquier tema',null,()=>play('random'),1,true));
   const grid=H('div.tgrid'), gw=k=>[...new Set(SUBS[k].flatMap(s=>s.w))];
   const sw=gw('sust');
   grid.appendChild(tile('Sustantivos',fmt(learned(sw))+' de '+fmt(sw.length)+' vistas',learned(sw)/sw.length,()=>openSheet('Sustantivos',sheetNouns),1));
-  [['verb',3],['adj',4],['util',5],['expr',2]].forEach(([k,c])=>{
+  { const vs=VERBS.filter(v=>seen('v:'+v[0])).length; grid.appendChild(tile('Verbos','Qué significan, las 4 formas y hebben o zijn',vs/VERBS.length,()=>play('verbs','all'),3)); }
+  [['adj',4],['util',5],['expr',2]].forEach(([k,c])=>{
     const g=GROUPS.find(x=>x.k===k), ws=gw(k); if(!ws.length) return;
     grid.appendChild(tile(g.n,learned(ws)+' de '+ws.length+' vistas',learned(ws)/ws.length,()=>play('group',k),c));
   });
@@ -203,9 +204,7 @@ function sheetVocab(b){
   const fails=failWords();
   if(fails.length) grid.appendChild(tile('Mis fallos',pl(fails.length,'palabra','palabras')+' que se te resisten',null,()=>play('fails'),6));
   b.appendChild(grid);
-  b.appendChild(H('p.sheetnote',{text:'Los verbos de aquí son para aprender qué significan. Sus formas (ging, gegaan…) y si van con hebben o zijn se practican en Gramática › Verbos.'}));
-  b.appendChild(H('h3.sheeth',{text:'Cómo se preguntan'}));
-  b.appendChild(modeCtl(rebuildSheet));
+  b.appendChild(H('p.sheetnote',{text:'Cada palabra nueva sale primero para elegir. Cuando la aciertas, la siguiente vez la reconoces de oído y después ya la escribes. Al final de cada ronda, une las parejas.'}));
 }
 function sheetNouns(b){
   const all=[...new Set(SUBS.sust.flatMap(s=>s.w))];
@@ -503,21 +502,19 @@ function welcome(){
       H('li',null,H('b',{text:'Lo que aciertas vuelve cada vez más tarde'}),': mañana, a los 3 días, a la semana, al mes… Así se queda para siempre.'),
       H('li',null,H('b',{text:'Lo que fallas vuelve enseguida'}),', y la app te dice dónde fallas más y por qué.'),
       H('li',null,H('b',{text:'Cofres, ruleta y azulejos'}),' con refranes holandeses para coleccionar.')),
-    H('button.btn.solid.big',{type:'button',text:'Empezar',onclick:()=>{ S.welcomed=true; S.seen5=true; S.seen51=true; save(); closeModal(); }}));
+    H('button.btn.solid.big',{type:'button',text:'Empezar',onclick:()=>{ S.welcomed=true; S.seen5=true; S.seen51=true; S.seen52=true; save(); closeModal(); }}));
   openModal(box,{sticky:true});
 }
 /* novedades de la versión 5, para quien ya usaba la app */
 function whatsNew(){
   const box=H('div.welcome',null,
-    H('p.mtitle',{text:'Más fácil de usar'}),
-    H('p.msub',{text:'Lo que me pediste, y tu progreso intacto.'}),
+    H('p.mtitle',{text:'Vocabulario más ágil'}),
     H('ul.wlist',null,
-      H('li',null,H('b',{text:'Gramática en cinco bloques'}),': preposiciones, verbos, artículos y adjetivos, conectores, y orden de la frase. Entras y practicas; se insiste en lo que más fallas.'),
-      H('li',null,H('b',{text:'Al fallar, la regla'}),'. En preposiciones, para qué se usa la correcta.'),
-      H('li',null,H('b',{text:'Verbos'}),': las formas, y hebben o zijn con botones. Los nuevos te los enseño antes de preguntarlos.'),
-      H('li',null,H('b',{text:'Vocabulario más agrupado'}),': nueve grupos de sustantivos, con lo que menos has hecho arriba. Las palabras nuevas, primero te las presento.'),
-      H('li',null,H('b',{text:'La voz, más despacio'}),'. Toca el altavoz dos veces y lo oyes todavía más lento.')),
-    H('button.btn.solid.big',{type:'button',text:'Vamos',onclick:()=>{ S.seen5=true; S.seen51=true; save(); closeModal(); }}));
+      H('li',null,H('b',{text:'Sin tarjetas de copiar'}),': cada palabra nueva sale primero para elegir entre cuatro.'),
+      H('li',null,H('b',{text:'Cada palabra sube de nivel'}),': elegir, luego reconocerla de oído y después escribirla. Ya no te la pregunta igual dos veces seguidas.'),
+      H('li',null,H('b',{text:'Une las parejas'}),' al final de cada ronda.'),
+      H('li',null,H('b',{text:'Verbos'}),': en una sola tarjeta, el significado, las 4 formas y hebben o zijn. Si el verbo es nuevo, ves sus formas mientras lo escribes.')),
+    H('button.btn.solid.big',{type:'button',text:'Vamos',onclick:()=>{ S.seen5=S.seen51=S.seen52=true; save(); closeModal(); }}));
   openModal(box,{sticky:true});
 }
 function init(){
@@ -530,7 +527,7 @@ function init(){
   $('sheetBack').addEventListener('click',()=>{ backSheet(); if(!sheetStack.length) refreshUI(); });
   $('quit').addEventListener('click',()=>endRun(true));
   checkAch(true); showTab('home');
-  if(!S.welcomed) welcome(); else if(!S.seen51) whatsNew();
+  if(!S.welcomed) welcome(); else if(!S.seen52) whatsNew();
   if(window.__bootOk) window.__bootOk();
   /* si la app se queda abierta de un día para otro, se pone al día al volver */
   document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&S.day.d!==T()&&!R){ ensureDay(); applyFreeze(); ensureMissions(); refreshUI(); } });

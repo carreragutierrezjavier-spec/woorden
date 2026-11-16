@@ -76,7 +76,7 @@ function setCombo(c,silent){
 function critFx(){ const f=H('div.critfx',null,H('b',{text:'¡Golpe crítico!'}),H('span',{text:'XP ×3'})); document.body.appendChild(f); setTimeout(()=>f.remove(),1100); }
 
 /* registra una respuesta: estadísticas, repaso espaciado, XP, combo y misiones */
-const AREA={'mc-es':'v','mc-nl':'v','mc-ear':'v',type:'v',intro:'v',dehet:'g',gap:'g',verb:'g',vq:'g',vintro:'g',rule:'g',country:'v',tiles:'f',chat:'c',hear:'l',num:'l',pair:'l',ear:'l'};
+const AREA={'mc-es':'v','mc-nl':'v','mc-ear':'v',type:'v',intro:'v',dehet:'g',gap:'g',verb:'g',vq:'g',vintro:'g',rule:'g',match:'v',country:'v',tiles:'f',chat:'c',hear:'l',num:'l',pair:'l',ear:'l'};
 const areaOf=s=>s.hear?'l':(s.t==='tiles'&&!s.p?'v':(AREA[s.t]||'v'));
 function answer(o){
   const s=R.cur; R.answered=true;
@@ -87,7 +87,7 @@ function answer(o){
   let wasNew=false, knew=false, fresh=false;
   if(o.key&&!o.key.startsWith('gen:')){
     markShown(o.key);
-    fresh=!!s.probe&&!S.it[o.key];
+    fresh=(!!s.probe||!!s.nw)&&!S.it[o.key];
     if(o.near&&!fresh) wasNew=!S.it[o.key], markNear(o.key);
     else{ knew=!!(s.probe&&o.good&&s.t==='type'); wasNew=mark(o.key,o.good,{known:knew,first:fresh}); }
     /* palabras nuevas seguidas que no sabías: las siguientes se presentan antes de preguntarlas */
@@ -235,9 +235,29 @@ RENDER['mc-es']=RENDER['mc-nl']=RENDER['mc-ear']=function(s,st){
     card.classList.add(good?'flash-ok':'flash-bad');
     answer({good,xp:R.timed?3:5,key:s.key,cat:s.cat,miss:[first(w.nl),w.es],type:'mc',listen:ear});
     if(toNl&&!R.timed) autoSay(w.nl,0.9);
-    after(good,{kind:good?'ok':'bad',title:good?'Correcto':'Era esta',nl:w.nl,es:w.es,speak:w.nl,
+    const ex=s.nw&&!R.timed?exampleFor(w):null;
+    after(good,{kind:good?'ok':'bad',title:good?(s.nw?'¡Bien! Palabra nueva':'Correcto'):'Era esta',nl:w.nl,es:w.es,speak:w.nl,auto:good?(ex?2200:1150):false,
+      node:ex?H('div.introex.fbex',null,H('p',null,H('span',{text:ex[0]}),speakBtn(ex[0],true,0.9)),H('small',{text:ex[1]})):null,
       note:!good?'Te la vuelvo a preguntar dentro de un momento.':''});
   });
+};
+/* une las parejas: cinco palabras de la ronda, neerlandés con español */
+RENDER.match=function(s,st){
+  const ws=s.ws; let sel=null, errs=0, left=ws.length;
+  st.appendChild(qCard('Une las parejas',null,'Toca una palabra y luego su traducción'));
+  const grid=H('div.match');
+  const colA=H('div.mcol'), colB=H('div.mcol');
+  const pickB=(b,w,side)=>{
+    if(R.answered||b.disabled) return;
+    if(!sel||sel.side===side){ if(sel) sel.b.classList.remove('on'); sel={b,w,side}; b.classList.add('on'); if(side==='nl') say(w.nl,0.9); return; }
+    const a=sel; sel=null; a.b.classList.remove('on');
+    if(a.w===w){ [a.b,b].forEach(x=>{ x.disabled=true; x.classList.add('ok'); }); if(side==='nl') say(w.nl,0.9); sfx('ok',ws.length-left+1); left--;
+      if(!left){ const good=errs<=1; answer({good,xp:10+Math.max(0,5-errs*2),key:s.key,cat:s.cat,type:'mc'}); after(good,{kind:good?'ok':'near',title:errs?'Hecho, con '+pl(errs,'fallo','fallos'):'¡Todas a la primera!',auto:1100}); } }
+    else { errs++; sfx('bad'); [a.b,b].forEach(x=>{ x.classList.add('bad'); setTimeout(()=>x.classList.remove('bad'),450); }); }
+  };
+  shuffle(ws.slice()).forEach(w=>{ const b=H('button.mbtn',{type:'button',onclick:()=>pickB(b,w,'nl')},nlNode(w.nl)); colA.appendChild(b); });
+  shuffle(ws.slice()).forEach(w=>{ const b=H('button.mbtn',{type:'button',text:w.es,onclick:()=>pickB(b,w,'es')}); colB.appendChild(b); });
+  grid.append(colA,colB); st.appendChild(grid);
 };
 
 /* escribir: desde el español o al dictado */
@@ -430,11 +450,14 @@ RENDER.gap=function(s,st){
 /* verbos: las cuatro formas */
 function field(label,ph){ const i=textInput(ph); return [H('label.fld',null,H('span',{text:label}),i),i]; }
 RENDER.verb=function(s,st){
-  const v=s.v, sep=isSep(v);
-  const card=qCard(sep?'Verbo separable':'Verbo',v[1],sep?'En pasado se separa: dos palabras':null); st.appendChild(card);
+  const v=s.v, sep=isSep(v), isNew=!seen(s.key)&&!R.timed;
+  if(isNew) s.nw=true;
+  const card=qCard(isNew?'Verbo nuevo · fíjate y escríbelo':(sep?'Verbo separable':'Verbo'),v[1],!isNew&&sep?'En pasado se separa: dos palabras':null); st.appendChild(card);
+  if(isNew){ card.classList.add('fresh'); card.appendChild(H('div.vforms',null,...[['Infinitivo',first(v[0])],['Pasado',first(v[2])+' · '+first(v[3])],['Participio',first(v[4])],['Perfecto',perfLine(v)]].map(([l,t])=>H('div.vrow',null,H('span',{text:l}),H('b',{text:t}))))); setTimeout(()=>autoSay([first(v[0]),first(v[2]),first(v[3]),first(v[4])].join(', '),0.8),200); }
   const defs=[['Infinitivo',sep?'opbellen':'gaan'],['Pasado · ik, hij',sep?'belde op':'ging'],['Pasado · wij, zij',sep?'belden op':'gingen'],['Participio',sep?'opgebeld':'gegaan']];
   const fs=H('div.fields'); const ins=defs.map(d=>{ const [l,i]=field(d[0],d[1]); fs.appendChild(l); return i; });
   st.appendChild(fs);
+  if(isNew) ins.forEach(i=>{ i.placeholder=''; });
   let auxSel=null; const rightAux=auxOf(v);
   const auxBox=H('div.auxrow',null,H('span.auxlbl',{text:'Perfecto con'}),H('div.seg.aux',null,['hebben','zijn','los dos'].map(a=>H('button',{type:'button',text:a,onclick:e=>{ if(R.answered) return; auxSel=a; [...e.target.parentNode.children].forEach(c=>c.classList.toggle('on',c===e.target)); }}))));
   st.appendChild(auxBox);

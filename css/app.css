@@ -578,5 +578,13 @@ textarea.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;m
 #play[data-block="1"] #pbarFill{background:var(--c1)}#play[data-block="2"] #pbarFill{background:var(--c2)}#play[data-block="3"] #pbarFill{background:var(--c3)}
 #play[data-block="4"] #pbarFill{background:var(--c4)}#play[data-block="5"] #pbarFill{background:var(--c5)}
 
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mcol{display:grid;gap:8px;align-content:start}
+.mbtn{min-height:58px;padding:10px 8px;border-radius:14px;border:1.5px solid var(--hairline);background:var(--glaze);color:var(--ink);font:500 16px/1.25 var(--body);cursor:pointer;transition:transform .1s}
+.mbtn:active{transform:scale(.97)}
+.mbtn.on{border-color:var(--delft);background:var(--delft-soft)}
+.mbtn.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);opacity:.55}
+.mbtn.bad{border-color:var(--bad);background:var(--bad-soft);animation:fbad .35s}
+.qcard.fresh .vforms{margin-top:12px}
 @media (max-width:359px){.blocks{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.hero{padding:28px 18px 20px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
