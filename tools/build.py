@@ -7,7 +7,12 @@ os.chdir(ROOT)
 sw=open('sw.js').read()
 v=int(re.search(r"woorden-(\d+)",sw).group(1))+1
 content=['js/content/_init.js']+sorted('js/content/'+f for f in os.listdir('js/content') if f.endswith('.js') and f!='_init.js')
-order=['js/data-base.js','js/data-more.js','js/data-grammar.js']+content+['js/data-build.js','js/core.js','js/game.js','js/play.js','js/plan.js','js/story.js','js/ui.js']
+# todo el contenido va en un solo archivo: menos descargas en el móvil, y o llega entero o no llega
+with open('js/contenido.js','w',encoding='utf-8') as out:
+    out.write('/* Generado por tools/build.py a partir de js/content/*.js. No editar aquí. */\n')
+    for f in content:
+        out.write('\n/* ---- '+f+' ---- */\n'+open(f,encoding='utf-8').read().rstrip()+'\n')
+order=['js/data-base.js','js/data-more.js','js/data-grammar.js','js/contenido.js','js/data-build.js','js/core.js','js/game.js','js/play.js','js/plan.js','js/story.js','js/ui.js']
 for f in order: assert os.path.exists(f), f
 idx=open('index.html').read()
 tags='\n'.join('<script src="%s?v=%d"></script>'%(f,v) for f in order)
@@ -21,4 +26,4 @@ sw=re.sub(r"const CACHE='woorden-\d+';","const CACHE='woorden-%d';"%v,sw)
 sw=re.sub(r"const V='\?v=\d+';","const V='?v=%d';"%v,sw)
 sw=re.sub(r"const ASSETS=\[.*?\];","const ASSETS="+repr(assets).replace(", ",",\n  ")+";",sw,flags=re.S)
 open('sw.js','w').write(sw)
-print('versión',v,'·',len(order),'scripts ·',len(content)-1,'archivos de contenido')
+print('versión',v,'·',len(order),'scripts ·',len(content)-1,'archivos de contenido en js/contenido.js')

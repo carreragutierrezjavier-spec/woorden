@@ -22,7 +22,7 @@ Todo el contenido nuevo va en `js/content/`, con las funciones de `js/content/_i
 (`addPrep`, `addGram`, `newGram`, `addPuz`, `addChat`, `addStory`, `addVocab`, `addVerbs`, `setPos`).
 - Errores de los textos corregidos: `js/content/mios.js` (`addGram('mios',[…])`).
 - Comprobar: `node tools/check-content.js [sección]`. Guía de calidad: `tools/BRIEF.md`.
-- Antes de publicar: `python3 tools/build.py` (mete los archivos nuevos en la página y sube la versión).
+- Antes de publicar: `python3 tools/build.py`. Junta todo `js/content/` en `js/contenido.js` (lo que carga la página; no se edita a mano) y sube la versión.
 
 ## Estructura
 | Archivo | Qué es |

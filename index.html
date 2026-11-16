@@ -14,8 +14,34 @@
 <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/app.css?v=413">
+<link rel="stylesheet" href="css/app.css?v=414">
 <title>Woorden</title>
+<script>
+/* Si la app no arranca (por ejemplo, una actualización que llegó a medias), se borra la copia sin conexión
+   y se recarga una vez. Tu progreso no se toca: está en otro sitio (localStorage). */
+(function(){
+  var errs=[];
+  addEventListener('error',function(e){ var t=e.target; errs.push(t&&t.src?'No se pudo cargar '+t.src.split('/').pop():(e.message||'Error')); },true);
+  window.__bootOk=function(){ window.__booted=true; };
+  function clean(){
+    var p=[];
+    try{ if('serviceWorker' in navigator) p.push(navigator.serviceWorker.getRegistrations().then(function(rs){ return Promise.all(rs.map(function(r){ return r.unregister(); })); })); }catch(e){}
+    try{ if(window.caches) p.push(caches.keys().then(function(ks){ return Promise.all(ks.map(function(k){ return caches.delete(k); })); })); }catch(e){}
+    return Promise.all(p).catch(function(){});
+  }
+  function reload(){ clean().then(function(){ location.replace(location.pathname+'?r='+Date.now()); }); }
+  window.__bootFix=reload;
+  addEventListener('load',function(){
+    setTimeout(function(){
+      if(window.__booted) return;
+      var last=0; try{ last=+sessionStorage.getItem('woorden.fix')||0; }catch(e){}
+      if(Date.now()-last>120000){ try{ sessionStorage.setItem('woorden.fix',String(Date.now())); }catch(e){} reload(); return; }
+      var d=document.getElementById('bootfail'); if(!d) return;
+      d.hidden=false; document.getElementById('bootmsg').textContent=errs.slice(0,3).join(' · ');
+    },1200);
+  });
+})();
+</script>
 </head>
 <body>
 <div id="app">
@@ -63,51 +89,25 @@
 <div class="end" id="end" hidden></div>
 <div class="modal" id="modal" hidden></div>
 <div id="toasts" aria-live="polite"></div>
+<div id="bootfail" hidden style="position:fixed;inset:0;z-index:999;background:#F3F5F9;color:#14213D;display:grid;place-content:center;gap:14px;padding:24px;text-align:center;font:16px/1.45 system-ui,sans-serif">
+  <p style="font-size:20px;font-weight:600;margin:0">La app no se ha cargado bien</p>
+  <p style="margin:0">Suele pasar justo después de una actualización con mala conexión. Tu progreso está a salvo.</p>
+  <button type="button" onclick="window.__bootFix()" style="font:inherit;font-weight:600;padding:14px 20px;border:0;border-radius:14px;background:#2A55B5;color:#fff">Volver a cargar</button>
+  <p id="bootmsg" style="margin:0;font-size:12px;color:#5B6B85"></p>
+</div>
 
 <!-- js:start -->
-<script src="js/data-base.js?v=413"></script>
-<script src="js/data-more.js?v=413"></script>
-<script src="js/data-grammar.js?v=413"></script>
-<script src="js/content/_init.js?v=413"></script>
-<script src="js/content/chat-1.js?v=413"></script>
-<script src="js/content/chat-2.js?v=413"></script>
-<script src="js/content/chat-3.js?v=413"></script>
-<script src="js/content/chat-4.js?v=413"></script>
-<script src="js/content/gram-1.js?v=413"></script>
-<script src="js/content/gram-2.js?v=413"></script>
-<script src="js/content/gram-3.js?v=413"></script>
-<script src="js/content/gram-4.js?v=413"></script>
-<script src="js/content/gram-5.js?v=413"></script>
-<script src="js/content/gram-6.js?v=413"></script>
-<script src="js/content/mios.js?v=413"></script>
-<script src="js/content/prep-1.js?v=413"></script>
-<script src="js/content/prep-2.js?v=413"></script>
-<script src="js/content/prep-3.js?v=413"></script>
-<script src="js/content/prep-4.js?v=413"></script>
-<script src="js/content/prep-5.js?v=413"></script>
-<script src="js/content/prep-6.js?v=413"></script>
-<script src="js/content/prep-7.js?v=413"></script>
-<script src="js/content/puz-1.js?v=413"></script>
-<script src="js/content/puz-2.js?v=413"></script>
-<script src="js/content/puz-3.js?v=413"></script>
-<script src="js/content/puz-4.js?v=413"></script>
-<script src="js/content/puz-5.js?v=413"></script>
-<script src="js/content/story-1.js?v=413"></script>
-<script src="js/content/story-2.js?v=413"></script>
-<script src="js/content/story-3.js?v=413"></script>
-<script src="js/content/vocab-1.js?v=413"></script>
-<script src="js/content/vocab-2.js?v=413"></script>
-<script src="js/content/vocab-3.js?v=413"></script>
-<script src="js/content/vocab-4.js?v=413"></script>
-<script src="js/content/vocab-pos.js?v=413"></script>
-<script src="js/content/vocab-verbs.js?v=413"></script>
-<script src="js/data-build.js?v=413"></script>
-<script src="js/core.js?v=413"></script>
-<script src="js/game.js?v=413"></script>
-<script src="js/play.js?v=413"></script>
-<script src="js/plan.js?v=413"></script>
-<script src="js/story.js?v=413"></script>
-<script src="js/ui.js?v=413"></script>
+<script src="js/data-base.js?v=414"></script>
+<script src="js/data-more.js?v=414"></script>
+<script src="js/data-grammar.js?v=414"></script>
+<script src="js/contenido.js?v=414"></script>
+<script src="js/data-build.js?v=414"></script>
+<script src="js/core.js?v=414"></script>
+<script src="js/game.js?v=414"></script>
+<script src="js/play.js?v=414"></script>
+<script src="js/plan.js?v=414"></script>
+<script src="js/story.js?v=414"></script>
+<script src="js/ui.js?v=414"></script>
 <!-- js:end -->
 </body>
 </html>

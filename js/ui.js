@@ -521,6 +521,7 @@ function init(){
   $('quit').addEventListener('click',()=>endRun(true));
   checkAch(true); showTab('home');
   if(!S.welcomed) welcome(); else if(!S.seen5) whatsNew();
+  if(window.__bootOk) window.__bootOk();
   /* si la app se queda abierta de un día para otro, se pone al día al volver */
   document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&S.day.d!==T()&&!R){ ensureDay(); applyFreeze(); ensureMissions(); refreshUI(); } });
   if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')) navigator.serviceWorker.register('sw.js').catch(()=>{});

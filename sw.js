@@ -1,53 +1,25 @@
-/* Woorden · funciona sin conexión. Con red, siempre intenta traer la versión nueva; sin red, usa la guardada. */
-const CACHE='woorden-413';
-const V='?v=413';
+/* Woorden · funciona sin conexión.
+   - La página (index.html) se pide primero a la red: así siempre llega la versión nueva.
+   - Los archivos con ?v=N no cambian nunca para ese número: se sirven de la caché si están y, si no, de la red,
+     sin límite de tiempo. Nunca se mezcla un archivo de una versión con otro de otra.
+   - Fuentes e iconos, de la caché. */
+const CACHE='woorden-414';
+const V='?v=414';
 const ASSETS=['./',
   'index.html',
   'manifest.webmanifest',
-  'css/app.css?v=413',
-  'js/data-base.js?v=413',
-  'js/data-more.js?v=413',
-  'js/data-grammar.js?v=413',
-  'js/content/_init.js?v=413',
-  'js/content/chat-1.js?v=413',
-  'js/content/chat-2.js?v=413',
-  'js/content/chat-3.js?v=413',
-  'js/content/chat-4.js?v=413',
-  'js/content/gram-1.js?v=413',
-  'js/content/gram-2.js?v=413',
-  'js/content/gram-3.js?v=413',
-  'js/content/gram-4.js?v=413',
-  'js/content/gram-5.js?v=413',
-  'js/content/gram-6.js?v=413',
-  'js/content/mios.js?v=413',
-  'js/content/prep-1.js?v=413',
-  'js/content/prep-2.js?v=413',
-  'js/content/prep-3.js?v=413',
-  'js/content/prep-4.js?v=413',
-  'js/content/prep-5.js?v=413',
-  'js/content/prep-6.js?v=413',
-  'js/content/prep-7.js?v=413',
-  'js/content/puz-1.js?v=413',
-  'js/content/puz-2.js?v=413',
-  'js/content/puz-3.js?v=413',
-  'js/content/puz-4.js?v=413',
-  'js/content/puz-5.js?v=413',
-  'js/content/story-1.js?v=413',
-  'js/content/story-2.js?v=413',
-  'js/content/story-3.js?v=413',
-  'js/content/vocab-1.js?v=413',
-  'js/content/vocab-2.js?v=413',
-  'js/content/vocab-3.js?v=413',
-  'js/content/vocab-4.js?v=413',
-  'js/content/vocab-pos.js?v=413',
-  'js/content/vocab-verbs.js?v=413',
-  'js/data-build.js?v=413',
-  'js/core.js?v=413',
-  'js/game.js?v=413',
-  'js/play.js?v=413',
-  'js/plan.js?v=413',
-  'js/story.js?v=413',
-  'js/ui.js?v=413',
+  'css/app.css?v=414',
+  'js/data-base.js?v=414',
+  'js/data-more.js?v=414',
+  'js/data-grammar.js?v=414',
+  'js/contenido.js?v=414',
+  'js/data-build.js?v=414',
+  'js/core.js?v=414',
+  'js/game.js?v=414',
+  'js/play.js?v=414',
+  'js/plan.js?v=414',
+  'js/story.js?v=414',
+  'js/ui.js?v=414',
   'fonts/fraunces.woff2',
   'fonts/plex-400.woff2',
   'fonts/plex-500.woff2',
@@ -57,27 +29,38 @@ const ASSETS=['./',
   'icons/apple-touch-icon.png',
   'icons/favicon.svg'];
 self.addEventListener('install',e=>{
-  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));
+  /* se guarda lo que se pueda: si un archivo falla, se pedirá a la red cuando haga falta */
+  e.waitUntil(caches.open(CACHE).then(c=>Promise.all(ASSETS.map(a=>
+    fetch(a,{cache:'no-cache'}).then(r=>{ if(r&&r.ok) return c.put(a,r); }).catch(()=>{})))).then(()=>self.skipWaiting()));
 });
 self.addEventListener('activate',e=>{
   e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
 });
+async function fromNet(req,cache,ms){
+  const ctl=new AbortController(), t=ms?setTimeout(()=>ctl.abort(),ms):0;
+  try{
+    const res=await fetch(req,{signal:ctl.signal,cache:'no-cache'});
+    if(res&&res.ok) cache.put(req,res.clone()).catch(()=>{});
+    return res;
+  }finally{ clearTimeout(t); }
+}
 self.addEventListener('fetch',e=>{
   const req=e.request, url=new URL(req.url);
   if(req.method!=='GET'||url.origin!==location.origin) return;
-  const fixed=/\/(fonts|icons)\//.test(url.pathname);
   e.respondWith((async()=>{
     const cache=await caches.open(CACHE);
-    if(fixed){ const hit=await cache.match(req); if(hit) return hit; }
-    try{
-      const ctl=new AbortController(), t=setTimeout(()=>ctl.abort(),4000);
-      const res=await fetch(req,{signal:ctl.signal,cache:'no-cache'}); clearTimeout(t);
-      if(res&&res.ok) cache.put(req,res.clone());
-      return res;
-    }catch(err){
-      const hit=await cache.match(req)||await cache.match(req,{ignoreSearch:true})||(req.mode==='navigate'?await cache.match('index.html'):null);
-      if(hit) return hit;
-      throw err;
+    /* la página: red primero (hasta 10 s); sin red, la guardada */
+    if(req.mode==='navigate'){
+      try{ return await fromNet(req,cache,10000); }
+      catch(err){ const hit=await cache.match('index.html')||await cache.match('./'); if(hit) return hit; throw err; }
     }
+    /* archivos con versión, fuentes e iconos: caché exacta y, si no está, red */
+    if(url.searchParams.has('v')||/\/(fonts|icons)\//.test(url.pathname)){
+      const hit=await cache.match(req); if(hit) return hit;
+      return fromNet(req,cache,0);
+    }
+    /* lo demás: red y, sin red, la caché */
+    try{ return await fromNet(req,cache,10000); }
+    catch(err){ const hit=await cache.match(req,{ignoreSearch:true}); if(hit) return hit; throw err; }
   })());
 });
