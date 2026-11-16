@@ -151,6 +151,9 @@ function mark(k,good,opt){
   if(it.ef==null){ it.ef=2.5; it.iv=it.iv||0; }
   const due=it.d<=t;
   it.ls=t; it.lr=good?1:0;
+  if(!good&&isNew&&opt.first){                               /* no la conocía: empieza a aprenderla, sin contarla como fallo */
+    it.iv=0; it.d=t; it.ft=0; it.fd=t; save(); return true;
+  }
   if(good){
     it.r++;
     if(opt.known) it.iv=Math.max(it.iv,10);                 /* la sabía sin haberla visto nunca */

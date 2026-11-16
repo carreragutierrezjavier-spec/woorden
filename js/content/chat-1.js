@@ -22,7 +22,7 @@ addChat([
 
 {q:'Welke talen spreek je allemaal?',qe:'¿Qué idiomas hablas?',o:[
  ['Ik ben Spaans en Engels.',0,'Eso son nacionalidades; para idiomas: «ik spreek…».'],
- ['Spaans, engels en een beetje nederlands.',0,'Los idiomas van con mayúscula: Engels, Nederlands.'],
+ ['Spaans en Engels, en nu ook een beetje Nederland.',0,'Nederland es el país; el idioma es Nederlands.'],
  ['Spaans en Engels, en nu ook een beetje Nederlands.',1,'']],
  r:'Drie talen, knap hoor!',t:'presentarse'},
 

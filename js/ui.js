@@ -26,7 +26,7 @@ function renderSheet(y){
 function rebuildSheet(){ renderSheet($('sheet').scrollTop); }
 function backSheet(){ sheetStack.pop(); const top=sheetStack[sheetStack.length-1]; if(top) renderSheet(top.y||0); else closeSheet(); }
 function closeSheet(){ sheetStack=[]; $('sheet').hidden=true; }
-const WMODES=[['type','Escribir','Cada palabra nueva se presenta y la copias una vez; desde ahí siempre se escribe, con su artículo. Es lo que mejor las fija.'],
+const WMODES=[['type','Escribir','Siempre se escribe, con su artículo: es lo que mejor las fija. Las palabras nuevas primero te las pregunto; si ya la sabes, la doy por sabida, y si no, te la enseño y vuelve enseguida.'],
   ['mix','Mezcla','Las primeras veces eliges entre cuatro; cuando ya la has acertado un par de veces, pasas a escribirla.'],
   ['mc','Elegir','Solo eliges entre cuatro. Va más rápido, pero se recuerda menos.']];
 function modeCtl(rerender){
@@ -504,7 +504,7 @@ function whatsNew(){
       H('li',null,H('b',{text:'Nada se repite el mismo día'}),' salvo lo que fallas, que vuelve hasta que lo aciertes. Las palabras nuevas salen al azar de todos los temas.'),
       H('li',null,H('b',{text:'Rondas cortas'}),' de unos 3 minutos. Haz las que quieras: cada una trae cosas nuevas.'),
       H('li',null,H('b',{text:'Gramática por reglas'}),', con muchas frases distintas para cada una (op, in, aan…). Una regla está dominada cuando aciertas 9 de cada 10.'),
-      H('li',null,H('b',{text:'Vocabulario por grupos'}),': sustantivos, verbos, adjetivos, palabras útiles y expresiones.'),
+      H('li',null,H('b',{text:'Vocabulario por grupos'}),': sustantivos, verbos, adjetivos, palabras útiles y expresiones. Las palabras nuevas primero te las pregunto: si ya la sabes, la doy por sabida y pasas a otra.'),
       H('li',null,H('b',{text:'La historia de Mateo'}),': un capítulo nuevo cada día que cumples el objetivo.'),
       H('li',null,H('b',{text:'¿Tu respuesta también valía?'}),' Márcalo al fallar: te la cuento como bien y la reviso.')),
     H('button.btn.solid.big',{type:'button',text:'Vamos',onclick:()=>{ S.seen5=true; save(); closeModal(); }}));

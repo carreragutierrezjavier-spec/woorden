@@ -10,7 +10,21 @@ function startRun(cfg){
   $('pTitle').textContent=R.title; $('pXp').textContent='+0 XP';
   $('prail').classList.toggle('timer',!!R.timed);
   if(R.timed){ R.dur=R.timed; R.tStart=Date.now(); TIMER=setInterval(tick,100); }
+  /* la ronda no se alarga más de dos pasos: lo fallado que vuelve ocupa el sitio de lo que era relleno */
+  if(!R.timed&&R.steps){ R.steps.forEach(s=>{ if(s.opt==null) s.opt=2; }); R.cap=R.steps.length+2; }
   setCombo(0,true); nextStep();
+}
+function trimRound(){
+  if(!R||R.timed||!R.cap) return;
+  while(R.steps.length>R.cap){
+    let j=-1;
+    for(const lv of [1,2]){
+      for(let i=R.steps.length-1;i>R.i;i--){ const x=R.steps[i]; if(x.opt===lv&&!x.re){ j=i; break; } }
+      if(j>=0) break;
+    }
+    if(j<0) return;
+    R.steps.splice(j,1);
+  }
 }
 function stopTimer(){ if(TIMER){ clearInterval(TIMER); TIMER=null; } }
 function tick(){
@@ -26,6 +40,14 @@ function nextStep(){
   else{
     if(R.i>=R.steps.length) return endRun();
     R.cur=R.steps[R.i];
+    /* si las dos últimas palabras nuevas no las sabías, las siguientes se presentan primero (y como mucho tres más en la ronda) */
+    if(R.cur.np&&(R.pf||0)>=2){
+      R.intros=(R.intros||0)+1;
+      if(R.intros>3){ R.steps.splice(R.i,1); return nextStep(); }
+      const w=R.cur.w; R.cur=R.steps[R.i]=introStep(w);
+      R.steps.splice(Math.min(R.steps.length,R.i+3+rnd(0,2)),0,testStep(w));
+      trimRound();
+    }
     $('pbarFill').style.width=(R.i/R.steps.length*100)+'%'; $('pCount').textContent=(R.i+1)+' / '+R.steps.length;
   }
   R.answered=false; R.key=null; R.hinted=false; R.fiftyFn=null; R.hintFn=null;
@@ -61,13 +83,19 @@ function answer(o){
   if(s.skid) skillHit(s.skid,o.good);
   const L=logDay(); if(o.good) L.o++; else L.b++;
   L.a=L.a||{}; const ar=areaOf(s); L.a[ar]=(L.a[ar]||0)+1;
-  let wasNew=false;
+  let wasNew=false, knew=false, fresh=false;
   if(o.key&&!o.key.startsWith('gen:')){
     markShown(o.key);
-    if(o.near) wasNew=!S.it[o.key], markNear(o.key);
-    else wasNew=mark(o.key,o.good,{known:!!(s.probe&&o.good&&s.t==='type')});
+    fresh=!!s.probe&&!S.it[o.key];
+    if(o.near&&!fresh) wasNew=!S.it[o.key], markNear(o.key);
+    else{ knew=!!(s.probe&&o.good&&s.t==='type'); wasNew=mark(o.key,o.good,{known:knew,first:fresh}); }
+    /* palabras nuevas seguidas que no sabías: las siguientes se presentan antes de preguntarlas */
+    if(s.probe) R.pf=o.good?0:(R.pf||0)+1;
   }
-  if(wasNew&&o.key.slice(0,2)==='w:'){ R.news++; L.n++; if(s.w) R.newWords.push(s.w); ev({t:'new'}); }
+  if(wasNew&&o.key.slice(0,2)==='w:'){
+    if(knew) R.knew=(R.knew||0)+1;
+    else{ R.news++; L.n++; if(s.w) R.newWords.push(s.w); ev({t:'new'}); }
+  }
   if(o.good){
     R.ok++; life('ok'); setCombo(R.combo+1);
     const steps=Math.min(4,Math.floor(R.combo/5));
@@ -81,9 +109,9 @@ function answer(o){
   }else{
     R.bad++; life('bad'); setCombo(0); sfx('bad');
     if(o.partial){ award(o.partial); $('pXp').textContent='+'+R.xp+' XP'; }
-    if(o.miss&&!R.misses.some(m=>m[0]===o.miss[0])) R.misses.push(o.miss);
+    if(o.miss&&!fresh&&!R.misses.some(m=>m[0]===o.miss[0])) R.misses.push(o.miss);
     /* lo fallado vuelve unos pasos después, hasta dos veces en la misma ronda */
-    if(!R.timed&&(s.rq||0)<2) R.steps.splice(Math.min(R.steps.length,R.i+rnd(3,5)),0,Object.assign({},s,{re:true,rq:(s.rq||0)+1,probe:false}));
+    if(!R.timed&&(s.rq||0)<2){ R.steps.splice(Math.min(R.steps.length,R.i+rnd(3,5)),0,Object.assign({},s,{re:true,rq:(s.rq||0)+1,probe:false,np:false,opt:0})); trimRound(); }
     save();
   }
 }
@@ -213,7 +241,8 @@ RENDER['mc-es']=RENDER['mc-nl']=RENDER['mc-ear']=function(s,st){
 /* escribir: desde el español o al dictado */
 RENDER.type=RENDER.ear=function(s,st){
   const w=s.w, ear=s.t==='ear', hasArt=!!artOf(first(w.nl));
-  const card=qCard(THEMES[w.th].n+(ear?' · dictado':''),ear?null:w.es,ear?'Escucha y escríbelo':null);
+  const card=qCard(THEMES[w.th].n+(ear?' · dictado':'')+(s.probe?' · ¿la sabes?':''),ear?null:w.es,ear?'Escucha y escríbelo':null);
+  if(s.probe) card.classList.add('fresh');
   if(ear){
     card.insertBefore(speakBtn(()=>w.nl,false,0.9),card.lastChild);
     card.appendChild(H('button.linkbtn',{type:'button',text:'Más despacio',onclick:()=>say(w.nl,0.6)}));
@@ -238,7 +267,12 @@ RENDER.type=RENDER.ear=function(s,st){
     card.classList.add(good?'flash-ok':'flash-bad');
     answer({good,near:j.v==='near',xp:10,partial:j.v==='near'?3:0,key:s.key,cat:s.cat,miss:[first(w.nl),w.es],type:'type',listen:ear});
     autoSay(w.nl,0.9);
-    showFb({kind:j.v,title:good?'Correcto':(j.v==='near'?'Casi':(give?'Era esto':'No era eso')),nl:w.nl,es:w.es,note:j.note,speak:w.nl,
+    /* palabra que no habías visto: si la sabías, se da por sabida; si no, se enseña con un ejemplo y vuelve enseguida */
+    const ex=s.probe&&!good?exampleFor(w):null;
+    const pnote=s.probe?(good?'No te la vuelvo a preguntar hasta dentro de unos días.':'Es nueva para ti. Te la pregunto otra vez dentro de un momento.'):'';
+    showFb({kind:j.v,title:good?(s.probe?'¡Ya la sabías!':'Correcto'):(j.v==='near'?'Casi':(give?'Era esto':'No era eso')),nl:w.nl,es:w.es,
+      note:[j.note,pnote].filter(Boolean).join(' '),speak:w.nl,auto:s.probe?1700:0,
+      node:ex?H('div.introex.fbex',null,H('p',null,H('span',{text:ex[0]}),speakBtn(ex[0],true,0.9)),H('small',{text:ex[1]})):null,
       extra:(!good&&!give)?'Has escrito: «'+inp.value.trim()+'»':''});
   };
   chk.addEventListener('click',()=>submit(false)); skip.addEventListener('click',()=>submit(true));
@@ -566,6 +600,7 @@ function showEnd(run,info){
   chip(run.ok+' bien · '+run.bad+' mal'); if(info.done) chip(acc+' % de acierto');
   if(run.maxCombo>=3) chip('Mejor combo ×'+run.maxCombo);
   if(run.news) chip(run.news+(run.news===1?' palabra nueva':' palabras nuevas'));
+  if(run.knew) chip('Ya sabías '+run.knew+(run.knew===1?' palabra':' palabras'));
   if(run.crits) chip(run.crits+(run.crits===1?' golpe crítico':' golpes críticos'),'gold');
   if(run.coins) chip('+'+run.coins+' stroopwafels','coin');
   if(info.record) chip('Nuevo récord: '+info.record,'gold'); else if(S.best[run.mode]) chip('Tu récord: '+S.best[run.mode]);
@@ -580,7 +615,7 @@ function showEnd(run,info){
   const runQ=i=>{ if(i>=queue.length){ hud(); return; } setTimeout(()=>{ if(!$('end').hidden) queue[i](()=>runQ(i+1)); },i?350:900); };
   runQ(0);
   if(run.newWords.length){
-    box.appendChild(H('h2.endh',{text:run.newWords.length===1?'La palabra nueva de hoy':'Las '+run.newWords.length+' palabras nuevas de hoy'}));
+    box.appendChild(H('h2.endh',{text:run.newWords.length===1?'La palabra nueva de esta ronda':'Las '+run.newWords.length+' palabras nuevas de esta ronda'}));
     const ns=H('div.misses');
     run.newWords.forEach(w=>ns.appendChild(H('div.miss',null,H('div',null,H('div.a',null,nlNode(w.nl)),H('div.b',{text:w.es})),speakBtn(w.nl,true,0.85))));
     box.appendChild(ns);

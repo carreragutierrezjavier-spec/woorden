@@ -417,6 +417,9 @@ textarea.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;m
 .fbes{display:block;font-family:var(--body);font-size:14.5px;color:var(--muted);margin-top:1px}
 .fbn{font-size:14px;margin-top:5px}
 .fbx{font-size:13.5px;margin-top:5px;color:var(--ink);opacity:.85}
+.fb .fbex{margin-top:8px;padding-top:8px;border-top-color:currentColor;border-top-style:dotted}
+.fb .fbex p{justify-content:flex-start;font-size:15.5px;color:var(--ink)}
+.fb .fbex small{color:var(--ink);opacity:.75}
 .fb .btn{margin-top:12px;border:none}
 .fb.ok .btn{background:var(--ok);color:var(--ok-soft)}
 .fb.near .btn{background:var(--near);color:var(--near-soft)}
