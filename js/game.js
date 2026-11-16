@@ -47,6 +47,8 @@ function award(n,crit){
     S.streak.n=(S.streak.last===t-1)?S.streak.n+1:(S.streak.last===t?S.streak.n:1);
     S.streak.last=t; S.life.maxStreak=Math.max(S.life.maxStreak||0,S.streak.n);
     toast('Objetivo del día cumplido · racha de '+S.streak.n+(S.streak.n===1?' día':' días'),'gold');
+    /* cada día que cumples el objetivo se desbloquea un capítulo nuevo de la historia */
+    if(STORY.length&&S.story.lu!==t&&S.story.u<STORY.length&&S.story.done[STORY[S.story.u-1].id]){ S.story.u++; S.story.lu=t; toast('Capítulo nuevo de la historia: '+STORY[S.story.u-1].t,'gold'); }
     if(R) R.goal=true;
   }
   save(); hud(); fly('+'+n,crit);
@@ -92,13 +94,14 @@ function catInfo(cat){
     return {label:'Vocabulario · '+THEMES[k].n,tip:'Haz este tema en Practicar. Las palabras que falles vuelven al día siguiente, y luego cada vez más espaciadas hasta que se te queden.',go:()=>play('theme',k)};
   }
   if(cat.slice(0,2)==='g:'){
-    const k=cat.slice(2); if(!GR[k]) return null;
-    return {label:GR[k].n,tip:GR[k].tip,go:()=>play('gram',k)};
+    const k=cat.slice(2), sk=SK[k]; if(!sk) return null;
+    return {label:sk.grp==='prep'&&k!=='prep'?'Preposición «'+sk.n+'»':sk.n,tip:sk.tip,go:()=>play('gram',k)};
   }
   if(cat.slice(0,4)==='puz:'){
     const k=cat.slice(4); if(!PUZ[k]) return null;
     return {label:'Frases · '+PUZ[k][0],tip:PTIPS[k]||'',go:()=>play('puzzle',k)};
   }
+  if(cat==='listen') return {label:'Entender frases de oído',tip:'Escucha la frase entera antes de mirar las opciones, y repítela en voz alta. Si se te escapa, pulsa «Más despacio».',go:()=>play('hearTiles')};
   return null;
 }
 function weaknesses(){
@@ -109,7 +112,9 @@ function weaknesses(){
 
 /* ---------- misiones del día ---------- */
 const MISSIONS=[
- {id:'sess',txt:'Completa la sesión de hoy',n:1,c:30,m:e=>e.t==='session'&&e.mode==='daily',go:()=>play('daily')},
+ {id:'sess',txt:'Haz dos rondas hoy',n:2,c:30,m:e=>e.t==='session'&&e.mode==='daily',go:()=>play('daily')},
+ {id:'story',txt:'Lee el capítulo de la historia',n:1,c:30,m:e=>e.t==='story',go:()=>openStory()},
+ {id:'gram12',txt:'Acierta 12 de gramática',n:12,c:30,m:e=>e.t==='ok'&&e.type==='gap',go:()=>play('daily')},
  {id:'combo10',txt:'Haz un combo de 10',n:1,c:35,m:e=>e.t==='combo'&&e.v===10},
  {id:'combo20',txt:'Haz un combo de 20',n:1,c:50,m:e=>e.t==='combo'&&e.v===20},
  {id:'type12',txt:'Escribe bien 12 palabras',n:12,c:35,m:e=>e.t==='ok'&&e.type==='type'},
@@ -120,7 +125,7 @@ const MISSIONS=[
  {id:'puz4',txt:'Monta 4 frases a la primera',n:4,c:35,m:e=>e.t==='puzFirst',go:()=>play('puzzle')},
  {id:'listen8',txt:'Acierta 8 de oído',n:8,c:35,m:e=>e.t==='ok'&&e.listen,go:()=>play('dictation')},
  {id:'crit1',txt:'Consigue un golpe crítico',n:1,c:25,m:e=>e.t==='crit'},
- {id:'acc90',txt:'Termina una sesión con un 90 % de acierto',n:1,c:45,m:e=>e.t==='session'&&e.acc>=0.9&&e.n>=15},
+ {id:'acc90',txt:'Termina una ronda con un 90 % de acierto',n:1,c:45,m:e=>e.t==='session'&&e.acc>=0.9&&e.n>=10},
  {id:'weak',txt:'',n:10,c:50,m:()=>false}
 ];
 const MIS_BONUS=60;
@@ -129,7 +134,7 @@ const mText=ms=>ms.id==='weak'?'Acierta 10 en tu punto débil: '+ms.label:mDef(m
 function ensureMissions(){
   const t=T(); if(S.mis&&S.mis.d===t&&S.mis.list.length) return;
   const w=weaknesses()[0];
-  const pool=MISSIONS.filter(m=>m.id!=='weak'&&m.id!=='sess').sort((a,b)=>hash(t+a.id)-hash(t+b.id));
+  const pool=MISSIONS.filter(m=>m.id!=='weak'&&m.id!=='sess'&&!(m.id==='story'&&!storyPending())).sort((a,b)=>hash(t+a.id)-hash(t+b.id));
   const list=[{id:'sess',p:0,done:false}];
   if(w) list.push({id:'weak',p:0,done:false,cat:w.cat,label:w.label});
   pool.slice(0,3-list.length).forEach(m=>list.push({id:m.id,p:0,done:false}));
@@ -185,8 +190,11 @@ const ACH=[
  {id:'m100',n:'Cien dominadas',d:'100 palabras dominadas',c:120,t:100,v:nWordsDone},
  {id:'m500',n:'Medio diccionario',d:'500 palabras dominadas',c:400,t:500,v:nWordsDone},
  {id:'m1000',n:'Diccionario andante',d:'1.000 palabras dominadas',c:900,t:1000,v:nWordsDone},
- {id:'g100',n:'Gramático',d:'100 ejercicios de gramática dominados',c:150,t:100,v:()=>mastered(ALLG)},
- {id:'gAll',n:'Taalunie',d:'Toda la gramática dominada',c:700,t:ALLG.length,v:()=>mastered(ALLG)},
+ {id:'g5',n:'Gramático',d:'5 destrezas de gramática dominadas',c:150,t:5,v:()=>skillsDone()},
+ {id:'g15',n:'Taalunie',d:'15 destrezas de gramática dominadas',c:500,t:15,v:()=>skillsDone()},
+ {id:'gop',n:'Op en top',d:'Dominar la preposición op',c:120,t:1,v:()=>skillState('prep:op').done?1:0},
+ {id:'st7',n:'Lector',d:'7 capítulos de la historia',c:80,t:7,v:()=>Object.keys(S.story.done).length},
+ {id:'stAll',n:'Fin de temporada',d:'Toda la primera temporada',c:300,t:Math.max(1,STORY.length),v:()=>Object.keys(S.story.done).length},
  {id:'lvl5',n:'Buurman',d:'Llegar al nivel 5',c:100,t:5,v:()=>levelOf(S.xp)+1},
  {id:'lvl10',n:'Kaaskop',d:'Llegar al nivel 10',c:400,t:10,v:()=>levelOf(S.xp)+1},
  {id:'lvl15',n:'Koning van de polder',d:'Llegar al nivel máximo',c:1500,t:15,v:()=>levelOf(S.xp)+1},
@@ -200,6 +208,7 @@ const ACH=[
  {id:'ses100',n:'Cien sesiones',d:'100 sesiones diarias completadas',c:500,t:100,v:lf('sessions')},
  {id:'shop',n:'De compras',d:'Comprar algo en la tienda',c:20,t:1,v:lf('bought')}
 ];
+const skillsDone=()=>SKEYS.filter(id=>id!=='prep'&&skillState(id).done).length;
 let achT=0;
 function checkAch(force){
   const now=Date.now(); if(!force&&now-achT<1500) return; achT=now;

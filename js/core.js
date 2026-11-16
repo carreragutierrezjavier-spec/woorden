@@ -41,12 +41,15 @@ function blank(){
     streak:{last:0,n:0},best:{},
     opt:{sfx:true,voice:true,vname:'',rate:0.9,size:'normal',wmode:'type'},
     inv:{freeze:0,time15:0,fifty:0,hint:0},skins:['delft'],skin:'delft',
-    stats:{},life:{},mis:{d:0,list:[]},ach:{},tiles:{},log:{},custom:[],pins:['werk','jachtbouw'],nem:{},pend:0};
+    stats:{},life:{},mis:{d:0,list:[]},ach:{},tiles:{},log:{},custom:[],pins:['werk','jachtbouw'],nem:{},pend:0,
+    srs:2,sk:{},td:{d:0,k:{},r:0},flags:[],story:{u:1,done:{},lu:0}};
 }
 function fill(s){
-  const b=blank();
+  const b=blank(), oldSrs=s.srs!==2;
+  if(oldSrs) s.srs=1;
   for(const k in b) if(s[k]==null) s[k]=b[k];
-  s.opt=Object.assign(b.opt,s.opt); s.inv=Object.assign(b.inv,s.inv); s.day=Object.assign(b.day,s.day);
+  s.opt=Object.assign(b.opt,s.opt); s.inv=Object.assign(b.inv,s.inv); s.day=Object.assign(b.day,s.day); s.story=Object.assign(b.story,s.story);
+  if(oldSrs) migrateSrs(s);
   return s;
 }
 /* convierte el progreso de la versión anterior (cajas 0-5) al repaso por días */
@@ -103,6 +106,16 @@ function logDay(){ const t=T(); return S.log[t]||(S.log[t]={x:0,o:0,b:0,n:0,t:0,
 function life(k,n){ S.life[k]=(S.life[k]||0)+(n==null?1:n); }
 
 /* ---------- palabras propias del usuario ---------- */
+/* de etapas fijas (v3) a intervalos con facilidad propia (v4) */
+function migrateSrs(s){
+  const OLD=[0,0,1,3,7,14,30,60,120,240];
+  for(const k in s.it){
+    const it=s.it[k]; if(it.iv!=null) continue;
+    it.iv=OLD[Math.min(9,it.s||0)]; it.ef=clamp(2.5-0.12*Math.min(it.w||0,6),1.3,2.5);
+    it.lr=it.w&&it.s<=1?0:1; it.ls=Math.min(T(),(it.d||T())-it.iv);
+  }
+  s.srs=2;
+}
 function loadCustom(){
   if(THEMES.mias) THEMES.mias.w.length=0;
   else{ THEMES.mias={k:'mias',n:'Mis palabras',lv:1,w:[]}; TKEYS.push('mias'); }
@@ -114,32 +127,73 @@ function buildWordIndex(){
   TKEYS.forEach(k=>THEMES[k].w.forEach((w,i)=>{ w.i=i; }));
   ALLW=TKEYS.flatMap(k=>THEMES[k].w); WBY={};
   ALLW.forEach(w=>w.nl.split('|').forEach(a=>{ WBY[norm(a)]=w; }));
+  buildGroups(ALLW);
 }
 
 /* ---------- repaso espaciado ---------- */
-const INT=[0,0,1,3,7,14,30,60,120,240];          /* días hasta el siguiente repaso, por etapa */
-const stage=k=>S.it[k]?S.it[k].s:0;
+/* cada elemento guarda: iv (días hasta el siguiente repaso; 0 = aprendiéndolo), ef (lo fácil que te resulta),
+   d (día en que toca), w y r (fallos y aciertos), ls (último día visto), lr (si la última vez acertaste) */
+const MATURE=14;
+const ivStage=iv=>iv<=0?1:iv<3?2:iv<7?3:iv<14?4:iv<30?5:iv<60?6:iv<120?7:iv<240?8:9;
+const stage=k=>{ const it=S.it[k]; return it?(it.r||it.iv>0?ivStage(it.iv||0):0):0; };
 const seen=k=>!!S.it[k];
 const isDue=k=>{ const it=S.it[k]; return !!it&&it.d<=T(); };
-const isMastered=k=>stage(k)>=5;
+const isMastered=k=>{ const it=S.it[k]; return !!it&&(it.iv||0)>=MATURE; };
 const mastered=(list,keyFn)=>list.filter(x=>isMastered(keyFn?keyFn(x):x.k)).length;
 const learned=(list,keyFn)=>list.filter(x=>seen(keyFn?keyFn(x):x.k)).length;
-function mark(k,good,soft){
+const newIt=t=>({iv:0,ef:2.5,d:t,w:0,r:0,ls:t,lr:null});
+/* la presentación de una palabra nueva: queda «vista», aprendiéndola */
+function markSeen(k){ if(!S.it[k]){ S.it[k]=newIt(T()); save(); return true; } return false; }
+function mark(k,good,opt){
+  opt=opt||{};
   const t=T(); let it=S.it[k]; const isNew=!it;
-  if(!it) it=S.it[k]={s:0,d:t,w:0,r:0};
+  if(!it) it=S.it[k]=newIt(t);
+  if(it.ef==null){ it.ef=2.5; it.iv=it.iv||0; }
+  const due=it.d<=t;
+  it.ls=t; it.lr=good?1:0;
   if(good){
     it.r++;
-    /* carril rápido: lo que nunca has fallado sube de dos en dos y deja de salir enseguida */
-    if(!soft||it.s<2) it.s=Math.min(9,it.s+((!soft&&!it.w&&it.s>=2&&it.s<=4)?2:1));
-    it.d=t+INT[it.s]; if(soft&&it.d<=t) it.d=t+1;
+    if(opt.known) it.iv=Math.max(it.iv,10);                 /* la sabía sin haberla visto nunca */
+    else if(it.iv<=0) it.iv=1;                               /* aprendiéndola: vuelve mañana */
+    else if(due){                                            /* repaso a tiempo (o con retraso): el intervalo crece */
+      const late=Math.max(0,t-it.d);
+      it.iv=Math.min(365,Math.max(it.iv+1,Math.round((it.iv+late*0.5)*it.ef)));
+      it.ef=Math.min(2.8,it.ef+0.02);
+    }
+    else{ save(); return isNew; }                            /* repasada antes de tiempo: no cambia nada */
+    it.d=t+it.iv;
+  }else{
+    it.w++; it.ef=Math.max(1.3,it.ef-(opt.near?0.1:0.2)); it.iv=0;
+    S.nem[k]=(S.nem[k]||0)+1;
+    it.ft=it.fd===t?(it.ft||0)+1:1; it.fd=t;
+    it.d=it.ft>=3?t+1:t;                                     /* tras tres fallos el mismo día, se deja para mañana */
   }
-  else{ it.w++; it.s=Math.max(1,it.s-2); it.d=t; S.nem[k]=(S.nem[k]||0)+1; }
   save(); return isNew;
 }
-function markNear(k){ const t=T(); let it=S.it[k]; if(!it) it=S.it[k]={s:1,d:t,w:0,r:0}; it.w++; it.d=t; save(); }
-function markKnown(k){ S.it[k]={s:6,d:T()+30,w:0,r:1}; save(); }
+function markNear(k){ return mark(k,false,{near:true}); }
+function markKnown(k){ const t=T(), it=S.it[k]||newIt(t); Object.assign(it,{iv:Math.max(it.iv||0,30),ef:2.6,d:t+30,ls:t,lr:1}); it.r=(it.r||0)+1; S.it[k]=it; save(); }
 function dueIn(k){ const it=S.it[k]; return it?it.d-T():null; }
-function statusOf(k){ const it=S.it[k]; if(!it) return 'new'; return it.s>=5?'done':'learning'; }
+function statusOf(k){ const it=S.it[k]; if(!it) return 'new'; return (it.iv||0)>=MATURE?'done':'learning'; }
+
+/* ---------- lo que ya ha salido hoy: para no repetir ---------- */
+function td(){ const t=T(); if(!S.td||S.td.d!==t) S.td={d:t,k:{},r:0}; return S.td; }
+const shownToday=k=>td().k[k]||0;
+function markShown(k){ if(!k) return; const x=td(); x.k[k]=(x.k[k]||0)+1; }
+/* fallado hoy y todavía pendiente: puede volver a salir (hasta tres veces) */
+const retryToday=k=>{ const it=S.it[k]; return !!it&&it.lr===0&&it.ls===T()&&it.d<=T()&&shownToday(k)<3; };
+
+/* ---------- destrezas de gramática: últimas respuestas de cada una ---------- */
+function skillHit(id,good){
+  if(!id) return;
+  const s=S.sk[id]||(S.sk[id]={h:'',n:0,ls:0});
+  s.h=(s.h+(good?'1':'0')).slice(-30); s.n++; s.ls=T();
+}
+function skillState(id){
+  const s=S.sk[id]; if(!s||!s.n) return {n:0,acc:0,done:false,ls:0,label:'Sin empezar'};
+  const h=s.h.slice(-20), acc=h.split('').filter(c=>c==='1').length/h.length;
+  const done=s.n>=20&&acc>=0.9;
+  return {n:s.n,acc,done,ls:s.ls,label:done?'Dominada':(s.n<5?s.n+(s.n===1?' respuesta':' respuestas'):Math.round(acc*100)+' % de acierto')};
+}
 
 /* ---------- niveles ---------- */
 const LEVELS=[[0,'Toerist'],[300,'Nieuwkomer'],[800,'Fietser'],[1600,'Kaasliefhebber'],[3000,'Buurman'],[5000,'Collega'],

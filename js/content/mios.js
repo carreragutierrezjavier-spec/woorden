@@ -1,0 +1,36 @@
+/* Tus errores: frases sacadas de los textos que Javier ha mandado para corregir (4A, 4B y el texto de clase sobre Vigo).
+   Cuando mande un texto nuevo, sus errores se añaden aquí con addGram('mios',[...]). */
+newGram('mios',{n:'Tus errores de los textos',ref:'textos',lv:1,grp:'otros',
+  tip:'Son frases de tus propios textos, ya corregidas. Vuelven hasta que aciertes casi todas.'});
+addGram('mios',[
+ ['Elke zondag sta ik ___ hele middag te koken.','de','het|een','Todos los domingos me paso toda la tarde cocinando.','«hele» necesita artículo: de hele middag (texto 4A)'],
+ ['Mijn huisgenoten liggen ___ hele dag te slapen.','de','het|een','Mis compañeros de piso se pasan todo el día durmiendo.','dag es palabra de «de»: de hele dag (texto 4A)'],
+ ['Ik zou liever een groot huis ___.','hebben','te hebben|heb|gehad','Preferiría tener una casa grande.','Tras zou, el infinitivo va sin te (texto 4A)'],
+ ['Ik denk dat de Nederlandse keuken ___.','niet lekker is','is niet lekker|niet is lekker|lekker niet is','Creo que la cocina holandesa no es rica.','Tras dat, el verbo al final; niet delante del adjetivo (texto 4A)'],
+ ['Een van mijn huisgenoten is ___.','Pools','pools|Polen|Pool','Uno de mis compañeros de piso es polaco.','Nacionalidad: adjetivo y con mayúscula (texto 4A)'],
+ ['Ik erger ___ een beetje aan hem.','me','mijn|zich|hem','Me molesta un poco.','zich ergeren aan: ik erger me (texto 4A)'],
+ ['Hij ___ nooit schoon.','maakt','schoonmaakt|maak|maken','Nunca limpia.','Separable: hij maakt … schoon (texto 4A)'],
+ ['Mijn andere huisgenoot is ___ rustig, en dat is tof.','heel','te veel|veel|meer','Mi otro compañero de piso es muy tranquilo, y eso mola.','Delante de un adjetivo: heel (muy); te veel va con sustantivos (texto 4A)'],
+ ['Ik woon met drie vrienden ___.','samen','mee|bij|met','Comparto casa con tres amigos.','samenwonen: ik woon … samen (texto 4A)'],
+ ['Ik zou liever een groot huis hebben, ___ ik heb geen geld.','maar','omdat|dus|want','Preferiría tener una casa grande, pero no tengo dinero.','maar = pero, y no cambia el orden (texto 4A)'],
+ ['Een week geleden was ik in Frankrijk, ___ de buurt van Parijs.','in','bij|op|aan','Hace una semana estuve en Francia, cerca de París.','in de buurt van = cerca de (texto 4B)'],
+ ['___ we bij het hotel aankwamen, was het personeel er niet.','Toen','Als|Dan|Daarna','Cuando llegamos al hotel, el personal no estaba.','Una vez en el pasado: toen + verbo al final (texto 4B)'],
+ ['Toen we bij het hotel ___, was er niemand.','aankwamen','kwamen aan|aankomen|aankwam','Cuando llegamos al hotel, no había nadie.','Tras toen, el verbo va al final y unido (texto 4B)'],
+ ['Een uur later ___ we de sleutels.','kregen','kreeg|krijgen|gekregen','Una hora después nos dieron las llaves.','Para contar lo que pasó, imperfecto (texto 4B)'],
+ ['Daarom ___ we een klacht ingediend.','hebben','zijn|worden|heeft','Por eso pusimos una reclamación.','indienen va con hebben (texto 4B)'],
+ ['We hebben een klacht ___.','ingediend','ingedieend|ingediendt|indiend','Pusimos una reclamación.','Se escribe ingediend (texto 4B)'],
+ ['We waren boos, maar we konden ___ niets doen.','echter','daarom|want|dus','Estábamos enfadados, pero sin embargo no podíamos hacer nada.','echter va en medio de la frase (texto 4B)'],
+ ['We wilden ___ trouwdag vieren.','onze','ons|onzer|onse','Queríamos celebrar nuestro aniversario de boda.','de trouwdag → onze (texto 4B)'],
+ ['Op de foto’s zag de kamer er heel mooi ___.','uit','op|aan|in','En las fotos, la habitación tenía muy buena pinta.','er … uitzien = tener aspecto (texto 4B)'],
+ ['We ___ een onvergetelijke ervaring verwacht, maar het was een ramp.','hadden','waren|zijn|werden','Habíamos esperado una experiencia inolvidable, pero fue un desastre.','Pluscuamperfecto solo para algo anterior a otro pasado (texto 4B)'],
+ ['Ik heb mijn hele leven in Vigo ___.','doorgebracht','gespendeerd|uitgegeven|besteed','He pasado toda mi vida en Vigo.','Pasar tiempo en un sitio: doorbrengen (texto de Vigo)'],
+ ['Toeristen denken dat paella het ___ eten is.','beste','best|goedste|beter','Los turistas creen que la paella es la mejor comida.','het beste eten: superlativo con -e (texto de Vigo)'],
+ ['Maar ik ben het er niet mee ___.','eens','een|samen|eender','Pero no estoy de acuerdo.','het (er) mee eens zijn (texto de Vigo)'],
+ ['Ik geef ___ dat het verrukkelijk is.','toe','too|tot|aan','Reconozco que está buenísimo.','toegeven: ik geef … toe (texto de Vigo)'],
+ ['In Galicië eten we veel vis, maar ook ___.','vlees','vleis|vlaas|vleez','En Galicia comemos mucho pescado, pero también carne.','vlees = carne (texto de Vigo)'],
+ ['Vigo ligt dicht bij Portugal en ___ is vis daar belangrijk.','daarom','omdat|want|toen','Vigo está cerca de Portugal y por eso el pescado es importante allí.','daarom + inversión: daarom is vis… (texto de Vigo)'],
+ ['De koeien uit Galicië ___ heel bekend.','zijn','hebben|wordt|is','Las vacas gallegas son muy conocidas.','Ser + adjetivo: zijn (texto de Vigo)'],
+ ['Er zijn veel ___ in de zee bij Vigo.','vissen','visen|vises|vissenen','Hay muchos peces en el mar de Vigo.','vis → vissen: vocal corta, se dobla la s (texto de Vigo)'],
+ ['Ik ___ al twee jaar in Delft.','woon','leef|woont|wonen','Vivo en Delft desde hace dos años.','Vivir en un sitio: wonen, no leven'],
+ ['Het is ___ recept met octopus, olijfolie en paprikapoeder.','een','de|geen','Es una receta con pulpo, aceite de oliva y pimentón.','het recept: «una receta» = een recept (texto de Vigo)']
+]);

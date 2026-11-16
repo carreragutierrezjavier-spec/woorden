@@ -1,0 +1,648 @@
+gram:prep_lugar	Ik woon ___ Delft.	in
+gram:prep_lugar	Het boek ligt ___ tafel.	op
+gram:prep_lugar	De foto hangt ___ de muur.	aan
+gram:prep_lugar	Ik werk ___ een groot bedrijf.	bij
+gram:prep_lugar	Ik ben nog ___ kantoor.	op
+gram:prep_lugar	De kinderen zijn ___ school.	op
+gram:prep_lugar	Ik ga nu ___ huis.	naar
+gram:prep_lugar	Ik blijf vanavond ___.	thuis
+gram:prep_lugar	Ik kom ___ Spanje.	uit
+gram:prep_lugar	We wonen ___ zee.	aan
+gram:prep_lugar	Zij zit ___ de trein.	in
+gram:prep_lugar	Hij zit ___ de fiets.	op
+gram:prep_lugar	Ik ga ___ de trein naar Amsterdam.	met
+gram:prep_lugar	De supermarkt is ___ de hoek.	op
+gram:prep_lugar	Ik woon nog ___ mijn ouders.	bij
+gram:prep_lugar	De kat zit ___ de tafel.	onder
+gram:prep_lugar	Het café is ___ het station.	tegenover
+gram:prep_lugar	De apotheek is ___ de bakkerij.	naast
+gram:prep_lugar	De tuin is ___ het huis.	achter
+gram:prep_lugar	De auto staat ___ de deur.	voor
+gram:prep_lugar	Ik fiets ___ het park.	door
+gram:prep_lugar	We lopen ___ de gracht.	langs
+gram:prep_lugar	De brug gaat ___ de rivier.	over
+gram:prep_lugar	Utrecht ligt ___ Amsterdam en Arnhem.	tussen
+gram:prep_lugar	Hij stapt ___ de bus.	uit
+gram:prep_lugar	Zij stapt ___ de bus.	in
+gram:prep_lugar	Ze wonen ___ de derde verdieping.	op
+gram:prep_lugar	Het staat ___ de krant.	in
+gram:prep_lugar	Ik zag het ___ televisie.	op
+gram:prep_lugar	Ze is twee weken ___ vakantie.	op
+gram:prep_lugar	We zitten al ___ tafel.	aan
+gram:prep_lugar	Ik wacht ___ de ingang.	bij
+gram:prep_tijd	De les begint ___ acht uur.	om
+gram:prep_tijd	Ik heb ___ maandag een afspraak.	op
+gram:prep_tijd	Mijn verjaardag is ___ mei.	in
+gram:prep_tijd	Ik ben ___ 1998 geboren.	in
+gram:prep_tijd	___ de zomer ga ik naar Spanje.	In
+gram:prep_tijd	Ik ben jarig ___ 5 november.	op
+gram:prep_tijd	Ik woon hier ___ twee jaar.	sinds
+gram:prep_tijd	Ik ben twee jaar ___ naar Delft verhuisd.	geleden
+gram:prep_tijd	___ een week heb ik examen.	Over
+gram:prep_tijd	Ik blijf ___ vrijdag.	tot
+gram:prep_tijd	___ de vergadering mag je niet bellen.	Tijdens
+gram:prep_tijd	Ik werk van negen ___ vijf.	tot
+gram:prep_tijd	___ het weekend slaap ik uit.	In
+gram:prep_tijd	Ik ga ___ het eten wandelen.	na
+gram:prep_tijd	Was je handen ___ het eten.	voor
+gram:prep_tijd	We zien elkaar ___ kerst.	met
+gram:prep_tijd	Hij komt ___ tien minuten.	over
+gram:prep_tijd	___ mijn studie woonde ik in Vigo.	Tijdens
+gram:prep_tijd	Ik moet ___ vrijdag klaar zijn.	voor
+gram:prep_tijd	De winkel is ___ zondag gesloten.	op
+gram:prep_vast	Ik wacht ___ de bus.	op
+gram:prep_vast	Ik denk vaak ___ mijn familie.	aan
+gram:prep_vast	Ik hou ___ koken.	van
+gram:prep_vast	We praten ___ het project.	over
+gram:prep_vast	Luister je ___ muziek?	naar
+gram:prep_vast	Hij kijkt ___ een film.	naar
+gram:prep_vast	Ik zoek ___ mijn sleutels.	naar
+gram:prep_vast	Mag ik ___ de rekening vragen?	om
+gram:prep_vast	Wie zorgt ___ de kinderen?	voor
+gram:prep_vast	Ik begin ___ mijn huiswerk.	met
+gram:prep_vast	Hij stopt ___ roken.	met
+gram:prep_vast	Je lijkt ___ je vader.	op
+gram:prep_vast	Ik reken ___ jou.	op
+gram:prep_vast	Ze droomt ___ een eigen boot.	van
+gram:prep_vast	Waarom lach je ___ mij?	om
+gram:prep_vast	Geniet ___ je vakantie!	van
+gram:prep_vast	Ik ben bang ___ spinnen.	voor
+gram:prep_vast	Ik ben trots ___ mijn team.	op
+gram:prep_vast	Ben je geïnteresseerd ___ geschiedenis?	in
+gram:prep_vast	Hij is verliefd ___ haar.	op
+gram:prep_vast	Ze is boos ___ haar broer.	op
+gram:prep_vast	Ik ben het ___ je eens.	met
+gram:prep_vast	Dat hangt ___ het weer af.	van
+gram:prep_vast	Het team bestaat ___ dertien spelers.	uit
+gram:prep_vast	Ik doe mee ___ de wedstrijd.	aan
+gram:prep_vast	Ik twijfel ___ zijn verhaal.	aan
+gram:prep_vast	Geloof je ___ geluk?	in
+gram:prep_vast	Je moet ___ het weer wennen.	aan
+gram:prep_vast	Ik solliciteer ___ een baan in Amsterdam.	naar
+gram:prep_vast	Hij reageert niet ___ mijn bericht.	op
+gram:prep_vast	Ik heb zin ___ een biertje.	in
+gram:prep_vast	Heb je last ___ de buren?	van
+gram:prep_vast	Bedankt ___ je hulp!	voor
+gram:prep_vast	Gefeliciteerd ___ je verjaardag!	met
+gram:prep_vast	Ik erger me ___ het lawaai.	aan
+gram:prep_vast	Ik verheug me ___ de vakantie.	op
+gram:prep_vast	Ze is getrouwd ___ een Nederlander.	met
+gram:prep_vast	Hij is goed ___ wiskunde.	in
+gram:prep_vast	Ik ben klaar ___ mijn werk.	met
+gram:prep_vast	Hij werkt ___ een nieuw ontwerp.	aan
+gram:prep_vast	Ze is geslaagd ___ het examen.	voor
+gram:prep_vast	Het ruikt hier ___ koffie.	naar
+gram:prep_vast	Wat vind je ___ dit idee?	van
+gram:prep_vast	Ik ben gek ___ stroopwafels.	op
+gram:prep_vast	Let ___ je tas!	op
+gram:prep_vast	Ik heb behoefte ___ rust.	aan
+gram:prep_vast	Wie is verantwoordelijk ___ dit project?	voor
+gram:nietgeen	Ik heb ___ auto.	geen
+gram:nietgeen	Ik kom morgen ___.	niet
+gram:nietgeen	Zij drinkt ___ koffie.	geen
+gram:nietgeen	Dat is ___ leuk.	niet
+gram:nietgeen	Ik woon ___ in Amsterdam.	niet
+gram:nietgeen	We hebben ___ tijd.	geen
+gram:nietgeen	Ik heb het boek ___ gelezen.	niet
+gram:nietgeen	Hij is ___ dokter, hij is verpleegkundige.	geen
+gram:nietgeen	Ik spreek ___ Frans.	geen
+gram:nietgeen	Ik begrijp het ___.	niet
+gram:nietgeen	Er zijn ___ stoelen meer.	geen
+gram:nietgeen	Ik heb ___ honger.	geen
+gram:nietgeen	Ik vind die film ___ goed.	niet
+gram:nietgeen	Heb je ___ zin?	geen
+gram:nietgeen	Ik kan vandaag ___ komen.	niet
+gram:nietgeen	Dat is ___ mijn fiets.	niet
+gram:nietgeen	Ik heb ___ idee.	geen
+gram:nietgeen	Ze wil ___ suiker in haar thee.	geen
+gram:nietgeen	Ik ga ___ met de auto, maar met de fiets.	niet
+gram:nietgeen	Wij eten ___ vlees.	geen
+gram:nietgeen	Ik heb hem ___ gezien.	niet
+gram:nietgeen	Dat maakt ___ uit.	niet
+gram:reflex	Ik voel ___ niet goed.	me
+gram:reflex	Hij vergist ___.	zich
+gram:reflex	Wij haasten ___.	ons
+gram:reflex	Herinner jij ___ zijn naam?	je
+gram:reflex	Zij verveelt ___ op haar werk.	zich
+gram:reflex	Ik verheug ___ op het weekend.	me
+gram:reflex	Jullie moeten ___ aanmelden.	je
+gram:reflex	De kinderen wassen ___.	zich
+gram:reflex	Heeft u ___ vergist?	zich
+gram:reflex	Ik heb ___ verslapen.	me
+gram:reflex	We maken ___ zorgen.	ons
+gram:reflex	Hij scheert ___ elke ochtend.	zich
+gram:reflex	Ik vraag ___ af waarom.	me
+gram:reflex	Kleed ___ snel aan!	je
+gram:reflex	Zij ergert ___ aan het lawaai.	zich
+gram:reflex	Wij voelen ___ hier thuis.	ons
+gram:reflex	Ik sta om zeven uur ___.	op
+gram:reflex	Zij ___ in mei.	trouwt
+gram:reflex	Ik ___ Javier.	heet
+gram:reflex	Hij concentreert ___ op zijn werk.	zich
+gram:cuant	Ik heb ___ gegeten.	alles
+gram:cuant	___ studenten hebben het examen gehaald.	Alle
+gram:cuant	We zijn ___ moe.	allemaal
+gram:cuant	Ik ken hier ___.	iedereen
+gram:cuant	Ik heb de ___ dag gewerkt.	hele
+gram:cuant	Ik werk ___ dag.	elke
+gram:cuant	___ Nederland kijkt naar de wedstrijd.	Heel
+gram:cuant	Ik heb ___ het geld uitgegeven.	al
+gram:cuant	___ weet het.	Niemand
+gram:cuant	Ik zie ___.	niets
+gram:cuant	Ik heb ___ enkele fout gemaakt.	geen
+gram:cuant	___ van de studenten kwam.	Geen
+gram:cuant	Er was ___ niemand.	bijna
+gram:cuant	Ik heb ___ tijd.	weinig
+gram:cuant	Ik heb ___ vrienden uitgenodigd.	een paar
+gram:cuant	Ik spreek ___ Nederlands.	een beetje
+gram:cuant	___ mensen fietsen niet graag.	Sommige
+gram:cuant	___ Nederlanders hebben een fiets.	De meeste
+gram:cuant	We zijn ___ Spaans.	allebei
+gram:cuant	Ik drink ___ koffie.	te veel
+gram:cuant	Hij is ___ rustig.	heel
+gram:cuant	Heb je ___ gezien?	iemand
+gram:cuant	Ik wil ___ drinken.	iets
+gram:cuant	Mijn sleutels moeten ___ zijn.	ergens
+gram:cuant	Ik kan mijn telefoon ___ vinden.	nergens
+gram:cuant	In Nederland zie je ___ fietsen.	overal
+gram:cuant	Heb je ___ geld?	genoeg
+gram:cuant	Mijn huisgenoten slapen de ___ dag.	hele
+gram:conect	Ik blijf thuis, ___ ik ben ziek.	want
+gram:conect	Ik blijf thuis ___ ik ziek ben.	omdat
+gram:conect	Ik ben ziek, ___ ik blijf thuis.	dus
+gram:conect	Ik ben ziek. ___ blijf ik thuis.	Daarom
+gram:conect	___ het regent, ga ik fietsen.	Hoewel
+gram:conect	Het regent. ___ ga ik fietsen.	Toch
+gram:conect	___ ik klein was, woonde ik in Vigo.	Toen
+gram:conect	___ ik tijd heb, bel ik je.	Als
+gram:conect	Ik weet niet ___ hij komt.	of
+gram:conect	Ik denk ___ hij gelijk heeft.	dat
+gram:conect	Ik luister naar muziek ___ ik kook.	terwijl
+gram:conect	Ik spaar geld ___ ik een boot kan kopen.	zodat
+gram:conect	Ik poets mijn tanden ___ ik naar bed ga.	voordat
+gram:conect	___ ik gegeten had, ging ik wandelen.	Nadat
+gram:conect	Wacht hier ___ ik terugkom.	totdat
+gram:conect	We gaan zeilen, ___ het stormt.	tenzij
+gram:conect	Hij is rijk, ___ hij is niet gelukkig.	maar
+gram:conect	Wil je koffie ___ thee?	of
+gram:conect	Het is duur. ___ is het ver weg.	Bovendien
+gram:conect	Ik had geen tijd. ___ ben ik niet gekomen.	Daarom
+gram:conect	___ zijn hulp heb ik het gehaald.	Dankzij
+gram:conect	___ de regen gingen we naar het strand.	Ondanks
+gram:conect	De wedstrijd gaat niet door ___ het slechte weer.	vanwege
+gram:conect	___ mij is dat een goed idee.	Volgens
+gram:conect	Ik neem de fiets ___ de auto.	in plaats van
+gram:conect	Eerst eten we, ___ gaan we naar de film.	daarna
+gram:conect	Ik weet niet ___ hij woont.	waar
+gram:conect	Hij komt niet, ___ hij moet vandaag werken.	want
+gram:conect	Hij komt niet ___ hij vandaag moet werken.	omdat
+gram:conect	___ we bij het hotel aankwamen, was er niemand.	Toen
+gram:hebzijn	Ik ___ naar Amsterdam gegaan.	ben
+gram:hebzijn	Ik ___ een boek gelezen.	heb
+gram:hebzijn	Hij ___ gisteren aangekomen.	is
+gram:hebzijn	We ___ lang gewacht.	hebben
+gram:hebzijn	Zij ___ thuis gebleven.	is
+gram:hebzijn	Het ___ gisteren gebeurd.	is
+gram:hebzijn	Ik ___ vanochtend vroeg opgestaan.	ben
+gram:hebzijn	Hij ___ dokter geworden.	is
+gram:hebzijn	___ je goed geslapen?	Heb
+gram:hebzijn	De trein ___ al vertrokken.	is
+gram:hebzijn	Ik ___ in Santander geboren.	ben
+gram:hebzijn	We ___ naar huis gefietst.	zijn
+gram:hebzijn	We ___ twee uur gefietst.	hebben
+gram:hebzijn	Mijn opa ___ vorig jaar gestorven.	is
+gram:hebzijn	Hij ___ van de trap gevallen.	is
+gram:hebzijn	Ik ___ begonnen met de cursus.	ben
+gram:hebzijn	Zij ___ gestopt met roken.	is
+gram:hebzijn	Wat ___ je gisteren gedaan?	heb
+gram:hebzijn	Ik ___ hem gisteren gezien.	heb
+gram:hebzijn	We ___ naar Spanje gevlogen.	zijn
+gram:hebzijn	Het ___ de hele dag geregend.	heeft
+gram:hebzijn	Ik ___ naar Delft verhuisd.	ben
+gram:pasiva	Het jacht ___ nu gebouwd.	wordt
+gram:pasiva	Het jacht ___ vorig jaar gebouwd.	werd
+gram:pasiva	De brief ___ al verstuurd.	is
+gram:pasiva	Hier ___ Nederlands gesproken.	wordt
+gram:pasiva	De boten ___ in Nederland gemaakt.	worden
+gram:pasiva	Ik ___ gisteren gebeld door de dokter.	werd
+gram:pasiva	Het huis moet ___ schoongemaakt.	worden
+gram:pasiva	Er ___ hier veel gefietst.	wordt
+gram:pasiva	De wedstrijd ___ gewonnen door Spanje.	werd
+gram:pasiva	De rekening is al ___.	betaald
+gram:pasiva	Het ontwerp wordt morgen ___.	gepresenteerd
+gram:pasiva	De romp wordt ___ een onderaannemer gelast.	door
+gram:pasiva	Deze kaas ___ in Gouda gemaakt.	wordt
+gram:pasiva	De ramen ___ elke maand gewassen.	worden
+gram:relat	De man ___ daar staat, is mijn baas.	die
+gram:relat	Het huis ___ ik wil kopen, is duur.	dat
+gram:relat	De boeken ___ ik lees, zijn interessant.	die
+gram:relat	Het meisje ___ naast me zit, komt uit Polen.	dat
+gram:relat	Alles ___ hij zegt, is waar.	wat
+gram:relat	De vrouw met ___ ik werk, is aardig.	wie
+gram:relat	De stoel ___ ik zit, is kapot.	waarop
+gram:relat	De stad ___ ik woon, is klein.	waar
+gram:relat	Dat is de collega ___ ik je vertelde.	over wie
+gram:relat	Het project ___ ik werk, is groot.	waaraan
+gram:relat	De mensen ___ hier wonen, zijn vriendelijk.	die
+gram:relat	Het jacht ___ we bouwen, is tachtig meter lang.	dat
+gram:relat	Mijn broer, ___ in Madrid woont, komt morgen.	die
+gram:relat	Hij komt niet, ___ ik jammer vind.	wat
+gram:relat	Dit is de pen ___ ik schrijf.	waarmee
+gram:relat	Wie is de jongen met ___ je praat?	wie
+gram:relat	De mensen die daar ___, waren er niet.	werkten
+gram:er	___ staat een man voor de deur.	Er
+gram:er	Hoeveel broers heb je? Ik heb ___ twee.	er
+gram:er	Ken je Delft? Ja, ik woon ___.	er
+gram:er	Ik denk ___.	eraan
+gram:er	Ik wacht ___.	erop
+gram:er	Wat vind je ___?	ervan
+gram:er	Ik heb ___ geen zin in.	er
+gram:er	___ wordt hier veel gefietst.	Er
+gram:er	Zijn ___ nog vragen?	er
+gram:er	Ik kijk ___ graag naar.	er
+gram:er	Heb je een fiets? Nee, ik heb ___ geen.	er
+gram:er	Hij praat ___ nooit over.	er
+gram:er	Is ___ iemand thuis?	er
+gram:er	Ik ben het ___ niet mee eens.	er
+gram:teinf	Ik wil morgen ___.	komen
+gram:teinf	Ik probeer Nederlands ___.	te leren
+gram:teinf	Ik ga naar de winkel ___ brood te kopen.	om
+gram:teinf	Hij zit de hele dag ___.	te lezen
+gram:teinf	Ik sta ___ koken.	te
+gram:teinf	Ik ben aan het ___.	koken
+gram:teinf	Je hoeft niet ___.	te komen
+gram:teinf	Ik moet nu ___.	gaan
+gram:teinf	Vergeet niet de deur dicht ___.	te doen
+gram:teinf	Het begint ___.	te regenen
+gram:teinf	Ik heb zin om ___.	uit te gaan
+gram:teinf	Ze belooft ___.	te komen
+gram:teinf	Ik zou graag een groot huis ___.	hebben
+gram:teinf	Hij ligt op de bank ___.	te slapen
+gram:teinf	Ik blijf thuis ___.	werken
+gram:teinf	Het is moeilijk ___ Nederlands te spreken.	om
+gram:teinf	Ik durf niet ___.	te springen
+gram:teinf	Ik hoor hem ___.	zingen
+gram:teinf	Ik ga morgen ___.	zwemmen
+gram:teinf	Ik probeer je ___.	op te bellen
+gram:adj_e	een ___ huis	groot
+gram:adj_e	het ___ huis	grote
+gram:adj_e	een ___ tuin	grote
+gram:adj_e	___ huizen	grote
+gram:adj_e	Het huis is ___.	groot
+gram:adj_e	een ___ kind	klein
+gram:adj_e	het ___ kind	kleine
+gram:adj_e	mijn ___ boek	nieuwe
+gram:adj_e	geen ___ idee	goed
+gram:adj_e	een ___ fiets	rode
+gram:adj_e	een ___ jacht	duur
+gram:adj_e	dit ___ jacht	dure
+gram:adj_e	___ water	koud
+gram:adj_e	___ koffie	lekkere
+gram:adj_e	een ___ week	hele
+gram:adj_e	een ___ jaar	heel
+gram:adj_e	iets ___	leuks
+gram:adj_e	een ___ meisje	aardig
+gram:adj_e	de ___ meisjes	aardige
+gram:adj_e	de ___ dag	hele
+gram:adj_e	een ___ man	lange
+gram:adj_e	het ___ weer	mooie
+gram:adj_e	___ weer	mooi
+gram:compar	Mijn fiets is ___ dan jouw fiets.	sneller
+gram:compar	Dit boek is ___ dan dat boek.	beter
+gram:compar	Ik drink ___ thee dan koffie.	liever
+gram:compar	Hij is even groot ___ ik.	als
+gram:compar	Zij is groter ___ haar broer.	dan
+gram:compar	Dat is de ___ stad van Nederland.	mooiste
+gram:compar	Ik heb ___ tijd dan jij.	minder
+gram:compar	Dit is het ___ restaurant van Delft.	duurste
+gram:compar	Vandaag is het ___ dan gisteren.	kouder
+gram:compar	Ik fiets het ___.	liefst
+gram:compar	Hij heeft ___ boeken dan ik.	meer
+gram:compar	Het wordt steeds ___.	donkerder
+gram:compar	Wie is de ___ van de klas?	oudste
+gram:compar	Dit is ___ dan ik dacht.	duurder
+gram:plural	de man → plural	mannen
+gram:plural	de maan → plural	manen
+gram:plural	het boek → plural	boeken
+gram:plural	het huis → plural	huizen
+gram:plural	de brief → plural	brieven
+gram:plural	de tafel → plural	tafels
+gram:plural	de auto → plural	auto’s
+gram:plural	het kind → plural	kinderen
+gram:plural	het ei → plural	eieren
+gram:plural	de stad → plural	steden
+gram:plural	het schip → plural	schepen
+gram:plural	de dag → plural	dagen
+gram:plural	het glas → plural	glazen
+gram:plural	de foto → plural	foto’s
+gram:plural	de jongen → plural	jongens
+gram:plural	het meisje → plural	meisjes
+gram:plural	de boom → plural	bomen
+gram:plural	de zon → plural	zonnen
+gram:plural	het bed → plural	bedden
+gram:plural	de les → plural	lessen
+gram:plural	de muis → plural	muizen
+gram:plural	de weg → plural	wegen
+gram:plural	het lid → plural	leden
+gram:plural	de collega → plural	collega’s
+gram:plural	het café → plural	cafés
+gram:plural	de tante → plural	tantes
+gram:plural	de kamer → plural	kamers
+gram:plural	het bedrijf → plural	bedrijven
+gram:plural	de werf → plural	werven
+gram:plural	de vis → plural	vissen
+gram:plural	de reis → plural	reizen
+gram:plural	het menu → plural	menu’s
+gram:plural	de taxi → plural	taxi’s
+gram:plural	de baby → plural	baby’s
+gram:dimin	het huis → diminutivo	huisje
+gram:dimin	de boom → diminutivo	boompje
+gram:dimin	de stoel → diminutivo	stoeltje
+gram:dimin	de man → diminutivo	mannetje
+gram:dimin	de bal → diminutivo	balletje
+gram:dimin	de koning → diminutivo	koninkje
+gram:dimin	de auto → diminutivo	autootje
+gram:dimin	de tafel → diminutivo	tafeltje
+gram:dimin	het raam → diminutivo	raampje
+gram:dimin	de ring → diminutivo	ringetje
+gram:dimin	de kamer → diminutivo	kamertje
+gram:dimin	het boek → diminutivo	boekje
+gram:dimin	de zon → diminutivo	zonnetje
+gram:dimin	de trein → diminutivo	treintje
+gram:dimin	de deur → diminutivo	deurtje
+gram:dimin	het bier → diminutivo	biertje
+gram:dimin	de kop → diminutivo	kopje
+gram:dimin	de film → diminutivo	filmpje
+gram:dimin	de arm → diminutivo	armpje
+gram:dimin	de woning → diminutivo	woninkje
+gram:dimin	het ei → diminutivo	eitje
+gram:dimin	de vrouw → diminutivo	vrouwtje
+gram:dimin	de kar → diminutivo	karretje
+gram:dimin	de pen → diminutivo	pennetje
+gram:dimin	de weg → diminutivo	weggetje
+gram:dimin	het schip → diminutivo	scheepje
+gram:dimin	het glas → diminutivo	glaasje
+gram:dimin	het spel → diminutivo	spelletje
+gram:dimin	de paraplu → diminutivo	parapluutje
+gram:dimin	de oma → diminutivo	omaatje
+gram:dimin	de foto → diminutivo	fotootje
+gram:demost	___ boek hier is van mij.	Dit
+gram:demost	___ fiets hier is nieuw.	Deze
+gram:demost	___ huis daar is te koop.	Dat
+gram:demost	___ man daar is mijn buurman.	Die
+gram:demost	___ schoenen hier zijn te klein.	Deze
+gram:demost	___ kinderen daar spelen voetbal.	Die
+gram:demost	Ik neem ___ jacht hier.	dit
+gram:demost	Zie je ___ boot daar?	die
+gram:demost	___ meisje hier is mijn zus.	Dit
+gram:demost	___ week heb ik veel werk.	Deze
+gram:demost	___ jaar ga ik naar Japan.	Dit
+gram:pron	Ik zie ___ elke dag.	hem
+gram:pron	Ik geef ___ het boek.	haar
+gram:pron	Dat is ___ fiets.	mijn
+gram:pron	Is dit ___ jas?	jouw
+gram:pron	Ik ga met ___ naar de film.	hen
+gram:pron	Wij wonen hier. Dit is ___ huis.	ons
+gram:pron	Dit is ___ tuin.	onze
+gram:pron	Hoe gaat het met ___?	jou
+gram:pron	___ heet Lotte.	Zij
+gram:pron	Kent u ___?	mij
+gram:pron	Die tas is van ___.	haar
+gram:pron	Ik bel ___ morgen.	jullie
+gram:pron	Waar is mijn telefoon? Ik zie ___ niet.	hem
+gram:pron	Waar is het boek? Ik zie ___ niet.	het
+gram:pron	Waar zijn mijn sleutels? Ik zie ___ niet.	ze
+gram:spell	Hij ___ in Delft.	woont
+gram:spell	Ik ___ in Delft.	woon
+gram:spell	Zij ___ veel.	leest
+gram:spell	Ik ___ een brief.	schrijf
+gram:spell	Hij ___ morgen dertig.	wordt
+gram:spell	___ je snel moe?	Word
+gram:spell	Ik ___ gezond.	leef
+gram:spell	Wij ___ gezond.	leven
+gram:spell	Hij ___ een huis.	koopt
+gram:spell	Wij ___ brood.	kopen
+gram:spell	Gisteren ___ ik hard.	werkte
+gram:spell	Vorig jaar ___ ik in Vigo.	woonde
+gram:spell	Ik heb hard ___.	gewerkt
+gram:spell	Ik heb in Vigo ___.	gewoond
+gram:spell	Hij ___ veel voor zijn werk.	reist
+gram:spell	Gisteren ___ hij naar Parijs.	reisde
+gram:spell	Ik ___ je.	geloof
+gram:spell	Hij heeft het nooit ___.	geloofd
+gram:spell	Hij is ___.	Pools
+gram:spell	Ik kom op ___.	maandag
+gram:spell	In ___ is het koud.	januari
+gram:spell	Hij spreekt goed ___.	Nederlands
+gram:spell	Wij ___ te veel.	eten
+gram:spell	Hij ___ te veel.	eet
+gram:spell	Ik ___ het niet.	weet
+gram:spell	Hij ___ me morgen.	belt
+gram:spell	Ik heb hem ___.	gebeld
+gram:spell	Dat ___ ik niet leuk.	vind
+gram:spell	Hij ___ het leuk.	vindt
+gram:spell	Wat is er ___?	gebeurd
+gram:spell	Dat ___ elke dag.	gebeurt
+gram:spell	Ik heb een klacht ___.	ingediend
+gram:compuestos	___ huisdeur	de
+gram:compuestos	___ slaapkamer	de
+gram:compuestos	___ woordenboek	het
+gram:compuestos	___ zwembad	het
+gram:compuestos	___ voetbalwedstrijd	de
+gram:compuestos	___ scheepswerf	de
+gram:compuestos	___ tafeltje	het
+gram:compuestos	___ ziekenhuis	het
+gram:compuestos	___ huisarts	de
+gram:compuestos	___ fietspad	het
+gram:compuestos	___ werkdag	de
+gram:compuestos	___ stadhuis	het
+gram:compuestos	stad + huis	stadhuis
+gram:compuestos	boek + kast	boekenkast
+gram:compuestos	school + tas	schooltas
+gram:compuestos	zon + bril	zonnebril
+gram:compuestos	dorp + plein	dorpsplein
+gram:compuestos	kind + kamer	kinderkamer
+gram:compuestos	schip + bouw	scheepsbouw
+gram:compuestos	Lo contrario de «mogelijk»	onmogelijk
+gram:compuestos	Lo contrario de «bekend»	onbekend
+gram:compuestos	Leer otra vez: ___	herlezen
+gram:compuestos	Un malentendido: het ___	misverstand
+gram:compuestos	vrij → de ___	vrijheid
+gram:compuestos	gezond → de ___	gezondheid
+gram:compuestos	vriend → de ___	vriendschap
+gram:compuestos	Sin trabajo: ___	werkloos
+gram:compuestos	Que se puede beber: ___	drinkbaar
+gram:compuestos	betalen → de ___	betaling
+puz:basis	Hoe heet je?
+puz:basis	Ik heet Javier en ik ben Spaans.
+puz:basis	Waar kom je vandaan?
+puz:basis	Ik kom uit Spanje, uit Santander.
+puz:basis	Hoe oud ben je?
+puz:basis	Ik ben achtentwintig jaar.
+puz:basis	Waar woon je?
+puz:basis	Ik woon sinds een jaar in Delft.
+puz:basis	Wat doe je voor werk?
+puz:basis	Hoe lang woon je hier al?
+puz:basis	Spreek je Engels?
+puz:basis	Kun je wat langzamer praten?
+puz:basis	Hoe zeg je dit in het Nederlands?
+puz:basis	Heb je broers of zussen?
+puz:basis	Wat doe je in je vrije tijd?
+puz:basis	Ik speel twee keer per week waterpolo.
+puz:basis	Leuk je te ontmoeten.
+puz:basis	Wanneer ben je jarig?
+puz:basis	Wat is je telefoonnummer?
+puz:basis	Ik studeer maritieme techniek in Delft.
+puz:gustos	Ik zwem graag.
+puz:gustos	Ik hou van chocola.
+puz:gustos	Ik wil graag een koffie.
+puz:gustos	Ik zou graag in Amsterdam willen wonen.
+puz:gustos	Ik drink liever thee.
+puz:gustos	Ik blijf liever thuis.
+puz:gustos	Wat drink je liever, koffie of thee?
+puz:gustos	Ik zou liever morgen gaan.
+puz:gustos	Ik reis het liefst.
+puz:gustos	Ik sta niet graag vroeg op.
+puz:gustos	Ik vind deze stad prachtig.
+puz:gustos	Vind je Nederlandse kaas lekker?
+puz:gustos	Ik heb zin in een biertje.
+puz:gustos	Ik heb geen zin om uit te gaan.
+puz:gustos	Ik zou graag willen, maar ik kan niet.
+puz:opinar	Ik ben het met je eens.
+puz:opinar	Ik ben het er niet mee eens.
+puz:opinar	Je hebt gelijk.
+puz:opinar	Ik denk dat het een goed idee is.
+puz:opinar	Volgens mij is het te duur.
+puz:opinar	Dat hangt van het weer af.
+puz:opinar	Ik weet het niet zeker.
+puz:opinar	Jammer dat je niet kunt komen.
+puz:opinar	Wat vind jij ervan?
+puz:opinar	Dat klinkt goed.
+puz:opinar	Ik vind het een interessant idee.
+puz:opinar	Dat is niet waar.
+puz:conectores	Het regent, maar ik ga toch fietsen.
+puz:conectores	Ik blijf thuis omdat ik moe ben.
+puz:conectores	Ik ben moe, dus ik ga naar bed.
+puz:conectores	Hoewel het duur is, koop ik het.
+puz:conectores	Toen ik aankwam, was hij al weg.
+puz:conectores	Als ik tijd heb, bel ik je.
+puz:conectores	Daarom kom ik niet.
+puz:conectores	Bovendien is het heel goedkoop.
+puz:conectores	Ik luister naar muziek terwijl ik kook.
+puz:conectores	Eigenlijk heb ik geen honger.
+puz:conectores	Ik weet dat hij morgen niet komt.
+puz:conectores	Ik weet niet of hij komt.
+puz:separ	Ik bel je morgen op.
+puz:separ	Ik sta om zeven uur op.
+puz:separ	Hoe laat komt de trein aan?
+puz:separ	Gisteren heb ik het huis schoongemaakt.
+puz:separ	Ik wil je uitnodigen.
+puz:separ	Ik probeer je op te bellen.
+puz:separ	Omdat ik vandaag uitga, kook ik niet.
+puz:separ	Hij maakt nooit schoon.
+puz:separ	Ga je mee?
+puz:separ	Vul het formulier in, alsjeblieft.
+puz:separ	We hebben om acht uur afgesproken.
+puz:separ	Ik denk erover na.
+puz:neg	Ik bel je niet op.
+puz:neg	Ik heb hem vandaag niet gezien.
+puz:neg	Ik woon niet in Amsterdam.
+puz:neg	Ik heb geen broers.
+puz:neg	Ik kan morgen niet komen.
+puz:neg	Ik meld me morgen niet aan.
+puz:neg	Ik ben niet Italiaans, maar Spaans.
+puz:neg	Vandaag werk ik niet.
+puz:neg	Ik drink geen alcohol.
+puz:neg	Ik weet het nog niet.
+puz:neg	Ik woon daar niet meer.
+puz:reflex	Morgen voel ik me beter.
+puz:reflex	Ik heb me vergist.
+puz:reflex	Ik herinner me zijn naam niet.
+puz:reflex	We moeten ons haasten.
+puz:reflex	Hij verveelt zich in de les.
+puz:reflex	Ik verheug me op de vakantie.
+puz:reflex	Ik erger me aan het lawaai.
+puz:reflex	Maak je geen zorgen.
+puz:reflex	Ik heb me gisteren niet aangemeld.
+puz:reflex	Ik vraag me af waarom.
+puz:orden	Morgen ga ik naar Amsterdam.
+puz:orden	Op zondag kook ik de hele middag.
+puz:orden	In Nederland regent het veel.
+puz:orden	Daarom leer ik Nederlands.
+puz:orden	Toen we bij het hotel aankwamen, was er niemand.
+puz:orden	Een uur later kregen we de sleutels.
+puz:orden	Gisteren heb ik de hele dag gewerkt.
+puz:orden	Om acht uur begint de les.
+puz:orden	Misschien komt hij morgen.
+puz:orden	Ik ga elke dag met de fiets naar mijn werk.
+puz:orden	Ik geef hem morgen het boek.
+puz:subord	Ik denk dat de Nederlandse keuken niet lekker is.
+puz:subord	Ik weet niet waar hij woont.
+puz:subord	Hij zegt dat hij morgen niet kan komen.
+puz:subord	Als het regent, blijven we thuis.
+puz:subord	Hoewel ik moe ben, ga ik trainen.
+puz:subord	Voordat ik naar bed ga, lees ik even.
+puz:subord	Hij vraagt of ik tijd heb.
+puz:subord	Het is jammer dat je niet bent gekomen.
+puz:subord	Ik ben blij omdat ik geslaagd ben.
+puz:subord	Ik weet dat je gelijk hebt.
+puz:tiempos	Ik heb te veel gegeten.
+puz:tiempos	We zijn met de auto naar Frankrijk gegaan.
+puz:tiempos	We hadden de kamer gereserveerd.
+puz:tiempos	Ik ben in Santander geboren.
+puz:tiempos	Ik heb mijn hele leven in Vigo doorgebracht.
+puz:tiempos	Wat heb je gisteren gedaan?
+puz:tiempos	Het jacht werd vorig jaar gebouwd.
+puz:tiempos	Hij ligt op de bank te lezen.
+puz:tiempos	Ik ben aan het koken.
+puz:tiempos	Ik zou graag een groot huis willen hebben.
+puz:cuant	Bijna niemand spreekt Spaans.
+puz:cuant	Mijn huisgenoten slapen de hele dag.
+puz:cuant	We zijn allemaal moe.
+puz:cuant	Ik heb alles opgegeten.
+puz:cuant	Alle studenten hebben een fiets.
+puz:cuant	Iedereen weet het.
+puz:cuant	Ik ken hier niemand.
+puz:cuant	Ik werk elke dag.
+chat	Hoe heet je?
+chat	Waar kom je vandaan?
+chat	Hoe oud ben je?
+chat	Hoe lang woon je al in Nederland?
+chat	Wat doe je voor werk?
+chat	Hoe gaat het met je?
+chat	Wil je iets drinken?
+chat	Heb je broers of zussen?
+chat	Spreek je Nederlands?
+chat	Wat doe je meestal in het weekend?
+chat	Wanneer ben je jarig?
+chat	Waar woon je?
+chat	Zullen we morgen iets drinken?
+chat	Vind je het leuk in Nederland?
+chat	Hoe laat is het?
+chat	Waarom leer je Nederlands?
+chat	Heb je een vriendin?
+chat	Wat heb je gisteren gedaan?
+chat	Hoe ga je naar je werk?
+chat	Wat vind je van het Nederlandse eten?
+chat	Ga je mee naar de kroeg?
+chat	Ben je hier op vakantie?
+chat	Hoelang zijn jullie al samen?
+chat	Wat doe je precies op je werk?
+chat	Wat heb je als eerste gedaan toen je in Nederland aankwam?
+chat	Wat vind je het moeilijkste aan het Nederlands?
+chat	Heb je zin om vanavond mee te eten?
+chat	Kun je me even helpen?
+chat	Wat ga je dit weekend doen?
+chat	Waar heb je Nederlands geleerd?
+chat	Mag ik je iets vragen?
+chat	Hoe was je dag?
+chat	Hoe laat begin je morgen?
+chat	Wat wil je later worden?
+chat	Wat eten jullie in Spanje met kerst?
+chat	Sinds wanneer speel je waterpolo?
+chat	Zullen we een afspraak maken?
+chat	Wat voor weer is het vandaag?
+chat	Ben je het met me eens?
+chat	Waarom heb je voor Nederland gekozen?
+chat	Hoe was je vakantie in Frankrijk?
+chat	Wat is jouw favoriete gerecht?

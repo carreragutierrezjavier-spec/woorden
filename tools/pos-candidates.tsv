@@ -1,0 +1,365 @@
+zoet	dulce	eten
+zuur	ácido	eten
+bitter	amargo	eten
+pittig	picante	eten
+vers	fresco (recién hecho)	eten
+rauw	crudo	eten
+getrouwd	casado	familie
+gescheiden	divorciado	familie
+vrijgezel	soltero	familie
+zwanger	embarazada	familie
+verantwoordelijk	responsable	werk
+vandaag	hoy	tijd
+morgen	mañana (el día)	tijd
+gisteren	ayer	tijd
+overmorgen	pasado mañana	tijd
+warm	caluroso	tijd
+koud	frío	tijd
+maandag	lunes	dagen
+dinsdag	martes	dagen
+woensdag	miércoles	dagen
+donderdag	jueves	dagen
+vrijdag	viernes	dagen
+zaterdag	sábado	dagen
+zondag	domingo	dagen
+januari	enero	dagen
+februari	febrero	dagen
+maart	marzo	dagen
+april	abril	dagen
+mei	mayo	dagen
+juni	junio	dagen
+juli	julio	dagen
+augustus	agosto	dagen
+september	septiembre	dagen
+oktober	octubre	dagen
+november	noviembre	dagen
+december	diciembre	dagen
+hardlopen	correr (hacer running)	sport
+scoren	marcar un gol	sport
+belangrijk	importante	adj
+interessant	interesante	adj
+nieuwsgierig	curioso	adj
+moeilijk	difícil	adj
+makkelijk	fácil	adj
+leuk	divertido, majo	adj
+saai	aburrido	adj
+druk	ajetreado, concurrido	adj
+rustig	tranquilo	adj
+moe	cansado	adj
+blij	contento	adj
+boos	enfadado	adj
+verdrietig	triste	adj
+bang	asustado	adj
+ziek	enfermo	adj
+gezond	sano	adj
+duur	caro	adj
+goedkoop	barato	adj
+snel	rápido	adj
+langzaam	lento	adj
+groot	grande	adj
+klein	pequeño	adj
+oud	viejo	adj
+jong	joven	adj
+nieuw	nuevo	adj
+mooi	bonito	adj
+lelijk	feo	adj
+lekker	rico (de sabor)	adj
+vies	asqueroso	adj
+schoon	limpio	adj
+vuil	sucio	adj
+eerlijk	sincero, justo	adj
+aardig	amable	adj
+raar	raro	adj
+handig	práctico	adj
+nodig	necesario	adj
+duidelijk	claro	adj
+zeker	seguro	adj
+trots	orgulloso	adj
+zenuwachtig	nervioso	adj
+slim	listo	adj
+dom	tonto	adj
+grappig	gracioso	adj
+lui	vago	adj
+jaloers	celoso	adj
+beleefd	educado	adj
+bezig	ocupado	adj
+vrij	libre	adj
+gezellig	agradable, acogedor	adj
+lastig	complicado	adj
+geweldig	estupendo	adj
+verschrikkelijk	horrible	adj
+tevreden	satisfecho	adj
+wie	quién	vragen
+wat	qué	vragen
+waar	dónde	vragen
+waar vandaan	de dónde (waar … vandaan)	vragen
+wanneer	cuándo	vragen
+waarom	por qué	vragen
+hoe	cómo	vragen
+hoeveel	cuánto, cuántos	vragen
+hoe laat	a qué hora	vragen
+hoe lang	cuánto tiempo	vragen
+hoe vaak	cada cuánto	vragen
+hoe oud	qué edad	vragen
+welke	cuál (de-woord y plural)	vragen
+welk	cuál (het-woord)	vragen
+wat voor	qué tipo de	vragen
+en	y	conectores
+maar	pero	conectores
+of	o	conectores
+want	porque (sin cambiar el orden)	conectores
+omdat	porque (verbo al final)	conectores
+dus	así que	conectores
+als	si (condición)	conectores
+toen	cuando (una vez, en pasado)	conectores
+hoewel	aunque	conectores
+terwijl	mientras	conectores
+daarom	por eso	conectores
+bovendien	además	conectores
+toch	aun así	conectores
+eigenlijk	en realidad	conectores
+misschien	quizás	conectores
+ook	también	conectores
+nog	todavía	conectores
+al	ya	conectores
+meestal	normalmente	conectores
+soms	a veces	conectores
+altijd	siempre	conectores
+nooit	nunca	conectores
+vaak	a menudo	conectores
+zodat	de modo que, para que	conectores
+doordat	debido a que	conectores
+nadat	después de que	conectores
+voordat	antes de que	conectores
+totdat	hasta que	conectores
+zodra	en cuanto	conectores
+tenzij	a menos que	conectores
+alsof	como si	conectores
+zolang	mientras, siempre que	conectores
+ondanks	a pesar de	conectores
+dankzij	gracias a	conectores
+vanwege	a causa de	conectores
+volgens	según	conectores
+behalve	excepto	conectores
+in plaats van	en vez de	conectores
+bijvoorbeeld	por ejemplo	conectores
+namelijk	es que, a saber	conectores
+trouwens	por cierto	conectores
+echter	sin embargo (formal)	conectores
+daarentegen	en cambio	conectores
+daarnaast	aparte de eso	conectores
+ten eerste	en primer lugar	conectores
+ten slotte	por último	conectores
+kortom	en resumen	conectores
+in elk geval	en cualquier caso	conectores
+hopelijk	ojalá, con suerte	conectores
+helaas	por desgracia	conectores
+waarschijnlijk	probablemente	conectores
+natuurlijk	por supuesto, claro	conectores
+inderdaad	efectivamente	conectores
+zelfs	incluso	conectores
+vooral	sobre todo	conectores
+nogal	bastante	conectores
+erg	muy, grave	conectores
+heel	muy, entero	conectores
+te	demasiado (+ adjetivo)	conectores
+zo	tan, así	conectores
+even	un momento, un rato	conectores
+juist	precisamente, correcto	conectores
+anders	si no, de otra manera	conectores
+verder	por lo demás, más lejos	conectores
+normaal gesproken	en condiciones normales	conectores
+eerlijk gezegd	sinceramente	conectores
+met andere woorden	en otras palabras	conectores
+aan de ene kant	por un lado	conectores
+aan de andere kant	por otro lado	conectores
+wat mij betreft	por mi parte, en lo que a mí respecta	conectores
+zoals	como (comparación, ejemplo)	conectores
+net als	igual que	conectores
+dat wil zeggen	es decir	conectores
+over het algemeen	en general	conectores
+rood	rojo	kleuren
+blauw	azul	kleuren
+groen	verde	kleuren
+geel	amarillo	kleuren
+zwart	negro	kleuren
+wit	blanco	kleuren
+grijs	gris	kleuren
+bruin	marrón	kleuren
+oranje	naranja (color)	kleuren
+roze	rosa	kleuren
+paars	morado	kleuren
+licht	claro (color), ligero	kleuren
+donker	oscuro	kleuren
+rond	redondo	kleuren
+vierkant	cuadrado	kleuren
+recht	recto	kleuren
+krom	torcido	kleuren
+lang	largo, alto (persona)	kleuren
+kort	corto	kleuren
+breed	ancho	kleuren
+smal	estrecho	kleuren
+hoog	alto (cosas)	kleuren
+laag	bajo	kleuren
+dik	gordo, grueso	kleuren
+dun	delgado, fino	kleuren
+zwaar	pesado	kleuren
+vol	lleno	kleuren
+leeg	vacío	kleuren
+hard	duro, fuerte (volumen)	kleuren
+zacht	blando, suave	kleuren
+scherp	afilado	kleuren
+plat	plano	kleuren
+diep	profundo	kleuren
+ver	lejos	kleuren
+dichtbij	cerca	kleuren
+bewolkt	nublado	natuur
+zonnig	soleado	natuur
+nat	mojado	natuur
+droog	seco	natuur
+glad	resbaladizo, liso	natuur
+gelukkig	feliz, por suerte	karakter
+eenzaam	solitario (que se siente solo)	karakter
+verliefd	enamorado	karakter
+teleurgesteld	decepcionado	karakter
+verbaasd	sorprendido	karakter
+opgelucht	aliviado	karakter
+bezorgd	preocupado	karakter
+geïrriteerd	irritado	karakter
+ontspannen	relajado	karakter
+enthousiast	entusiasmado	karakter
+dankbaar	agradecido	karakter
+verlegen	tímido	karakter
+brutaal	descarado	karakter
+gul	generoso	karakter
+gierig	tacaño	karakter
+geduldig	paciente	karakter
+ongeduldig	impaciente	karakter
+betrouwbaar	fiable	karakter
+eigenwijs	cabezota	karakter
+streng	estricto	karakter
+direct	directo	karakter
+bescheiden	modesto	karakter
+zelfverzekerd	seguro de sí mismo	karakter
+nuchter	sensato, con los pies en el suelo	karakter
+behulpzaam	servicial	karakter
+serieus	serio	karakter
+vrolijk	alegre	karakter
+chagrijnig	malhumorado	karakter
+hectisch	frenético	karakter
+betrokken	implicado	karakter
+bekend	conocido (adjetivo)	karakter
+onbekend	desconocido	karakter
+beroemd	famoso	karakter
+onvergetelijk	inolvidable	karakter
+vervelend	molesto, pesado	karakter
+beperkt	limitado	karakter
+vriendelijk	simpático, cordial	karakter
+onbeleefd	maleducado	karakter
+verkouden	resfriado	gezondheid
+gebroken	roto	gezondheid
+misselijk	con náuseas	gezondheid
+duizelig	mareado	gezondheid
+gewond	herido	gezondheid
+uitgeput	agotado (muy cansado)	gezondheid
+fit	en forma	gezondheid
+links	a la izquierda	reizen
+rechts	a la derecha	reizen
+rechtdoor	todo recto	reizen
+lek	pinchado	reizen
+onderweg	de camino	reizen
+verdwaald	perdido (sin saber dónde estás)	reizen
+contant	en efectivo	geld
+gratis	gratis	geld
+waard	que vale (tiene un valor de)	geld
+tweedehands	de segunda mano	geld
+uitverkocht	agotado (sin existencias)	geld
+gesloten	cerrado	geld
+open	abierto	geld
+vloeiend	con fluidez	studie
+alles	todo (las cosas)	cantidades
+alle	todos los, todas las (+ sustantivo)	cantidades
+allemaal	todos (sin sustantivo, tras el verbo)	cantidades
+iedereen	todo el mundo	cantidades
+niemand	nadie	cantidades
+niets	nada	cantidades
+niks	nada (coloquial)	cantidades
+iets	algo	cantidades
+iemand	alguien	cantidades
+ergens	en algún sitio	cantidades
+nergens	en ningún sitio	cantidades
+overal	en todas partes	cantidades
+veel	mucho, muchos	cantidades
+weinig	poco, pocos	cantidades
+genoeg	suficiente	cantidades
+te veel	demasiado (cantidad)	cantidades
+een paar	un par de, unos cuantos	cantidades
+een beetje	un poco	cantidades
+sommige	algunos (de un grupo)	cantidades
+allebei	los dos, ambos	cantidades
+elke	cada (con palabras de «de»)	cantidades
+elk	cada (con palabras de «het»)	cantidades
+geen enkele	ningún, ni un solo	cantidades
+bijna	casi	cantidades
+bijna niemand	casi nadie	cantidades
+bijna alles	casi todo	cantidades
+ongeveer	aproximadamente	cantidades
+minstens	al menos	cantidades
+hoogstens	como mucho	cantidades
+dubbel	doble	cantidades
+samen	juntos	cantidades
+alleen	solo, solamente	cantidades
+ander	otro	cantidades
+hetzelfde	lo mismo	cantidades
+dezelfde	el mismo, la misma	cantidades
+verschillend	diferente, distinto	cantidades
+zoveel	tanto	cantidades
+meer	más	cantidades
+minder	menos	cantidades
+nog een	otro más	cantidades
+nu	ahora	momento
+straks	luego, dentro de un rato	momento
+meteen	enseguida, inmediatamente	momento
+net	justo ahora, hace un momento	momento
+vroeg	temprano	momento
+laat	tarde	momento
+vroeger	antes, antiguamente	momento
+later	más tarde	momento
+daarna	después (de eso)	momento
+eerst	primero	momento
+dan	entonces, luego	momento
+binnenkort	pronto, dentro de poco	momento
+onlangs	hace poco, recientemente	momento
+tegenwoordig	hoy en día	momento
+ooit	alguna vez	momento
+zelden	rara vez	momento
+regelmatig	con regularidad	momento
+af en toe	de vez en cuando	momento
+dagelijks	a diario	momento
+wekelijks	cada semana	momento
+vanavond	esta noche (antes de acostarse)	momento
+vanochtend	esta mañana	momento
+vanmiddag	esta tarde	momento
+vannacht	esta noche (de madrugada)	momento
+volgende week	la semana que viene	momento
+vorige week	la semana pasada	momento
+een week geleden	hace una semana	momento
+over een week	dentro de una semana	momento
+sinds	desde, desde hace	momento
+tijdens	durante	momento
+tot	hasta	momento
+op tijd	a tiempo, puntual	momento
+te laat	demasiado tarde, con retraso	momento
+eindelijk	por fin (tras mucho esperar)	momento
+plotseling	de repente	momento
+ondertussen	mientras tanto	momento
+tot nu toe	hasta el momento	momento
+voorlopig	por ahora, de momento	momento
+uiteindelijk	al final, finalmente	momento
+nog niet	todavía no	momento
+niet meer	ya no	momento
+stuurboord	estribor	jachtbouw
+bakboord	babor	jachtbouw
+geldig	válido	administratie
+verlopen	caducado	administratie
+verplicht	obligatorio	administratie

@@ -1,8 +1,8 @@
 'use strict';
-/* Woorden · pantallas: Hoy, Practicar, Palabras y Yo */
+/* Woorden · pantallas: Hoy, Practicar, Diccionario y Yo */
 
-const VERSION='4.1';
-let curTab='home', sheetOpen=false, sheetRebuild=null;
+const VERSION='5.0';
+let curTab='home', sheetStack=[];
 const TABS=['home','practice','dict','me'];
 function showTab(name){
   curTab=name; closeSheet();
@@ -11,17 +11,24 @@ function showTab(name){
   ({home:renderHome,practice:renderPractice,dict:renderDict,me:renderMe})[name]();
   hud();
 }
-function refreshUI(){ hud(); if(sheetOpen&&sheetRebuild) sheetRebuild(); ({home:renderHome,practice:renderPractice,dict:renderDict,me:renderMe})[curTab](); }
+function refreshUI(){ hud(); if(sheetStack.length) rebuildSheet(); ({home:renderHome,practice:renderPractice,dict:renderDict,me:renderMe})[curTab](); }
 function leavePlay(){ $('play').hidden=true; $('end').hidden=true; document.body.classList.remove('playing'); refreshUI(); }
+/* subpáginas: se apilan, y «atrás» vuelve a la anterior */
 function openSheet(title,build){
-  $('sheetTitle').textContent=title; const b=$('sheetBody');
-  sheetRebuild=()=>{ const y=$('sheet').scrollTop; b.innerHTML=''; build(b); $('sheet').scrollTop=y; };
-  b.innerHTML=''; build(b); $('sheet').hidden=false; $('sheet').scrollTop=0; sheetOpen=true;
+  if(sheetStack.length) sheetStack[sheetStack.length-1].y=$('sheet').scrollTop;
+  sheetStack.push({title,build,y:0}); renderSheet(0);
 }
-function closeSheet(){ $('sheet').hidden=true; sheetOpen=false; sheetRebuild=null; }
-const WMODES=[['type','Escribir','Después de verla una vez, cada palabra se escribe con su artículo. Es lo que mejor las fija.'],
-  ['mix','Mezcla','Primero eliges entre cuatro; la escribes cuando ya la has acertado un par de veces.'],
-  ['mc','Elegir','Solo elegir entre cuatro. Rápido para el tranvía, pero se queda menos.']];
+function renderSheet(y){
+  const top=sheetStack[sheetStack.length-1]; if(!top){ $('sheet').hidden=true; return; }
+  $('sheetTitle').textContent=top.title; const b=$('sheetBody'); b.innerHTML=''; top.build(b);
+  $('sheet').hidden=false; $('sheet').scrollTop=y||0;
+}
+function rebuildSheet(){ renderSheet($('sheet').scrollTop); }
+function backSheet(){ sheetStack.pop(); const top=sheetStack[sheetStack.length-1]; if(top) renderSheet(top.y||0); else closeSheet(); }
+function closeSheet(){ sheetStack=[]; $('sheet').hidden=true; }
+const WMODES=[['type','Escribir','Cada palabra nueva se presenta y la copias una vez; desde ahí siempre se escribe, con su artículo. Es lo que mejor las fija.'],
+  ['mix','Mezcla','Las primeras veces eliges entre cuatro; cuando ya la has acertado un par de veces, pasas a escribirla.'],
+  ['mc','Elegir','Solo eliges entre cuatro. Va más rápido, pero se recuerda menos.']];
 function modeCtl(rerender){
   const cur=S.opt.wmode||'type';
   return H('div.modectl',null,
@@ -32,6 +39,7 @@ const bar=(pct,cls)=>H('div.bar'+(cls?'.'+cls:''),null,H('i',{style:'width:'+cla
 const bar2=(a,b)=>H('div.bar.two',null,H('i.b',{style:'width:'+clamp(b*100,0,100)+'%'}),H('i',{style:'width:'+clamp(a*100,0,100)+'%'}));
 const pl=(n,one,many)=>n+' '+(n===1?one:many);
 const fmt=n=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const skName=id=>{ const s=SK[id]; if(!s) return id; return s.grp==='prep'&&id!=='prep'?(s.n==='Las demás'?'otras preposiciones':'la preposición «'+s.n+'»'):s.n; };
 
 /* ======================= HOY ======================= */
 function greeting(){ const h=new Date().getHours(); return h<6?'Goedenacht':h<12?'Goedemorgen':h<18?'Goedemiddag':'Goedenavond'; }
@@ -44,31 +52,66 @@ function homeRing(){
   fg.setAttribute('stroke-dashoffset',String(314.16*(1-p)));
   $('ringXp').textContent=S.day.xp; $('ringGoal').textContent='de '+g+' XP';
 }
+/* qué conviene hacer aparte de las rondas: lo que menos has tocado esta semana */
+function recommend(){
+  const t=T(), a={v:0,g:0,f:0,l:0,c:0}; let tot=0;
+  for(let d=t-6;d<=t;d++){ const L=S.log[d]; if(L&&L.a) for(const k in L.a){ a[k]=(a[k]||0)+L.a[k]; tot+=L.a[k]; } }
+  if(SK.mios&&SK.mios.items.length&&!skillState('mios').done&&skillState('mios').ls!==t)
+    return {title:'Tus errores de los textos',why:'Frases sacadas de lo que me has mandado para corregir. Hasta que no las aciertes casi todas, vuelven.',go:()=>play('gram','mios')};
+  /* temporada: hasta el 5 de diciembre, el vocabulario de Sinterklaas */
+  { const d=new Date(), m=d.getMonth(), day=d.getDate(), fd=SUBBY['sust:feestdagen'];
+    if(fd&&((m===10&&day>=10)||(m===11&&day<=5))&&fd.w.filter(w=>!seen(w.k)).length>5&&!(td().k['rec:fd']))
+      return {title:'Temporada de Sinterklaas',why:'Hasta el 5 de diciembre: el vocabulario de las fiestas (lootjes, pepernoten, het gedicht…).',go:()=>{ td().k['rec:fd']=1; play('sub','sust:feestdagen'); }}; }
+  if(tot<40) return null;
+  const target={v:0.42,g:0.3,f:0.1,l:0.12,c:0.06};
+  const k=Object.keys(target).sort((x,y)=>a[x]/tot/target[x]-a[y]/tot/target[y])[0];
+  const pct=Math.round(a[k]/tot*100);
+  if(a[k]/tot>=target[k]*0.7) return null;
+  if(k==='g'){ const id=pickSkills(1)[0]||'prep:op'; return {title:'Gramática: '+skName(id),why:'Esta semana solo el '+pct+' % de lo que has hecho ha sido gramática.',go:()=>play('gram',id)}; }
+  if(k==='l') return {title:'Escucha y ordena',why:'Esta semana has trabajado poco el oído ('+pct+' %). Oyes una frase y la montas.',go:()=>play('hearTiles')};
+  if(k==='c') return {title:'Charla con Lotte',why:'Hace días que no practicas conversación.',go:()=>play('chat')};
+  if(k==='f') return {title:'Monta la frase',why:'Poca práctica de orden de la frase esta semana ('+pct+' %).',go:()=>play('puzzle')};
+  const sub=Object.values(SUBBY).filter(s=>s.g!=='expr').map(s=>[s,s.w.filter(w=>!seen(w.k)).length]).filter(x=>x[1]>0).sort((x,y)=>y[1]-x[1])[0];
+  return sub?{title:'Vocabulario: '+sub[0].n,why:'Te quedan '+sub[1]+' palabras por ver en este tema.',go:()=>play('sub',sub[0].k)}:null;
+}
 function renderHome(){
   ensureDay(); ensureMissions();
   const el=$('tab-home'); el.innerHTML='';
-  const p=dailyPlan(), steps=p.rev+p.nNew*2+p.cap.gr+p.cap.ex, mins=Math.max(3,Math.round(steps*(S.opt.wmode==='mc'?0.17:0.22)));
-  const done=S.day.done, parts=[];
-  if(p.rev) parts.push(p.rev+(p.rev===1?' repaso':' repasos'));
-  if(p.nNew) parts.push(p.nNew+(p.nNew===1?' palabra nueva':' palabras nuevas'));
-  parts.push('gramática y oído');
+  const p=planRound(), done=S.day.done, r=td().r, mins=Math.max(2,Math.round(p.N*0.25));
+  const parts=[];
+  if(p.news.length) parts.push(pl(p.news.length,'palabra nueva','palabras nuevas'));
+  if(p.revs.length) parts.push(pl(p.revs.length,'repaso','repasos'));
+  if(p.skills.length) parts.push(p.skills.map(skName).join(' y '));
   const hero=H('div.hero'+(done?'.done':''));
   ['tl','tr','bl','br'].forEach(c=>hero.appendChild(H('span.orn.'+c,{html:CORNER})));
   hero.append(
     H('p.hero-hi',{text:greeting()+'!'}),
-    H('h1',{text:done?'Objetivo de hoy cumplido':'Tu sesión de hoy'}),
+    H('h1',{text:done?'Objetivo de hoy cumplido':(r?'Ronda '+(r+1)+' de hoy':'Tu primera ronda de hoy')}),
     H('div.ringwrap',null,H('span',{html:ringSvg()}),H('div.ringtxt',null,H('b',{id:'ringXp',text:'0'}),H('small',{id:'ringGoal',text:''}))),
-    H('p.hero-sub',{text:parts.join(' · ')}),
-    H('button.btn.solid.big.playbtn',{type:'button',text:done?'Otra sesión':'Jugar',onclick:()=>play('daily')}),
-    H('p.hero-foot',{text:'Unos '+mins+' minutos'+(p.dueW.length>p.cap.rev?' · tienes '+p.dueW.length+' repasos acumulados':'')}));
+    H('p.hero-sub',{text:'En esta ronda: '+parts.join(' · ')}),
+    H('button.btn.solid.big.playbtn',{type:'button',text:done?'Otra ronda':'Jugar',onclick:()=>play('daily')}),
+    H('p.hero-foot',{text:p.N+' preguntas · unos '+mins+' minutos'+(p.due>20?' · '+p.due+' repasos pendientes':'')}));
   el.appendChild(hero);
   requestAnimationFrame(homeRing);
 
   /* recompensas sin recoger */
-  if(S.pend>0) el.appendChild(H('button.claim',{type:'button',onclick:()=>showChest('session','Cofre de la sesión',refreshUI)},H('b',{text:S.pend===1?'Tienes un cofre sin abrir':'Tienes '+S.pend+' cofres sin abrir'}),H('span',{text:'Te lo ganaste al terminar una sesión'})));
+  if(S.pend>0) el.appendChild(H('button.claim',{type:'button',onclick:()=>showChest('session','Cofre de la ronda',refreshUI)},H('b',{text:S.pend===1?'Tienes un cofre sin abrir':'Tienes '+S.pend+' cofres sin abrir'}),H('span',{text:'Te lo ganaste al terminar una ronda'})));
+  if(S.day.done&&!S.day.wheel) el.appendChild(H('button.claim',{type:'button',onclick:()=>showWheel(refreshUI)},H('b',{text:'La ruleta del día te espera'}),H('span',{text:'Una tirada por cumplir el objetivo'})));
   if(S.mis.chest) el.appendChild(H('button.claim',{type:'button',onclick:()=>{ S.mis.chest=false; save(); showChest('missions','Cofre de las tres misiones',refreshUI); }},H('b',{text:'Cofre de las misiones'}),H('span',{text:'Has cumplido las tres de hoy'})));
 
-  if(S.day.done&&!S.day.wheel) el.appendChild(H('button.claim',{type:'button',onclick:()=>showWheel(refreshUI)},H('b',{text:'La ruleta del día te espera'}),H('span',{text:'Una tirada por cumplir el objetivo'})));
+  /* la historia */
+  const c=storyCur();
+  if(c){
+    const pend=storyPending(), n=STORY.indexOf(c)+1;
+    el.appendChild(H('button.storycard'+(pend?'.new':''),{type:'button',onclick:()=>openStory(pend?c.id:null)},
+      H('span.sc-k',{text:'Historia · capítulo '+n+' de '+STORY.length}),
+      H('b.sc-t',{text:c.t}),
+      H('span.sc-d',{text:pend?(c.te||'')+' · para leer hoy':(n<STORY.length?'Leído. El siguiente se abre cuando cumplas el objetivo'+(S.day.done?' de mañana.':' de hoy.'):'Has terminado la temporada.')})));
+  }
+
+  /* recomendación */
+  const rec=recommend();
+  if(rec) el.appendChild(H('div.panel.rec',null,H('h2',{text:'Te recomiendo'}),H('p.rec-t',{text:rec.title}),H('p.wt',{text:rec.why}),H('button.btn.solid.sm',{type:'button',text:'Empezar',onclick:rec.go})));
 
   /* misiones */
   const mp=H('div.panel');
@@ -88,7 +131,7 @@ function renderHome(){
   const ws=weaknesses().slice(0,2);
   if(!ws.length){
     const tot=Object.values(S.stats).reduce((a,s)=>a+s.ok+s.bad,0);
-    wp.appendChild(H('p.pfoot',{text:tot<30?'Juega un par de sesiones y aquí te diré dónde fallas más y cómo arreglarlo.':'Ahora mismo no hay nada que falles a menudo. Sigue así.'}));
+    wp.appendChild(H('p.pfoot',{text:tot<30?'Juega un par de rondas y aquí te diré dónde fallas más y cómo arreglarlo.':'Ahora mismo no hay nada que falles a menudo. Sigue así.'}));
   }
   ws.forEach(w=>{
     const i=catInfo(w.cat);
@@ -101,81 +144,115 @@ function renderHome(){
 }
 
 /* ======================= PRACTICAR ======================= */
+const skillsReal=()=>SKEYS.filter(id=>id!=='prep'&&hasStuff(id));
 function renderPractice(){
   const el=$('tab-practice'); el.innerHTML='';
   el.appendChild(H('h1.pagetitle',{text:'Practicar'}));
-  el.appendChild(H('p.pagesub',{text:'Para cuando quieras machacar algo concreto. Lo que hagas aquí cuenta igual para tu objetivo del día.'}));
+  el.appendChild(H('p.pagesub',{text:'Para cuando quieras centrarte en algo. Todo cuenta igual para tu objetivo del día.'}));
   el.appendChild(H('button.blitz',{type:'button',onclick:()=>play('blitz')},
     H('span.bz-t',{text:'Blitz 60'}),H('span.bz-d',{text:'Un minuto, cuatro opciones, y el combo multiplica los puntos.'}),H('span.bz-r',{text:'Récord: '+(S.best.blitz||0)})));
-  const words=ALLW.length, seenW=learned(ALLW), doneW=mastered(ALLW);
+  const words=ALLW.length, seenW=learned(ALLW), doneW=mastered(ALLW), sks=skillsReal(), skd=sks.filter(id=>skillState(id).done).length, skn=sks.filter(id=>skillState(id).n>0).length;
   const blocks=[
-    ['Palabras',seenW+' vistas · '+doneW+' dominadas de '+fmt(words),sheetWords,doneW/words,seenW/words],
-    ['Gramática',mastered(ALLG)+' de '+ALLG.length+' ejercicios dominados',sheetGrammar,mastered(ALLG)/ALLG.length,learned(ALLG)/ALLG.length],
-    ['Escuchar','Dictado, números y horas, y pares de sonidos',sheetListen,null],
-    ['Conversación',mastered(CHAT,c=>'h:'+c.q)+' charlas y '+mastered(ALLPUZ,p=>'p:'+p.n)+' frases dominadas',sheetTalk,null]
+    ['Vocabulario',fmt(seenW)+' vistas · '+fmt(doneW)+' dominadas de '+fmt(words),sheetVocab,doneW/words,seenW/words],
+    ['Gramática',skd+' de '+sks.length+' destrezas dominadas',sheetGrammar,skd/sks.length,skn/sks.length],
+    ['Escuchar','Frases, palabras, números y sonidos',sheetListen,null],
+    ['Conversación','Charla con Lotte y la historia por capítulos',sheetTalk,null]
   ];
   const g=H('div.blocks');
   blocks.forEach(b=>g.appendChild(H('button.block',{type:'button',onclick:()=>openSheet(b[0],b[2])},
     H('span.bk-t',{text:b[0]}),H('span.bk-d',{text:b[1]}),b[3]==null?null:bar2(b[3],b[4]))));
   el.appendChild(g);
 }
-function rowItem(title,sub,pctDone,pctSeen,onGo,extra){
-  return H('div.rowitem',null,
-    H('button.ri-main',{type:'button',onclick:onGo},H('span.ri-t',{text:title}),sub?H('span.ri-s',{text:sub}):null,pctDone==null?null:bar2(pctDone,pctSeen)),
+function rowItem(title,sub,pctDone,pctSeen,onGo,extra,cls){
+  return H('div.rowitem'+(cls?'.'+cls:''),null,
+    H('button.ri-main',{type:'button',onclick:onGo},H('span.ri-t',{text:title}),sub?H('span.ri-s',{text:sub}):null,pctDone==null?null:bar2(pctDone,pctSeen==null?pctDone:pctSeen)),
     extra||null);
 }
-const LV_NAMES={1:'Básico',2:'Intermedio',3:'Trabajo y vida en Holanda'};
-function sheetWords(b){
-  b.appendChild(H('h3.sheeth',{text:'Cómo se preguntan las palabras'}));
-  b.appendChild(modeCtl(()=>{ if(sheetRebuild) sheetRebuild(); }));
+const wcount=ws=>{ const n=ws.length, d=mastered(ws), s=learned(ws); return {n,d,s,txt:pl(s,'vista','vistas')+' · '+pl(d,'dominada','dominadas')+' · '+n+' en total'}; };
+function sheetVocab(b){
+  b.appendChild(rowItem('Al azar: de todo','Palabras de cualquier tema. Las que no has visto nunca van como prueba: si la escribes bien, la das por sabida.',null,null,()=>play('random'),null,'hl'));
   const fails=failWords();
   if(fails.length) b.appendChild(rowItem('Mis fallos',pl(fails.length,'palabra que se te resiste','palabras que se te resisten'),null,null,()=>play('fails')));
-  b.appendChild(H('p.sheetnote',{text:'La estrella marca tus temas favoritos: la sesión diaria saca de ahí una de cada tres palabras nuevas.'}));
-  const groups=[1,2,3];
-  groups.forEach(lv=>{
-    const ks=TKEYS.filter(k=>THEMES[k].lv===lv&&k!=='mias'&&THEMES[k].w.length);
-    if(!ks.length) return;
-    b.appendChild(H('h3.sheeth',{text:LV_NAMES[lv]}));
-    ks.forEach(k=>b.appendChild(themeRow(k)));
+  b.appendChild(H('h3.sheeth',{text:'Cómo se preguntan'}));
+  b.appendChild(modeCtl(rebuildSheet));
+  b.appendChild(H('h3.sheeth',{text:'Por grupos'}));
+  GROUPS.forEach(g=>{
+    const ws=SUBS[g.k].flatMap(s=>s.w), c=wcount([...new Set(ws)]);
+    if(!c.n) return;
+    b.appendChild(rowItem(g.n,g.d+' · '+c.txt,c.d/c.n,c.s/c.n,()=>openSheet(g.n,bb=>sheetGroup(bb,g.k))));
   });
-  if(THEMES.mias&&THEMES.mias.w.length){ b.appendChild(H('h3.sheeth',{text:'Añadidas por ti'})); b.appendChild(themeRow('mias')); }
-}
-function themeRow(k){
-  const th=THEMES[k], n=th.w.length, d=mastered(th.w), s=learned(th.w), pinned=(S.pins||[]).includes(k);
-  const star=H('button.star'+(pinned?'.on':''),{type:'button','aria-label':pinned?'Quitar de favoritos':'Marcar como favorito','aria-pressed':pinned?'true':'false',text:pinned?'★':'☆',
-    onclick:()=>{ S.pins=S.pins||[]; if(pinned) S.pins=S.pins.filter(x=>x!==k); else S.pins.push(k); save(); sheetRebuild&&sheetRebuild(); }});
-  return rowItem(th.n,pl(d,'dominada','dominadas')+' · '+pl(s,'vista','vistas')+' · '+n+' en total',d/n,s/n,()=>play('theme',k),star);
-}
-function sheetGrammar(b){
-  b.appendChild(H('h3.sheeth',{text:'Formas'}));
-  const vd=mastered(VERBS,v=>'v:'+v[0]), vs=learned(VERBS,v=>'v:'+v[0]);
-  const vrow=H('div.rowitem.col',null,
-    H('div.ri-main.static',null,H('span.ri-t',{text:'Verbos: las cuatro formas'}),H('span.ri-s',{text:'gaan · ging · gingen · gegaan — '+vd+' de '+VERBS.length+' dominados'}),bar2(vd/VERBS.length,vs/VERBS.length)),
-    H('div.subbtns',null,[['Todos','all'],['Irregulares','irr'],['Regulares','reg'],['Separables','sep']].map(x=>H('button.btn.sm',{type:'button',text:x[0],onclick:()=>play('verbs',x[1])}))));
-  b.appendChild(vrow);
-  b.appendChild(rowItem('¿De o het?','Un minuto contrarreloj · récord: '+(S.best.dehet||0),null,null,()=>play('dehet')));
   const ld=mastered(LANDEN,l=>'c:'+l[1]);
-  b.appendChild(rowItem('Países y nacionalidades',ld+' de '+LANDEN.length+' dominados',ld/LANDEN.length,learned(LANDEN,l=>'c:'+l[1])/LANDEN.length,()=>play('countries')));
-  b.appendChild(H('h3.sheeth',{text:'Temas del cuaderno'}));
-  GKEYS.forEach(k=>{ const g=GR[k], n=g.items.length, d=mastered(g.items), s=learned(g.items);
-    b.appendChild(rowItem(g.n,g.ref+' · '+d+' de '+n+' dominados',d/n,s/n,()=>play('gram',k))); });
+  b.appendChild(rowItem('Países y nacionalidades','El país y cómo dirías «soy de allí» · '+ld+' de '+LANDEN.length+' dominados',ld/LANDEN.length,learned(LANDEN,l=>'c:'+l[1])/LANDEN.length,()=>play('countries')));
+  if(THEMES.mias&&THEMES.mias.w.length){ const c=wcount(THEMES.mias.w); b.appendChild(rowItem('Mis palabras',c.txt,c.d/c.n,c.s/c.n,()=>play('theme','mias'))); }
+}
+function sheetGroup(b,gk){
+  const subs=SUBS[gk], all=[...new Set(subs.flatMap(s=>s.w))], c=wcount(all);
+  b.appendChild(rowItem('Todo el grupo',c.txt,c.d/c.n,c.s/c.n,()=>play('group',gk),null,'hl'));
+  if(gk==='sust'||gk==='adj'||gk==='util') b.appendChild(H('p.sheetnote',{text:'La estrella marca tus temas favoritos: las rondas diarias sacan más palabras nuevas de ahí.'}));
+  subs.forEach(s=>{
+    const cc=wcount(s.w), th=s.k.includes(':')?s.k.split(':')[1]:null, pinned=th&&(S.pins||[]).includes(th);
+    const star=th?H('button.star'+(pinned?'.on':''),{type:'button','aria-label':pinned?'Quitar de favoritos':'Marcar como favorito','aria-pressed':pinned?'true':'false',text:pinned?'★':'☆',
+      onclick:()=>{ S.pins=S.pins||[]; if(pinned) S.pins=S.pins.filter(x=>x!==th); else S.pins.push(th); save(); rebuildSheet(); }}):null;
+    b.appendChild(rowItem(s.n,cc.txt,cc.d/cc.n,cc.s/cc.n,()=>play('sub',s.k),star));
+  });
+}
+function skillRow(id){
+  const sk=SK[id], st=skillState(id);
+  const size=sk.gen&&!sk.items.length?'frases nuevas cada vez':(sk.gen?sk.items.length+' frases y más que se generan':pl(sk.items.length,'frase','frases'));
+  const title=sk.grp==='prep'&&id!=='prep'?(sk.n==='Las demás'?'Las demás preposiciones':sk.n):sk.n;
+  return rowItem(title,(st.n?st.label:'Sin empezar')+' · '+size,st.n>=5?st.acc:0,null,()=>play('gram',id),st.done?H('span.badge',{text:'Dominada'}):null,st.done?'mastered':'');
+}
+const GRGROUPS=()=>[
+  ...(SK.mios&&SK.mios.items.length?[{k:'mios',n:'Tus errores',d:'Frases de tus textos corregidos'}]:[]),
+  {k:'prep',n:'Preposiciones',d:'op, in, aan, bij… cada una con muchas frases distintas'},
+  {k:'articulos',n:'Artículos, plurales y adjetivos',d:'de/het, la -e del adjetivo, plurales, diminutivos, comparar…'},
+  {k:'verbos',n:'Verbos',d:'Las cuatro formas, presente, pasado, hebben o zijn, te + infinitivo…'},
+  {k:'orden',n:'Conectores y negación',d:'want/omdat, niet/geen, relativos, er, cuantificadores…'},
+  {k:'frases',n:'Orden de la frase',d:'Monta frases con piezas: inversión, subordinadas, separables…'},
+  ...(skillsReal().some(id=>SK[id].grp==='otros')?[{k:'otros',n:'Más reglas',d:''}]:[])
+];
+function sheetGrammar(b){
+  b.appendChild(H('p.sheetnote',{text:'Cada regla se mide por tu acierto en las últimas 20 frases: está dominada cuando aciertas 9 de cada 10. Las frases se van sacando del banco sin repetir.'}));
+  GRGROUPS().forEach(g=>{
+    if(g.k==='mios') return b.appendChild(skillRow('mios'));
+    if(g.k==='frases'){ const d=mastered(ALLPUZ,p=>'p:'+p.n), s=learned(ALLPUZ,p=>'p:'+p.n); return b.appendChild(rowItem(g.n,g.d+' · '+s+' de '+ALLPUZ.length+' vistas',d/ALLPUZ.length,s/ALLPUZ.length,()=>openSheet(g.n,sheetPuz))); }
+    const ids=skillsReal().filter(id=>SK[id].grp===g.k), dn=ids.filter(id=>skillState(id).done).length, st=ids.filter(id=>skillState(id).n>0).length;
+    b.appendChild(rowItem(g.n,g.d+' · '+dn+' de '+ids.length+' dominadas',ids.length?dn/ids.length:0,ids.length?st/ids.length:0,()=>openSheet(g.n,bb=>sheetSkillGroup(bb,g.k))));
+  });
+}
+function sheetSkillGroup(b,gk){
+  const ids=skillsReal().filter(id=>SK[id].grp===gk);
+  b.appendChild(rowItem(gk==='prep'?'Todas mezcladas':'Mezclar todo el grupo',gk==='prep'?SK.prep.items.length+' frases':'Un poco de cada regla',null,null,()=>gk==='prep'?play('gram','prep'):play('gramgrp',gk),null,'hl'));
+  if(gk==='verbos'){
+    const vd=mastered(VERBS,v=>'v:'+v[0]), vs=learned(VERBS,v=>'v:'+v[0]);
+    b.appendChild(H('div.rowitem.col',null,
+      H('div.ri-main.static',null,H('span.ri-t',{text:'Las cuatro formas'}),H('span.ri-s',{text:'gaan · ging · gingen · gegaan — '+vd+' de '+VERBS.length+' dominados'}),bar2(vd/VERBS.length,vs/VERBS.length)),
+      H('div.subbtns',null,[['Imprescindibles','basic'],['Irregulares','irr'],['Regulares','reg'],['Separables','sep'],['Todos','all']].map(x=>H('button.btn.sm',{type:'button',text:x[0],onclick:()=>play('verbs',x[1])})))));
+  }
+  if(gk==='articulos') b.appendChild(rowItem('¿De o het? contrarreloj','Un minuto · récord: '+(S.best.dehet||0),null,null,()=>play('dehet')));
+  if(gk==='prep') b.appendChild(H('p.sheetnote',{text:'Al practicar una preposición, más de la mitad de las frases son de ella y el resto de otras, para que no puedas adivinar.'}));
+  ids.forEach(id=>b.appendChild(skillRow(id)));
+}
+function sheetPuz(b){
+  b.appendChild(rowItem('Todo mezclado',ALLPUZ.length+' frases',null,null,()=>play('puzzle'),null,'hl'));
+  Object.keys(PUZ).forEach(k=>{ const its=PUZ[k][1], d=mastered(its,p=>'p:'+p.n), s=learned(its,p=>'p:'+p.n);
+    b.appendChild(rowItem(PUZ[k][0],s+' de '+its.length+' vistas',d/its.length,s/its.length,()=>play('puzzle',k))); });
 }
 function sheetListen(b){
   if(!voice) b.appendChild(H('p.sheetnote.warn',{text:'No encuentro una voz neerlandesa en este dispositivo. Mira «Yo › Ajustes» para instalarla.'}));
-  b.appendChild(rowItem('Dictado','Oyes una palabra y la escribes con su artículo',null,null,()=>play('dictation')));
+  b.appendChild(rowItem('Escucha y ordena','Oyes una frase y la montas con las piezas, sin ver la traducción',null,null,()=>play('hearTiles'),null,'hl'));
+  b.appendChild(rowItem('¿Qué has oído?','Oyes una frase y eliges qué significa · '+fmt(sentPool().length)+' frases',null,null,()=>play('hear')));
+  b.appendChild(rowItem('Dictado de palabras','Oyes una palabra y la escribes con su artículo',null,null,()=>play('dictation')));
   b.appendChild(rowItem('Números y horas','Lo oyes en neerlandés y lo escribes en cifras',null,null,()=>play('numbers')));
   b.appendChild(rowItem('¿Cuál has oído?','man o maan, huur o hoer, deur o duur: afina el oído',null,null,()=>play('pairs')));
 }
 function sheetTalk(b){
-  const cd=mastered(CHAT,c=>'h:'+c.q);
-  b.appendChild(rowItem('Charla con Lotte','Te pregunta como en clase y eliges la respuesta buena · '+cd+' de '+CHAT.length,cd/CHAT.length,learned(CHAT,c=>'h:'+c.q)/CHAT.length,()=>play('chat')));
-  b.appendChild(H('h3.sheeth',{text:'Monta la frase'}));
-  b.appendChild(rowItem('Todo mezclado',ALLPUZ.length+' frases',null,null,()=>play('puzzle')));
-  Object.keys(PUZ).forEach(k=>{ const its=PUZ[k][1], d=mastered(its,p=>'p:'+p.n);
-    b.appendChild(rowItem(PUZ[k][0],d+' de '+its.length+' dominadas',d/its.length,learned(its,p=>'p:'+p.n)/its.length,()=>play('puzzle',k))); });
+  if(STORY.length){ const rd=Object.keys(S.story.done).length; b.appendChild(rowItem('Historia de Mateo',rd+' de '+STORY.length+' capítulos leídos · uno nuevo cada día que cumples el objetivo',rd/STORY.length,null,()=>openStory(),null,'hl')); }
+  const cd=mastered(CHAT,c=>'h:'+c.q), cs=learned(CHAT,c=>'h:'+c.q);
+  b.appendChild(rowItem('Charla con Lotte','Te pregunta como en clase y eliges la respuesta buena · '+cs+' de '+CHAT.length+' vistas',cd/CHAT.length,cs/CHAT.length,()=>play('chat')));
 }
 
-/* ======================= PALABRAS ======================= */
+/* ======================= DICCIONARIO ======================= */
 const D={q:'',f:'all',th:'',n:80,open:null};
 function dots(k){ const s=Math.min(5,stage(k)); return H('span.dots',{title:'Nivel de repaso'},[0,1,2,3,4].map(i=>H('i'+(i<s?'.on':'')))); }
 function dueText(k){
@@ -185,12 +262,13 @@ function dueText(k){
 }
 function renderDict(){
   const el=$('tab-dict'); el.innerHTML='';
-  el.appendChild(H('h1.pagetitle',{text:'Palabras'}));
+  el.appendChild(H('h1.pagetitle',{text:'Diccionario'}));
   el.appendChild(H('p.pagesub',{text:fmt(ALLW.length)+' palabras · '+learned(ALLW)+' vistas · '+mastered(ALLW)+' dominadas'}));
   const inp=H('input.txt.search',{type:'search',placeholder:'Buscar en neerlandés o en español',value:D.q,autocomplete:'off',autocapitalize:'off',spellcheck:'false'});
   let deb=null; inp.addEventListener('input',()=>{ clearTimeout(deb); deb=setTimeout(()=>{ D.q=inp.value; D.n=80; listDict(); },160); });
   el.appendChild(inp);
-  const sel=H('select.thsel',{'aria-label':'Tema'},H('option',{value:'',text:'Todos los temas'}),TKEYS.filter(k=>THEMES[k].w.length).map(k=>H('option',{value:k,text:THEMES[k].n,selected:D.th===k||null})));
+  const sel=H('select.thsel',{'aria-label':'Grupo o tema'},H('option',{value:'',text:'Todas las palabras'}),
+    GROUPS.map(g=>H('optgroup',{label:g.n},H('option',{value:'g:'+g.k,text:'Todos: '+g.n.toLowerCase(),selected:D.th==='g:'+g.k||null}),SUBS[g.k].map(s=>H('option',{value:s.k,text:s.n,selected:D.th===s.k||null})))));
   sel.addEventListener('change',()=>{ D.th=sel.value; D.n=80; listDict(); });
   const fl=H('div.seg',null,[['all','Todas'],['learning','Aprendiendo'],['done','Dominadas'],['new','Sin ver']].map(x=>H('button'+(D.f===x[0]?'.on':''),{type:'button',text:x[1],onclick:e=>{ D.f=x[0]; D.n=80; [...fl.children].forEach(c=>c.classList.remove('on')); e.target.classList.add('on'); listDict(); }})));
   el.append(H('div.dictctl',null,sel,H('button.btn.sm',{type:'button',text:'Añadir palabra',onclick:()=>openSheet('Añadir una palabra',sheetAdd)})),fl,H('div',{id:'dictList'}));
@@ -199,7 +277,7 @@ function renderDict(){
 function listDict(){
   const box=$('dictList'); if(!box) return; box.innerHTML='';
   const q=norm(D.q);
-  let list=D.th?THEMES[D.th].w:ALLW;
+  let list=!D.th?ALLW:(D.th.startsWith('g:')?[...new Set(SUBS[D.th.slice(2)].flatMap(s=>s.w))]:(SUBBY[D.th]?SUBBY[D.th].w:ALLW));
   if(q) list=list.filter(w=>norm(w.nl).includes(q)||norm(w.es).includes(q));
   if(D.f!=='all') list=list.filter(w=>statusOf(w.k)===D.f);
   box.appendChild(H('p.count',{text:list.length+(list.length===1?' palabra':' palabras')}));
@@ -264,6 +342,7 @@ function meStats(b){
   b.appendChild(H('div.stats',null,
     st(streakNow(),'días de racha'),st(S.life.maxStreak||0,'mejor racha'),
     st(learned(ALLW),'palabras vistas'),st(mastered(ALLW),'palabras dominadas'),
+    st(skillsReal().filter(id=>skillState(id).done).length+' de '+skillsReal().length,'reglas dominadas'),st(Object.keys(S.story.done).length,'capítulos leídos'),
     st(tot?Math.round(ok/tot*100)+' %':'—','de acierto'),st(timeText(S.life.secs||0),'jugando'),
     st(days,'días con juego'),st(S.life.sessions||0,'sesiones diarias')));
 
@@ -306,6 +385,9 @@ function meStats(b){
   facts.push(['Respuestas en total',fmt(tot)],['Mejor combo','×'+(S.life.maxCombo||0)],['Récord en Blitz',String(S.best.blitz||0)],['Récord en ¿De o het?',String(S.best.dehet||0)],
     ['Golpes críticos',fmt(S.life.crits||0)],['Cofres abiertos',fmt(S.life.chests||0)],['Stroopwafels ganados',fmt(S.life.coins||0)],
     ['Azulejos',Object.keys(S.tiles).length+' de '+TEGELS.length],['Verbos dominados',mastered(VERBS,v=>'v:'+v[0])+' de '+VERBS.length]);
+  /* a este ritmo: palabras nuevas por día en las dos últimas semanas */
+  { const t=T(); let n=0; for(let d=t-13;d<=t;d++) n+=(S.log[d]||{}).n||0; const left=ALLW.filter(w=>!seen(w.k)).length;
+    if(n>=5&&left){ const days=Math.ceil(left/(n/14)), when=dayDate(t+days); facts.unshift(['A este ritmo verás todo el vocabulario',days<60?'en '+days+' días':'hacia '+MESES[when.getUTCMonth()]+' de '+when.getUTCFullYear()]); } }
   b.appendChild(H('dl.facts',null,facts.map(f=>H('div',null,H('dt',{text:f[0]}),H('dd',{text:f[1]})))));
 }
 function meTiles(b){
@@ -366,8 +448,8 @@ function meSettings(b){
   b.appendChild(H('div.setcol',null,chk('Leer la respuesta en voz alta después de contestar','voice'),chk('Efectos de sonido','sfx')));
 
   /* sesión */
-  b.appendChild(H('h2.sec',{text:'Sesión diaria'}));
-  const sizes=[['short','Corta','~5 min · objetivo 150 XP'],['normal','Normal','~10 min · objetivo 250 XP'],['long','Larga','~15 min · objetivo 400 XP']];
+  b.appendChild(H('h2.sec',{text:'Ritmo'}));
+  const sizes=[['short','Suave','rondas de 8 · objetivo 150 XP'],['normal','Normal','rondas de 12 · objetivo 250 XP'],['long','Intenso','rondas de 16 · objetivo 400 XP']];
   b.appendChild(H('div.sizes',null,sizes.map(s=>H('button'+(S.opt.size===s[0]?'.on':''),{type:'button',onclick:()=>{ S.opt.size=s[0]; save(); renderMe(); hud(); }},H('b',{text:s[1]}),H('span',{text:s[2]})))));
 
   b.appendChild(H('h2.sec',{text:'Cómo se preguntan las palabras'}));
@@ -396,7 +478,7 @@ function meSettings(b){
     if(!armed){ armed=true; rb.textContent='¿Seguro? Toca otra vez para borrar'; setTimeout(()=>{ armed=false; rb.textContent='Borrar todo mi progreso'; },4000); return; }
     S=fill(blank()); S.welcomed=true; save(true); loadCustom(); applySkin(); showTab('home'); toast('Progreso borrado');
   }});
-  b.append(rb,H('p.setnote.ver',{text:'Woorden '+VERSION+' · '+fmt(ALLW.length)+' palabras · '+ALLG.length+' ejercicios de gramática'}));
+  b.append(rb,H('p.setnote.ver',{text:'Woorden '+VERSION+' · '+fmt(ALLW.length)+' palabras · '+fmt(ALLG.length+SK.prep.items.length)+' frases de gramática · '+fmt(ALLPUZ.length)+' para montar'}));
 }
 
 /* ======================= ARRANQUE ======================= */
@@ -406,11 +488,26 @@ function welcome(){
     H('p.mtitle',{text:from2?'Woorden, versión nueva':'Welkom bij Woorden'}),
     H('p.msub',{text:from2?'He traído tu progreso de la versión anterior: XP, stroopwafels y las palabras que ya habías trabajado.':'Neerlandés en diez minutos al día.'}),
     H('ul.wlist',null,
-      H('li',null,H('b',{text:'Un botón: Jugar.'}),' Cada día te monto una sesión con lo que toca repasar, palabras nuevas, gramática y oído.'),
+      H('li',null,H('b',{text:'Un botón: Jugar.'}),' Cada ronda dura unos 3 minutos y mezcla lo que toca repasar, palabras nuevas, gramática y oído. Haz las que quieras.'),
       H('li',null,H('b',{text:'Lo que aciertas vuelve cada vez más tarde'}),': mañana, a los 3 días, a la semana, al mes… Así se queda para siempre.'),
       H('li',null,H('b',{text:'Lo que fallas vuelve enseguida'}),', y la app te dice dónde fallas más y por qué.'),
       H('li',null,H('b',{text:'Cofres, ruleta y azulejos'}),' con refranes holandeses para coleccionar.')),
-    H('button.btn.solid.big',{type:'button',text:'Empezar',onclick:()=>{ S.welcomed=true; save(); closeModal(); }}));
+    H('button.btn.solid.big',{type:'button',text:'Empezar',onclick:()=>{ S.welcomed=true; S.seen5=true; save(); closeModal(); }}));
+  openModal(box,{sticky:true});
+}
+/* novedades de la versión 5, para quien ya usaba la app */
+function whatsNew(){
+  const box=H('div.welcome',null,
+    H('p.mtitle',{text:'Woorden, versión 5'}),
+    H('p.msub',{text:'Lo que has pedido, y tu progreso intacto.'}),
+    H('ul.wlist',null,
+      H('li',null,H('b',{text:'Nada se repite el mismo día'}),' salvo lo que fallas, que vuelve hasta que lo aciertes. Las palabras nuevas salen al azar de todos los temas.'),
+      H('li',null,H('b',{text:'Rondas cortas'}),' de unos 3 minutos. Haz las que quieras: cada una trae cosas nuevas.'),
+      H('li',null,H('b',{text:'Gramática por reglas'}),', con muchas frases distintas para cada una (op, in, aan…). Una regla está dominada cuando aciertas 9 de cada 10.'),
+      H('li',null,H('b',{text:'Vocabulario por grupos'}),': sustantivos, verbos, adjetivos, palabras útiles y expresiones.'),
+      H('li',null,H('b',{text:'La historia de Mateo'}),': un capítulo nuevo cada día que cumples el objetivo.'),
+      H('li',null,H('b',{text:'¿Tu respuesta también valía?'}),' Márcalo al fallar: te la cuento como bien y la reviso.')),
+    H('button.btn.solid.big',{type:'button',text:'Vamos',onclick:()=>{ S.seen5=true; save(); closeModal(); }}));
   openModal(box,{sticky:true});
 }
 function init(){
@@ -420,10 +517,10 @@ function init(){
   TABS.forEach(t=>$('nav-'+t).addEventListener('click',()=>showTab(t)));
   $('coins').addEventListener('click',()=>{ meSub='shop'; showTab('me'); });
   $('streak').addEventListener('click',()=>toast(streakNow()?'Racha de '+streakNow()+(streakNow()===1?' día':' días')+'. Se mantiene cumpliendo el objetivo diario.':'Cumple el objetivo de hoy para empezar una racha.'));
-  $('sheetBack').addEventListener('click',()=>{ closeSheet(); refreshUI(); });
+  $('sheetBack').addEventListener('click',()=>{ backSheet(); if(!sheetStack.length) refreshUI(); });
   $('quit').addEventListener('click',()=>endRun(true));
   checkAch(true); showTab('home');
-  if(!S.welcomed) welcome();
+  if(!S.welcomed) welcome(); else if(!S.seen5) whatsNew();
   /* si la app se queda abierta de un día para otro, se pone al día al volver */
   document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&S.day.d!==T()&&!R){ ensureDay(); applyFreeze(); ensureMissions(); refreshUI(); } });
   if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')) navigator.serviceWorker.register('sw.js').catch(()=>{});
