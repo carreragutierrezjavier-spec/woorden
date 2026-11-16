@@ -1,7 +1,7 @@
 /* Woorden · gramática ampliada (3): infinitivo con o sin te, plurales, diminutivos */
 
 addGram('teinf',[
- ['Kun je me morgen even ___?','helpen','te helpen|geholpen|helpt','¿Me puedes ayudar mañana un momento?'],
+ ['Kunnen we de vergadering naar donderdag ___?','verplaatsen','te verplaatsen|verplaatst|verplaatsen te','¿Podemos pasar la reunión al jueves?'],
  ['Je moet dit formulier uiterlijk vrijdag ___.','invullen','in te vullen|te invullen|ingevuld','Tienes que rellenar este formulario como muy tarde el viernes.'],
  ['Hij heeft beloofd de huur op tijd ___.','te betalen','betalen|betaald|om betalen','Ha prometido pagar el alquiler a tiempo.'],
  ['We gaan zaterdag met de club ___.','zeilen','te zeilen|gezeild|zeilt','El sábado vamos a navegar con el club.'],
