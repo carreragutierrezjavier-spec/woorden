@@ -1,8 +1,8 @@
 /* Woorden · preposiciones en contexto (7): door, tegen, tot, na, tijdens, sinds y otras */
 addPrep([
  /* door */
- ['We liepen ___ de oude binnenstad van Leiden.','door','voor|over|op','Paseamos por el casco antiguo de Leiden.','door = a través de, por'],
- ['Het licht komt ___ een klein raam naar binnen.','door','over|uit|langs','La luz entra por una ventana pequeña.','door = a través de'],
+ ['We liepen ___ de oude binnenstad van Leiden.','door','voor|aan|op','Paseamos por el casco antiguo de Leiden.','door = a través de, por'],
+ ['Het licht komt ___ een klein raam naar binnen.','door','over|uit|tegen','La luz entra por una ventana pequeña.','door = a través de'],
  ['We reden ___ de Maastunnel naar Rotterdam-Zuid.','door','over|op|tegen','Atravesamos en coche el Maastunnel hasta Róterdam Sur.','door = a través de'],
  ['Dit jacht is ontworpen ___ een bekende Italiaanse ontwerper.','door','van|met|uit','Este yate lo diseñó un conocido diseñador italiano.','door + agente (pasiva)'],
  ['Het feest wordt georganiseerd ___ de studentenvereniging.','door','van|naar|om','La fiesta la organiza la asociación de estudiantes.','door + agente (pasiva)'],
@@ -21,14 +21,14 @@ addPrep([
  ['Zaterdag spelen we ___ de beste ploeg van de competitie.','tegen','aan|op|over','El sábado nos enfrentamos al mejor equipo de la liga.','spelen tegen = jugar contra'],
  ['De meeste bewoners zijn ___ het plan om de parkeerplaats weg te halen.','tegen','aan|met|over','La mayoría de los vecinos se opone al plan de quitar el aparcamiento.','tegen zijn = estar en contra'],
  ['Heb je iets ___ hoofdpijn?','tegen','van|op|uit','¿Tienes algo para el dolor de cabeza?','iets tegen hoofdpijn = algo para el dolor'],
- ['Mijn fiets is verzekerd ___ diefstal.','tegen','van|op|over','Mi bici tiene seguro en caso de robo.','verzekerd tegen = asegurado contra'],
+ ['Mijn fiets is verzekerd ___ diefstal.','tegen','van|op|over','Mi bici está asegurada contra robo.','verzekerd tegen = asegurado contra'],
  ['Wat zei de huisbaas ___ je?','tegen','met|bij|naar','¿Qué te dijo el casero?','zeggen tegen iemand = decirle a alguien'],
  ['Waarom heb je ___ me gelogen?','tegen','met|bij|naar','¿Por qué me has mentido?','liegen tegen iemand = mentir a alguien'],
  ['Mijn oma praat de hele dag ___ haar kat.','tegen','bij|naar|op','Mi abuela se pasa el día hablándole a su gato.','praten tegen = hablarle a'],
  ['Je moet eerlijk ___ je begeleider zijn.','tegen','bij|op|voor','Tienes que ser sincero con tu tutor.','eerlijk zijn tegen iemand = ser sincero con'],
  ['Het eten is ___ zeven uur klaar.','tegen','op|in|aan','La cena estará lista hacia las siete.','tegen + hora = hacia, para (las siete)'],
  ['Ik kan niet ___ de hitte.','tegen','met|bij|over','No soporto el calor.','niet tegen iets kunnen = no soportar algo'],
- ['Hij reed ___ een paal en brak zijn arm.','tegen','met|op|in','Se chocó con un poste y se rompió el brazo.','tegen iets rijden = chocar con algo'],
+ ['Hij reed ___ een paal en brak zijn arm.','tegen','met|aan|in','Se chocó con un poste y se rompió el brazo.','tegen iets rijden = chocar con algo'],
 
  /* tot */
  ['In de tentamenweek is de bibliotheek ___ middernacht open.','tot','op|over|aan','En la semana de exámenes la biblioteca abre hasta medianoche.','tot = hasta'],
@@ -40,7 +40,7 @@ addPrep([
  ['En ___ slot wil ik iedereen bedanken voor de hulp.','tot','op|aan|in','Y para terminar, quiero dar las gracias a todos por su ayuda.','tot slot = para terminar'],
  ['In de uitverkoop is alles ___ zeventig procent afgeprijsd.','tot','op|voor|over','En las rebajas todo está rebajado hasta un setenta por ciento.','tot = hasta (cantidad)'],
  ['We hebben gisteren ___ laat gewerkt aan de offerte.','tot','na|om|in','Ayer trabajamos hasta tarde en el presupuesto.','tot laat = hasta tarde'],
- ['Ik heb ___ dinsdag de tijd om te beslissen.','tot','op|sinds|om','Tengo hasta el martes para decidirme.','tot = hasta (plazo)'],
+ ['Ik heb ___ dinsdag de tijd om te beslissen.','tot','aan|sinds|om','Tengo hasta el martes para decidirme.','tot = hasta (plazo)'],
  ['De korting geldt ___ en met zondag.','tot','van|op|om','El descuento es válido hasta el domingo inclusive.','tot en met = hasta … inclusive'],
 
  /* na */
@@ -50,7 +50,7 @@ addPrep([
  ['We gaan ___ afloop van de wedstrijd iets drinken.','na','op|tot|over','Al terminar el partido vamos a tomar algo.','na afloop = al terminar'],
  ['Je mag hier ___ tien uur ’s avonds geen lawaai meer maken.','na','tot|sinds|over','Aquí no se puede hacer ruido después de las diez de la noche.','na + hora = después de'],
  ['Pas ___ een uur wachten werden we geholpen.','na','over|sinds|tot','No nos atendieron hasta después de una hora de espera.','na = después de'],
- ['Mijn kamer is de op één ___ grootste van het huis.','na','van|voor|tot','Mi habitación es la segunda más grande de la casa.','op één na = el segundo (más …)'],
+ ['Daan werd de dag ___ zijn verjaardag ziek.','na','naar|sinds|tot','Daan se puso enfermo el día después de su cumpleaños.','de dag na = el día después de'],
  ['Wat doen de kinderen ___ school?','na','naar|tot|sinds','¿Qué hacen los niños después del colegio?','na school = después del colegio'],
  ['Ik kwam ___ hem aan op de werf.','na','naar|sinds|tot','Llegué al astillero después que él.','na iemand = después de alguien'],
 
@@ -65,8 +65,8 @@ addPrep([
 
  /* sinds */
  ['Ik speel ___ mijn twaalfde waterpolo.','sinds','over|om|tijdens','Juego al waterpolo desde los doce años.','sinds = desde (con presente)'],
- ['Wij wonen ___ september in dit huis.','sinds','over|tijdens|om','Vivimos en esta casa desde septiembre.','sinds + momento = desde'],
- ['Ik heb ___ gisteren niets meer van hem gehoord.','sinds','over|na|om','Desde ayer no he vuelto a saber nada de él.','sinds = desde'],
+ ['Wij wonen ___ september in dit huis.','sinds','over|op|om','Vivimos en esta casa desde septiembre.','sinds + momento = desde'],
+ ['Ik heb ___ gisteren niets meer van hem gehoord.','sinds','over|aan|om','Desde ayer no he vuelto a saber nada de él.','sinds = desde'],
  ['Ze heeft ___ kort een nieuwe baan in Rotterdam.','sinds','over|tot|om','Desde hace poco tiene un trabajo nuevo en Róterdam.','sinds kort = desde hace poco'],
  ['Het regent al ___ vanochtend vroeg.','sinds','over|tot|tijdens','Llueve desde primera hora de la mañana.','sinds = desde'],
  ['Hij werkt ___ 2021 op de werf.','sinds','over|tijdens|om','Trabaja en el astillero desde 2021.','sinds + año = desde'],
@@ -91,14 +91,14 @@ addPrep([
  ['In Nederland mag je ___ elkaar fietsen.','naast','tussen|onder|om','En Holanda se puede ir en bici uno al lado del otro.','naast elkaar = uno al lado del otro'],
 
  /* tussen */
- ['Je kunt me ___ twaalf en één uur bellen.','tussen','van|om|tot','Me puedes llamar entre las doce y la una.','tussen … en … = entre … y …'],
+ ['Je kunt me ___ twaalf en één uur bellen.','tussen','van|op|tot','Me puedes llamar entre las doce y la una.','tussen … en … = entre … y …'],
  ['Wat is het verschil ___ «lopen» en «wandelen»?','tussen','van|met|over','¿Qué diferencia hay entre «lopen» y «wandelen»?','het verschil tussen = la diferencia entre'],
  ['Dit blijft ___ ons, oké?','tussen','met|aan|naast','Esto queda entre nosotros, ¿vale?','tussen ons = entre nosotros'],
- ['Wat eet jij meestal ___ de middag?','tussen','om|op|na','¿Qué sueles comer a mediodía?','tussen de middag = a mediodía'],
+ ['Wat eet jij meestal ___ de middag?','tussen','om|aan|uit','¿Qué sueles comer a mediodía?','tussen de middag = a mediodía'],
 
  /* achter */
  ['Er is een klein park ___ ons studentenhuis.','achter','tussen|onder|boven','Hay un parque pequeño detrás de nuestra casa de estudiantes.','achter = detrás de'],
- ['Ik zit de hele dag ___ de computer.','achter','op|in|met','Me paso el día delante del ordenador.','achter de computer zitten = estar al ordenador'],
+ ['Ik zit de hele dag ___ de computer.','achter','uit|in|met','Me paso el día delante del ordenador.','achter de computer zitten = estar al ordenador'],
  ['Ik heb drie dagen ___ elkaar tot laat gewerkt.','achter','naast|tussen|voor','He trabajado hasta tarde tres días seguidos.','achter elkaar = seguidos'],
  ['Gelukkig heb ik het examen nu ___ de rug.','achter','op|aan|in','Por suerte ya he dejado atrás el examen.','achter de rug hebben = haber pasado ya algo'],
 
@@ -106,11 +106,11 @@ addPrep([
  ['Mijn beste vriend woont recht ___ me.','tegenover','naast|tussen|langs','Mi mejor amigo vive justo enfrente de mí.','tegenover = enfrente de'],
  ['In de trein zat een oude man ___ me die de hele reis praatte.','tegenover','naast|achter|tussen','En el tren, enfrente de mí, iba un señor mayor que habló todo el viaje.','tegenover = enfrente de'],
  ['De bushalte is ___ de ingang van het ziekenhuis.','tegenover','tussen|onder|boven','La parada del autobús está enfrente de la entrada del hospital.','tegenover = enfrente de'],
- ['Hoe sta jij ___ dat plan?','tegenover','tegen|voor|aan','¿Qué postura tienes sobre ese plan?','staan tegenover = tener una postura sobre'],
+ ['Hoe sta jij ___ dat plan?','tegenover','tegen|voor|aan','¿Qué opinas de ese plan?','staan tegenover = tener una postura sobre'],
 
  /* langs */
  ['We fietsten ___ de kust van Zeeland.','langs','over|door|tussen','Fuimos en bici a lo largo de la costa de Zelanda.','langs = a lo largo de'],
- ['Kun je ___ de bakker gaan als je naar huis fietst?','langs','bij|aan|op','¿Puedes pasar por la panadería cuando vuelvas a casa en bici?','langs iets gaan = pasar por'],
+ ['Kun je ___ de bakker gaan als je naar huis fietst?','langs','uit|aan|op','¿Puedes pasar por la panadería cuando vuelvas a casa en bici?','langs iets gaan = pasar por'],
  ['Ik loop elke ochtend ___ de molen naar de werf.','langs','door|tussen|over','Cada mañana paso por delante del molino de camino al astillero.','langs = pasando por delante de'],
  ['Er staan mooie oude bomen ___ de weg naar Den Haag.','langs','over|tussen|tegen','A lo largo de la carretera a La Haya hay árboles viejos preciosos.','langs = a lo largo de'],
 
@@ -123,7 +123,7 @@ addPrep([
  /* volgens */
  ['Het is ___ mij te laat om nog te bellen.','volgens','bij|van|tegen','Creo que ya es demasiado tarde para llamar.','volgens mij = creo que, en mi opinión'],
  ['Het gaat morgen ___ de weerman de hele dag regenen.','volgens','van|bij|door','Según el hombre del tiempo, mañana va a llover todo el día.','volgens = según'],
- ['We moeten ___ het rooster om half negen beginnen.','volgens','op|in|met','Según el horario, tenemos que empezar a las ocho y media.','volgens = según'],
+ ['We moeten ___ het rooster om half negen beginnen.','volgens','op|in|van','Según el horario, tenemos que empezar a las ocho y media.','volgens = según'],
  ['De film duurt ___ de website twee uur en tien minuten.','volgens','aan|in|van','Según la web, la película dura dos horas y diez minutos.','volgens = según'],
 
  /* ondanks */

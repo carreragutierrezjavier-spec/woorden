@@ -27,13 +27,13 @@ addPrep([
  ['Mijn vader gaat volgend jaar ___ pensioen.','met','op|in|voor','Mi padre se jubila el año que viene.','met pensioen gaan = jubilarse'],
  ['Laat me even ___ rust, ik moet studeren.','met','in|op|uit','Déjame en paz un rato, que tengo que estudiar.','iemand met rust laten = dejar en paz'],
  ['Mijn ouders komen ___ het vliegtuig naar Amsterdam.','met','door|van|naar','Mis padres vienen en avión a Ámsterdam.','met + transporte (met het vliegtuig)'],
- ['Ik ben ___ achttien jaar het huis uit gegaan.','met','in|aan|van','Me fui de casa a los dieciocho años.','met + edad (met achttien jaar)'],
+ ['Ik ben ___ achttien jaar het huis uitgegaan.','met','in|aan|van','Me fui de casa a los dieciocho años.','met + edad (met achttien jaar)'],
  ['We zijn ___ veertien man in het team.','met','van|op|in','Somos catorce en el equipo.','met + número de personas'],
  ['Woon je ___ je vriendin samen?','met','bij|van|voor','¿Vives con tu novia?','samenwonen met = vivir con (la pareja)'],
  ['Ik heb gisteren een uur ___ mijn moeder gebeld.','met','aan|bij|tegen','Ayer estuve una hora hablando por teléfono con mi madre.','bellen met iemand = hablar por teléfono con'],
  ['Ik ben heel blij ___ mijn nieuwe fiets.','met','op|van|volgens','Estoy muy contento con mi bici nueva.','blij zijn met iets = contento con algo'],
  ['Hoe gaat het ___ je scriptie?','met','van|op|voor','¿Qué tal va la tesis?','Hoe gaat het met …? = ¿Qué tal va …?'],
- ['Studenten kunnen ___ korting naar het museum.','met','op|van|in','Los estudiantes tienen descuento en el museo.','met korting = con descuento'],
+ ['Studenten kunnen ___ korting naar het museum.','met','op|van|in','Los estudiantes pueden ir al museo con descuento.','met korting = con descuento'],
  ['Sorry dat ik ___ de deur in huis val, maar ik heb je hulp nodig.','met','door|op|in','Perdona que vaya directo al grano, pero necesito tu ayuda.','met de deur in huis vallen = ir al grano'],
 
  /* voor */
@@ -69,5 +69,5 @@ addPrep([
  ['Je moet het formulier ___ het einde van de maand inleveren.','voor','tijdens|sinds|om','Tienes que entregar el formulario antes de fin de mes.','voor = antes de (plazo)'],
  ['Ik huur deze kamer ___ 500 euro per maand.','voor','met|om|op','Alquilo esta habitación por 500 euros al mes.','voor + precio (voor 500 euro)'],
  ['Mijn trein vertrekt om tien ___ acht.','voor','over|na|tot','Mi tren sale a las ocho menos diez.','tien voor acht = las ocho menos diez'],
- ['Zal ik ___ jou ook een kaartje kopen?','voor','naar|bij|om','¿Te compro una entrada a ti también?','voor = para (alguien)']
+ ['Zal ik ___ jou ook een kaartje kopen?','voor','naar|aan|om','¿Compro también una entrada para ti?','voor = para (alguien)']
 ]);

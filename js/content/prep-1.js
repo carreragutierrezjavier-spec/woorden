@@ -5,7 +5,7 @@ addPrep([
  ['Mijn huisgenoot werkt drie dagen per week ___ kantoor en twee dagen thuis.','op','in|bij|naar','Mi compañero de piso trabaja tres días a la semana en la oficina y dos en casa.','op kantoor (sin artículo)'],
  ['We hebben elkaar ___ een verjaardagsfeestje leren kennen.','op','in|naar|langs','Nos conocimos en una fiesta de cumpleaños.','op een feest(je) = en una fiesta'],
  ['Ze staat al een kwartier ___ het perron te wachten.','op','in|na|naar','Lleva un cuarto de hora esperando en el andén.','op het perron / op het station'],
- ['Ik draag altijd een helm als ik ___ de werf rondloop.','op','in|naar|tijdens','Siempre llevo casco cuando ando por el astillero.','op de werf (lugar de trabajo)'],
+ ['Ik draag altijd een helm als ik ___ de werf rondloop.','op','uit|naar|tijdens','Siempre llevo casco cuando ando por el astillero.','op de werf (lugar de trabajo)'],
  ['We hebben in juli een huisje ___ Texel gehuurd.','op','naar|uit|over','En julio alquilamos una casita en Texel.','op + isla (op Texel, op Ameland)'],
  ['In de zomer spelen we volleybal ___ het strand van Scheveningen.','op','in|naar|door','En verano jugamos al vóley en la playa de Scheveningen.','op het strand'],
  ['Elke zaterdag koop ik verse vis ___ de markt.','op','in|uit|over','Todos los sábados compro pescado fresco en el mercado.','op de markt'],
