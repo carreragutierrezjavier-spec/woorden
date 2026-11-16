@@ -1,7 +1,7 @@
 /* Woorden · preposiciones en contexto (6): over, om, uit */
 addPrep([
  /* over */
- ['Ze schrijft haar scriptie ___ de geschiedenis van de Nederlandse scheepsbouw.','over','van|op|tegen','Escribe la tesis sobre la historia de la construcción naval holandesa.','over = sobre (tema)'],
+ ['Ze schrijft haar scriptie ___ de geschiedenis van de Nederlandse scheepsbouw.','over','van|aan|tegen','Escribe la tesis sobre la historia de la construcción naval holandesa.','over = sobre (tema)'],
  ['Hebben jullie het al ___ de schoonmaak gehad?','over','van|met|voor','¿Ya habéis hablado de la limpieza?','het hebben over = hablar de'],
  ['Waar hebben jullie het ___?','over','van|om|uit','¿De qué estáis hablando?','het hebben over = hablar de'],
  ['Heb je al ___ mijn voorstel nagedacht?','over','aan|in|op','¿Ya has pensado en mi propuesta?','nadenken over = pensar en, reflexionar sobre'],
@@ -10,10 +10,10 @@ addPrep([
  ['Ik heb een interessant artikel ___ waterstofschepen gelezen.','over','van|op|door','He leído un artículo interesante sobre barcos de hidrógeno.','een artikel/boek over = sobre'],
  ['Maak je geen zorgen ___ het examen.','over','van|op|tegen','No te preocupes por el examen.','zich zorgen maken over = preocuparse por'],
  ['De klant is erg enthousiast ___ het nieuwe interieur.','over','met|op|van','El cliente está muy entusiasmado con el nuevo interior.','enthousiast over = entusiasmado con'],
- ['Ik was verbaasd ___ hoe direct Nederlanders zijn.','over','van|op|naar','Me sorprendió lo directos que son los holandeses.','verbaasd over = sorprendido por'],
+ ['Ik was verbaasd ___ hoe direct Nederlanders zijn.','over','van|op|ondanks','Me sorprendió lo directos que son los holandeses.','verbaasd over = sorprendido por'],
  ['Hij is nog steeds boos ___ de hoge rekening.','over','van|met|tegen','Sigue enfadado por la factura tan alta.','boos over + cosa (boos op + persona)'],
  ['Mag ik je een vraag stellen ___ het huurcontract?','over','van|op|voor','¿Te puedo hacer una pregunta sobre el contrato de alquiler?','een vraag over = una pregunta sobre'],
- ['Waar vind ik informatie ___ de zorgverzekering?','over','op|met|tot','¿Dónde encuentro información sobre el seguro médico?','informatie over = información sobre'],
+ ['Waar vind ik informatie ___ de zorgverzekering?','over','op|met|tijdens','¿Dónde encuentro información sobre el seguro médico?','informatie over = información sobre'],
  ['Als alles goed gaat, studeer ik ___ twee maanden af.','over','sinds|tot|om','Si todo va bien, me gradúo dentro de dos meses.','over = dentro de (tiempo)'],
  ['Waar woon jij ___ vijf jaar, denk je?','over','sinds|tijdens|om','¿Dónde crees que vivirás dentro de cinco años?','over = dentro de (tiempo)'],
  ['De les begint om kwart ___ negen.','over','voor|na|tot','La clase empieza a las nueve y cuarto.','kwart over negen = las nueve y cuarto'],
@@ -31,10 +31,10 @@ addPrep([
 
  /* om */
  ['Ik heb ___ half tien een afspraak bij de bank.','om','op|in|aan','A las nueve y media tengo cita en el banco.','om + hora (om half tien = a las 9:30)'],
- ['Mijn wekker gaat elke dag ___ zes uur.','om','op|in|over','Mi despertador suena todos los días a las seis.','om + hora'],
- ['De supermarkt gaat ___ negen uur ’s avonds dicht.','om','op|in|door','El súper cierra a las nueve de la noche.','om + hora'],
+ ['Mijn wekker gaat elke dag ___ zes uur.','om','aan|in|over','Mi despertador suena todos los días a las seis.','om + hora'],
+ ['De supermarkt gaat ___ negen uur ’s avonds dicht.','om','aan|in|door','El súper cierra a las nueve de la noche.','om + hora'],
  ['We zijn gisteren pas ___ twee uur ’s nachts thuisgekomen.','om','tot|op|in','Ayer no llegamos a casa hasta las dos de la madrugada.','pas om … = no … hasta las …'],
- ['Precies ___ middernacht begint het vuurwerk.','om','op|in|over','A medianoche en punto empiezan los fuegos artificiales.','om middernacht = a medianoche'],
+ ['Precies ___ middernacht begint het vuurwerk.','om','aan|in|over','A medianoche en punto empiezan los fuegos artificiales.','om middernacht = a medianoche'],
  ['Zullen we ___ zeven uur bij mij afspreken?','om','op|in|aan','¿Quedamos a las siete en mi casa?','om + hora'],
  ['We doen ___ de twee weken samen boodschappen.','om','op|in|tegen','Hacemos la compra juntos cada dos semanas.','om de twee weken = cada dos semanas'],
  ['Ik ga ___ de dag zwemmen.','om','op|in|over','Voy a nadar un día sí y otro no.','om de dag = un día sí y otro no'],
@@ -44,7 +44,7 @@ addPrep([
  ['Kijk eens goed ___ je heen.','om','bij|op|naar','Mira bien a tu alrededor.','om … heen = alrededor de'],
  ['Hij heeft zijn baas ___ een loonsverhoging gevraagd.','om','naar|voor|aan','Le pidió a su jefe un aumento de sueldo.','vragen om = pedir'],
  ['We moesten allemaal ___ zijn grap lachen.','om','met|op|tegen','Todos nos tuvimos que reír con su chiste.','lachen om = reírse de/con'],
- ['Hij geeft niet ___ dure kleren.','om','aan|voor|van','No le importa la ropa cara.','geven om = importarle a uno'],
+ ['Hij geeft niet ___ dure kleren.','om','aan|tegenover|van','No le importa la ropa cara.','geven om = importarle a uno'],
  ['Bij waterpolo gaat het ___ teamwork.','om','naar|met|tegen','En el waterpolo lo importante es el trabajo en equipo.','het gaat om = lo importante es'],
  ['Delft is wereldberoemd ___ zijn blauwe aardewerk.','om','met|op|uit','Delft es famoso en todo el mundo por su cerámica azul.','beroemd/bekend om = famoso por'],
  ['Ik wed ___ een biertje dat Spanje wint.','om','op|met|uit','Me apuesto una cerveza a que gana España.','wedden om = apostarse algo'],
@@ -55,7 +55,7 @@ addPrep([
  ['Het draait allemaal ___ geld.','om','op|over|tegen','Todo gira en torno al dinero.','draaien om = girar en torno a'],
 
  /* uit */
- ['Onze trainer komt oorspronkelijk ___ Hongarije.','uit','in|naar|tegen','Nuestro entrenador es originario de Hungría.','komen uit = ser de (origen)'],
+ ['Onze trainer komt oorspronkelijk ___ Hongarije.','uit','in|naar|bij','Nuestro entrenador es originario de Hungría.','komen uit = ser de (origen)'],
  ['Deze tomaten zijn afkomstig ___ Spanje.','uit','in|bij|naar','Estos tomates proceden de España.','afkomstig uit = procedente de'],
  ['Pak jij even de melk ___ de koelkast?','uit','in|op|naar','¿Sacas tú un momento la leche de la nevera?','uit = de dentro, fuera de'],
  ['Hij keek de hele les ___ het raam.','uit','voor|in|op','Se pasó toda la clase mirando por la ventana.','uit het raam kijken = mirar por la ventana'],
@@ -72,11 +72,11 @@ addPrep([
  ['Na de wedstrijd klimmen we ___ het zwembad.','uit','van|over|tegen','Después del partido salimos de la piscina.','uit = salir de dentro'],
  ['De fietser kwam ___ het niets.','uit','van|in|naar','El ciclista apareció de la nada.','uit het niets = de la nada'],
  ['Zullen we vrijdag ___ eten gaan?','uit','om|van|op','¿Salimos a cenar el viernes?','uit eten gaan = salir a cenar'],
- ['Veel woorden in het Nederlands komen ___ het Frans.','uit','in|naar|tegen','Muchas palabras neerlandesas vienen del francés.','komen uit = venir de, proceder de'],
+ ['Veel woorden in het Nederlands komen ___ het Frans.','uit','in|naar|bij','Muchas palabras neerlandesas vienen del francés.','komen uit = venir de, proceder de'],
  ['Ze haalde een oude foto ___ haar portemonnee.','uit','van|in|op','Sacó una foto antigua de la cartera.','halen uit = sacar de'],
  ['Het boek is ___ het Engels vertaald.','uit','op|met|door','El libro está traducido del inglés.','vertalen uit = traducir de'],
  ['Mijn huisgenoot komt ___ een groot gezin met zes kinderen.','uit','in|bij|naar','Mi compañero de piso viene de una familia de seis hijos.','komen uit een gezin = venir de una familia'],
  ['Hij is ___ het team gezet omdat hij nooit op de training kwam.','uit','van|op|tegen','Lo han echado del equipo porque nunca iba a entrenar.','uit = fuera de'],
- ['Ik heb dit nieuws ___ de eerste hand.','uit','op|in|met','Tengo esta noticia de primera mano.','uit de eerste hand = de primera mano'],
+ ['Ik heb dit nieuws ___ de eerste hand.','uit','aan|in|met','Tengo esta noticia de primera mano.','uit de eerste hand = de primera mano'],
  ['Mijn vader las ons elke avond ___ een boek voor.','uit','van|in|tegen','Mi padre nos leía cada noche un libro en voz alta.','voorlezen uit een boek']
 ]);

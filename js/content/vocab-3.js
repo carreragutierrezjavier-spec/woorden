@@ -32,7 +32,7 @@ gaar=hecho (bien cocinado); zout=salado; vegetarisch=vegetariano; biologisch=eco
 addVocab('huis',null,1,`de kamer=la habitación; de woning=la vivienda; het appartement=el piso (apartamento);
 het rijtjeshuis=la casa adosada; de voordeur=la puerta de la calle; de brievenbus=el buzón; de klok=el reloj (de pared);
 de wekker=el despertador; de televisie|de tv=la televisión; het strijkijzer=la plancha (de ropa);
-de was=la colada (ropa para lavar); de bezem=la escoba; de dweil=la fregona; de emmer=el cubo;
+de was=la colada (ropa para lavar); de bezem=la escoba; de dweil=la bayeta del suelo; de emmer=el cubo;
 het schoonmaakmiddel=el producto de limpieza; de vlek=la mancha; het stof=el polvo (suciedad); de schimmel=el moho;
 de lekkage=la gotera (fuga de agua); de cv-ketel=la caldera; het licht=la luz; de schakelaar=el interruptor;
 het matras|de matras=el colchón; de berging=el trastero`);

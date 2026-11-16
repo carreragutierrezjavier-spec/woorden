@@ -55,7 +55,7 @@ addStory({id:'c03', t:'Een fiets en veel regen', te:'Una bici y mucha lluvia', l
   ['Die middag kijkt Pieter naar een tekening van Mateo.','Esa tarde, Pieter mira un plano de Mateo.',''],
   ['Niet slecht.','No está mal.','Pieter'],
   ['Niet slecht? Dat is bij Pieter het hoogste compliment.','¿«No está mal»? Viniendo de Pieter, es el mayor cumplido.','Lotte'],
-  ['O ja. Waar is je BSN? Zonder BSN krijg je geen salaris.','Ah, por cierto. ¿Dónde está tu BSN? Sin BSN no cobras.','Pieter'],
+  ['O ja. Heb je al een BSN? Zonder BSN krijg je geen salaris.','Ah, por cierto. ¿Ya tienes el BSN? Sin BSN no cobras.','Pieter'],
   ['Morgen heb ik een afspraak bij de gemeente. Hoe moeilijk kan dat zijn?','Mañana tengo cita en el ayuntamiento. ¿Tan difícil puede ser?','Mateo']
 ], q:[
   ['Hoe rem je op de fiets van Mateo?','¿Cómo se frena en la bici de Mateo?',['Met de remmen aan het stuur','Met een knop op het stuur','Door naar achteren te trappen'],2],

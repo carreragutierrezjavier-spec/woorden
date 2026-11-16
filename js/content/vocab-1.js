@@ -18,7 +18,7 @@ het aanrecht=la encimera; de gootsteen=el fregadero; het kopje=la taza; de mok=l
 de schaal=la fuente (para servir); het dienblad=la bandeja; de theepot=la tetera; het koffiezetapparaat=la cafetera;
 de theelepel=la cucharilla; de pollepel=el cucharón; de garde=el batidor de varillas; de rasp=el rallador;
 het vergiet=el escurridor; de zeef=el colador; de snijplank=la tabla de cortar; de kurkentrekker=el sacacorchos;
-de flesopener=el abrebotellas; de blikopener=el abrelatas; het blik=la lata; de pot=el tarro; het deksel=la tapa (de una olla);
+de flesopener=el abrebotellas; de blikopener=el abrelatas; het blik=la lata; de pot=el tarro; het deksel|de deksel=la tapa (de una olla);
 de mixer=la batidora; de broodrooster=la tostadora; het servet=la servilleta; het tafelkleed=el mantel;
 het bestek=la cubertería (los cubiertos); de theedoek=el paño de cocina; het afwasmiddel=el jabón para fregar los platos;
 de prullenbak=el cubo de la basura; de vuilniszak=la bolsa de basura; de weegschaal=la báscula`);
