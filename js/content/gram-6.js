@@ -57,7 +57,7 @@ addGram('presente',[
 ]);
 
 newGram('pasado',{n:'Pasado: imperfecto y participio',ref:'§18',lv:2,grp:'verbos',
- tip:'Débiles: raíz + te(n) si el infinitivo lleva t, k, f, s, ch o p antes de -en (’t kofschip: werkte); si no, + de(n): woonde, leefde. Fuertes: cambian la vocal (ging, kwam, zag). Participio: ge- + raíz + t/d; separables: op-ge-beld; sin ge- con be-, ver-, ont-, her-: begrepen.'});
+ tip:'Débiles: raíz + te(n) si antes de -en hay t, k, f, s, ch o p (’t kofschip: werkte); si no, + de(n): woonde, leefde. Fuertes: cambian la vocal (ging, kwam). Participio: ge- + raíz + t/d, o -en si es fuerte (gegaan); op-ge-beld; sin ge- con be-, ver-, ont-, her-: begrepen.'});
 
 addGram('pasado',[
  ['Gisteren ___ ik twee uur op de bus. (wachten)','wachtte','wachte|wachtde|wacht','Ayer esperé el autobús dos horas.','Raíz wacht + te → wachtte (dos t).'],
@@ -79,11 +79,11 @@ addGram('pasado',[
  ['Gisteren ___ ik het examen best makkelijk. (vinden)','vond','vindde|vonden|vind','Ayer el examen me pareció bastante fácil.'],
  ['Gisterochtend ___ ik naar de bakker. (lopen)','liep','loopte|liepen|loop','Ayer por la mañana fui andando a la panadería.'],
  ['Wat ___ jullie gisteravond? (doen)','deden','deed|doeten|doen','¿Qué hicisteis anoche?'],
- ['Afgelopen zaterdag ___ ze een nieuwe jas. (kopen)','kocht','koopte|kochten|koopt','El sábado pasado se compró un abrigo nuevo.'],
+ ['Afgelopen zaterdag ___ Lotte een nieuwe jas. (kopen)','kocht','koopte|kochten|koopt','El sábado pasado Lotte se compró un abrigo nuevo.'],
  ['Hij ___ me gisteren om hulp. (vragen)','vroeg','vraagde|vroegen|vraagt','Ayer me pidió ayuda.'],
  ['De les ___ gisteren een kwartier te laat. (beginnen)','begon','beginde|begonnen|begint','Ayer la clase empezó con un cuarto de hora de retraso.'],
  ['Hij ___ gisteren zijn telefoon in de trein. (vergeten)','vergat','vergeette|vergaten|vergeet','Ayer se dejó el móvil en el tren.'],
- ['Ze ___ vorige week een brief van de gemeente. (krijgen)','kreeg','krijgde|kregen|krijgt','La semana pasada recibió una carta del ayuntamiento.'],
+ ['Mijn buurvrouw ___ vorige week een brief van de gemeente. (krijgen)','kreeg','krijgde|kregen|krijgt','La semana pasada mi vecina recibió una carta del ayuntamiento.'],
  ['Afgelopen zondag ___ ik de hele dag thuis. (blijven)','bleef','blijfde|bleven|blijf','El domingo pasado me quedé en casa todo el día.'],
  ['Twee weken geleden ___ ik ziek. (zijn)','was','waren|ben|wees','Hace dos semanas estuve enfermo.'],
  ['Vorige week ___ we geen internet. (hebben)','hadden','had|hebben|hebde','La semana pasada no teníamos internet.'],

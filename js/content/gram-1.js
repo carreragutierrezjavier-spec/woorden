@@ -49,15 +49,15 @@ addGram('hebzijn',[
  ['Ik ___ voor mijn rijexamen geslaagd!','ben','heb|word|is','¡He aprobado el examen de conducir!','slagen (aprobar) y zakken (suspender) van con zijn.'],
  ['Helaas ___ hij voor zijn examen gezakt.','is','heeft|wordt|ben','Por desgracia, ha suspendido el examen.'],
  ['We ___ de wedstrijd met 8-6 gewonnen.','hebben','zijn|worden|heeft','Hemos ganado el partido 8 a 6.'],
- ['Ze ___ vorige zomer getrouwd.','zijn','hebben|worden|is','Se casaron el verano pasado.'],
- ['Delft ___ de laatste jaren veel veranderd.','is','heeft|wordt|zijn','Delft ha cambiado mucho en los últimos años.','Sin objeto (algo cambia) → zijn.'],
+ ['Mijn buren ___ vorige zomer uit elkaar gegaan.','zijn','hebben|worden|is','Mis vecinos lo dejaron el verano pasado.'],
+ ['Delft ___ de laatste jaren erg veranderd.','is','heeft|wordt|zijn','Delft ha cambiado mucho en los últimos años.','Sin objeto (algo cambia) → zijn.'],
  ['De klant ___ het ontwerp al drie keer veranderd.','heeft','is|wordt|hebben','El cliente ya ha cambiado el diseño tres veces.','Con objeto (cambiar algo) → hebben.'],
  ['De huurprijzen ___ weer gestegen.','zijn','hebben|worden|is','Los alquileres han vuelto a subir.'],
  ['Het ___ me eindelijk gelukt!','is','heeft|wordt|ben','¡Por fin lo he conseguido!'],
  ['Hoe laat ___ je gisteren thuisgekomen?','ben','heb|word|is','¿A qué hora llegaste ayer a casa?'],
  ['We ___ gisteravond met het team uitgegaan.','zijn','hebben|worden|is','Anoche salimos con el equipo.'],
  ['Ik ___ me bij de gemeente ingeschreven.','heb','ben|word|is','Me he empadronado en el ayuntamiento.','Los reflexivos van con hebben.'],
- ['Ze ___ zich vanochtend verslapen.','heeft','is|wordt|hebben','Esta mañana se ha quedado dormida.'],
+ ['Emma ___ zich vanochtend verslapen.','heeft','is|wordt|hebben','Esta mañana Emma se ha quedado dormida.'],
  ['Ik ___ in Vigo opgegroeid.','ben','heb|word|is','Me crie en Vigo.'],
  ['Hoe lang ___ je in Japan gebleven?','ben','heb|word|is','¿Cuánto tiempo te quedaste en Japón?'],
  ['We ___ twee uur in de file gestaan.','hebben','zijn|worden|heeft','Hemos estado dos horas en un atasco.'],
@@ -81,7 +81,7 @@ addGram('hebzijn',[
  ['Ik ___ veel gereisd voor mijn werk.','heb','ben|word|is','He viajado mucho por trabajo.'],
  ['Mijn broer ___ vorig jaar naar Australië gereisd.','is','heeft|wordt|ben','Mi hermano viajó a Australia el año pasado.'],
  ['Mijn huisgenoot ___ zijn paspoort kwijtgeraakt.','is','heeft|wordt|ben','Mi compañero de piso ha perdido el pasaporte.','kwijtraken (perder) va con zijn.'],
- ['Ze ___ vijf jaar in Londen gewoond.','heeft','is|wordt|hebben','Vivió cinco años en Londres.'],
+ ['Ahmed ___ vijf jaar in Londen gewoond.','heeft','is|wordt|hebben','Ahmed vivió cinco años en Londres.'],
  ['We ___ gisteren lekker gegeten bij die nieuwe Italiaan.','hebben','zijn|worden|heeft','Ayer comimos muy bien en ese italiano nuevo.'],
  ['Ik ___ de hele avond voor mijn tentamen geleerd.','heb','ben|word|is','He pasado toda la tarde estudiando para el examen.']
 ]);
@@ -115,6 +115,6 @@ addGram('pron',[
  ['Sanne en ik zijn huisgenoten. ___ wonen vlak bij de Markt.','We','Ons|Onze|Hun','Sanne y yo compartimos piso. Vivimos al lado de la Markt.'],
  ['Wanneer zien we ___ weer?','elkaar','ons|zich|we','¿Cuándo nos volvemos a ver?','El uno al otro: elkaar.'],
  ['Het formulier? Ik heb ___ al ingevuld.','het','hem|ze|hij','¿El formulario? Ya lo he rellenado.','het formulier → het.'],
- ['De witte wijn? Ik heb ___ in de koelkast gezet.','hem','het|hij|zijn','¿El vino blanco? Lo he metido en la nevera.','de wijn → hem.'],
+ ['De fles witte wijn? Ik heb ___ in de koelkast gezet.','hem','het|hij|zijn','¿La botella de vino blanco? La he metido en la nevera.','de fles → hem.'],
  ['Hebben jullie ___ huiswerk al gemaakt?','jullie','jullies|jouwe|jij','¿Ya habéis hecho los deberes?']
 ]);

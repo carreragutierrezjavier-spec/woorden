@@ -66,7 +66,7 @@ addGram('reflex',[
  ['Hebben jullie ___ geamuseerd op het feest?','je','jullie|zich|jouw','¿Os lo pasasteis bien en la fiesta?'],
  ['Daan heeft ___ bedacht: hij komt toch.','zich','hem|hij|zijn','Daan ha cambiado de idea: al final viene.'],
  ['Houd ___ aan de regels!','je','jou|zich|me','¡Cumple las normas!'],
- ['U moet ___ eerst bij de receptie melden.','zich','uw|zijn|jij','Primero tiene que presentarse en recepción.','Con u, el reflexivo es zich.'],
+ ['U moet ___ eerst bij de receptie melden.','zich','uw|zijn|jij','Primero tiene que presentarse en recepción.','Con u, el reflexivo suele ser zich (también vale u: u moet u melden).'],
  ['De nieuwe collega stelt ___ voor aan het team.','zich','hij|zijn|zij','El nuevo compañero se presenta al equipo.'],
  ['Kun jij ___ voorstellen dat je hier tien jaar woont?','je','jou|zich|me','¿Te imaginas vivir aquí diez años?'],
  ['Mijn ouders maken ___ zorgen om mij.','zich','hen|hun|ze','Mis padres se preocupan por mí.'],

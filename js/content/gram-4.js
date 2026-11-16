@@ -27,7 +27,7 @@ addGram('spell',[
  ['Ik heb nog nooit zo hard ___.','gelachen','gelacht|gelachd|gelaacht','Nunca me he reído tanto.'],
  ['Hij ___ niet op mijn vraag.','antwoordde','antwoorde|antwoordte|antwoordden','No contestó a mi pregunta.','Raíz antwoord + de → antwoordde (dos d).'],
  ['Gisteren ___ we twee uur met de buren.','praatten','praaten|prateden|praatte','Ayer estuvimos dos horas hablando con los vecinos.','Raíz praat + ten → praatten (dos t).'],
- ['Ze ___ in die tijd heel gezond.','leefde','leefte|leevde|leefden','En aquella época llevaba una vida muy sana.','leven: cuenta la v del infinitivo → -de (leefde).'],
+ ['Daan ___ in die tijd heel gezond.','leefde','leefte|leevde|leefden','En aquella época Daan llevaba una vida muy sana.','leven: cuenta la v del infinitivo → -de (leefde).'],
  ['Jullie ___ te snel.','lopen','loopen|lopten|lopenn','Andáis demasiado rápido.'],
  ['Zij ___ altijd over het weer.','praten','praaten|pratten|praatn','Siempre hablan del tiempo.'],
  ['Wij ___ de tassen op de stoel.','leggen','leegen|leggenn|lechen','Ponemos las bolsas en la silla.'],
