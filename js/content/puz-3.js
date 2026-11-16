@@ -23,7 +23,7 @@ addPuz('tiempos',[
 {s:'Ayer llegamos a casa muy tarde.',n:'Gisteren kwamen we heel laat thuis.',a:['we kwamen gisteren heel laat thuis'],x:'kwam',t:'Pasado de komen: kwam (singular), kwamen (plural). thuiskomen: kwamen … thuis.'},
 {s:'Estaba durmiendo cuando sonó el teléfono.',n:'Ik lag te slapen toen de telefoon ging.',a:['toen de telefoon ging lag ik te slapen'],x:'was',t:'Estar durmiendo = liggen te slapen. Sonar el teléfono = de telefoon gaat.'},
 {s:'Han cambiado el horario.',n:'Ze hebben het rooster veranderd.',x:'geveranderd',t:'veranderen → veranderd: los verbos con ver- no llevan ge-.'},
-{s:'Lleva una hora esperando.',n:'Hij staat al een uur te wachten.',x:'aan',t:'Llevar tiempo haciendo algo: staan/zitten + al … + te + infinitivo.'},
+{s:'Lleva una hora esperando.',n:'Hij staat al een uur te wachten.',a:['al een uur staat hij te wachten'],x:'aan',t:'Llevar tiempo haciendo algo: staan/zitten + al … + te + infinitivo.'},
 {s:'De repente se fue la luz.',n:'Plotseling viel de stroom uit.',a:['de stroom viel plotseling uit'],x:'uitviel',t:'Para narrar, imperfecto (viel … uit), no pluscuamperfecto.'},
 {s:'Cuando entré, la película ya había empezado.',n:'Toen ik binnenkwam, was de film al begonnen.',a:['de film was al begonnen toen ik binnenkwam'],x:'had',t:'Pluscuamperfecto: algo anterior a otro pasado. beginnen va con zijn: was begonnen.'},
 {s:'¿Has estado alguna vez en Japón?',n:'Ben je ooit in Japan geweest?',x:'heb',t:'zijn → geweest, con zijn. ooit = alguna vez.'},

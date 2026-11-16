@@ -26,7 +26,7 @@ addPuz('modales',[
 {s:'No podía dormir por el calor.',n:'Ik kon niet slapen door de hitte.',a:['door de hitte kon ik niet slapen','ik kon door de hitte niet slapen'],x:'konden',t:'Pasado de kunnen: kon (singular), konden (plural). Por (causa) = door.'},
 {s:'Deberías descansar más.',n:'Je zou meer moeten rusten.',x:'te',t:'Consejo: je zou … moeten + infinitivo, sin te.'},
 {s:'¿Quieres venir a cenar el sábado?',n:'Wil je zaterdag komen eten?',x:'wilt',t:'Con je detrás: wil je. komen + infinitivo sin te: komen eten.'},
-{s:'He tenido que esperar una hora.',n:'Ik heb een uur moeten wachten.',x:'gemoeten',t:'Modal en perfecto: infinitivo, no participio: heb … moeten wachten.'},
+{s:'He tenido que esperar una hora.',n:'Ik heb een uur moeten wachten.',a:['een uur heb ik moeten wachten'],x:'gemoeten',t:'Modal en perfecto: infinitivo, no participio: heb … moeten wachten.'},
 {s:'No hace falta que te quites los zapatos.',n:'Je hoeft je schoenen niet uit te doen.',x:'moet',t:'niet hoeven + te = no hace falta. te va entre prefijo y verbo: uit te doen.'},
 {s:'Podemos quedar mañana si quieres.',n:'We kunnen morgen afspreken als je wilt.',a:['morgen kunnen we afspreken als je wilt','als je wilt kunnen we morgen afspreken'],x:'kan',t:'Modal en 2.ª posición; el separable va entero al final: afspreken.'},
 {s:'¿Me podría decir dónde está la estación?',n:'Kunt u me zeggen waar het station is?',x:'zegt',t:'Con u: kunt u. Pregunta indirecta con el verbo al final: waar … is.'},

@@ -25,7 +25,7 @@ addPuz('er',[
 {s:'Ya estoy acostumbrado.',n:'Ik ben er al aan gewend.',x:'me',t:'gewend zijn aan → er … aan, con el adverbio en medio: er al aan.'},
 {s:'Me arrepiento.',n:'Ik heb er spijt van.',x:'ben',t:'Arrepentirse = spijt hebben van → er spijt van hebben (no es reflexivo).'},
 {s:'¿Fresas? Me he comido diez.',n:'Ik heb er tien gegeten.',x:'ze',t:'Con un número sin sustantivo hace falta er: ik heb er tien gegeten.'},
-{s:'¿Ámsterdam? He estado dos veces.',n:'Ik ben er twee keer geweest.',x:'heb',t:'er = allí (un lugar ya mencionado); va justo detrás del verbo.'},
+{s:'¿Ámsterdam? He estado dos veces.',n:'Ik ben er twee keer geweest.',a:['twee keer ben ik er geweest'],x:'heb',t:'er = allí (un lugar ya mencionado); va justo detrás del verbo.'},
 {s:'No tengo tiempo para eso.',n:'Ik heb er geen tijd voor.',x:'om',t:'tijd hebben voor → er … voor.'},
 {s:'¿Qué pone en la carta?',n:'Wat staat er in de brief?',x:'zegt',t:'Lo que pone un texto: wat staat er (in)? Se usa staan.'},
 {s:'¿Queda café?',n:'Is er nog koffie?',x:'heeft',t:'¿Queda…? = Is er nog …? «Hay» es er is, nunca heeft.'},
