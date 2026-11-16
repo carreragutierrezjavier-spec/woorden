@@ -83,7 +83,7 @@ addChat([
 
 {q:'Werkt alles goed in je nieuwe kamer?',qe:'¿Funciona todo bien en tu nueva habitación?',o:[
  ['Ja, ik werk er elke dag aan mijn scriptie.',0,'«Werkt alles?» es «¿funciona todo?», no habla de tu trabajo.'],
- ['Bijna, alleen de verwarming doet niet.',0,'«Funcionar» se dice het doen: «de verwarming doet het niet».'],
+ ['Bijna, alleen de verwarming doet niet.',0,'Con el sentido de «funcionar», doen lleva siempre het: «de verwarming doet het niet».'],
  ['Bijna, alleen de verwarming doet het niet.',1,'']],
  r:'Vervelend! Heb je de huisbaas al gebeld?',t:'casa'},
 
@@ -101,7 +101,7 @@ addChat([
 
 {q:'Waar kan ik mijn fiets neerzetten?',qe:'¿Dónde puedo dejar la bici?',o:[
  ['Zet hem maar op de schuur achter het huis.',0,'op es «encima de»; dentro es in: «in de schuur».'],
- ['Leg hem maar in de schuur achter het huis.',0,'Una bici se deja de pie: zetten; leggen es dejarla tumbada.'],
+ ['Zet hem maar in de schuur achter de huis.',0,'huis es het: «achter het huis».'],
  ['Zet hem maar in de schuur achter het huis.',1,'']],
  r:'Top. Moet ik hem op slot zetten?',t:'casa'},
 
@@ -216,7 +216,7 @@ addChat([
  r:'Echt? Ik vond het einde juist het best!',t:'opinion'},
 
 {q:'Vind je niet dat Nederlanders erg direct zijn?',qe:'¿No te parece que los holandeses son muy directos?',o:[
- ['Nee, ze zeggen altijd precies wat ze denken.',0,'«Nee» diría que no lo crees, y luego les das la razón.'],
+ ['Ja, ze praten altijd precies wat ze denken.',0,'praten es «hablar» y no lleva ese objeto; «decir lo que piensan» es zeggen.'],
  ['Ja, ze zeggen altijd precies wat ze denken.',1,''],
  ['Ja, ze zeggen altijd precies wat denken ze.',0,'En «lo que piensan», el verbo va al final: «wat ze denken».']],
  r:'Haha, dat vatten we op als een compliment.',t:'opinion'},

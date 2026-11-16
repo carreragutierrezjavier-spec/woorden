@@ -47,7 +47,7 @@ addChat([
 {q:'Mag je van de fysiotherapeut al weer sporten?',qe:'¿Ya te deja el fisio volver a hacer deporte?',o:[
  ['Nog niet, pas over twee weken.',1,''],
  ['Nog niet, pas twee weken geleden.',0,'geleden es «hace» (pasado); aquí hablas del futuro.'],
- ['Nog niet, pas in twee weken.',0,'«Dentro de dos semanas» es over twee weken.']],
+ ['Nog geen, pas over twee weken.',0,'Sin sustantivo detrás se niega con niet: «nog niet»; geen va con sustantivos.']],
  r:'Geduld dan maar. Dan kom je sterker terug!',t:'salud'},
 
 /* ---------- compras ---------- */
@@ -101,7 +101,7 @@ addChat([
 
 /* ---------- viajes ---------- */
 {q:'Ben je al eens in Maastricht geweest?',qe:'¿Has estado alguna vez en Maastricht?',o:[
- ['Nee, nog nooit, maar ik wil graag er heen.',0,'er va pronto, antes de graag: «ik wil er graag heen».'],
+ ['Nee, ik heb er nog nooit geweest.',0,'zijn forma el perfecto con zijn: «ik ben er nog nooit geweest».'],
  ['Het ligt in het zuiden, bij België.',0,'Eso dice dónde está; te pregunta si has estado.'],
  ['Nee, nog nooit, maar ik wil er graag heen.',1,'']],
  r:'Moet je echt doen, het is heel anders dan Delft.',t:'viajes'},
@@ -144,7 +144,7 @@ addChat([
 
 {q:'Is je vlucht vertraagd?',qe:'¿Tu vuelo lleva retraso?',o:[
  ['Ja, we vertrekken al om tien uur.',0,'al es «ya, antes de lo previsto»; con retraso se dice pas.'],
- ['Ja, we vertrekken een uur laat.',0,'«Una hora más tarde» es een uur later.'],
+ ['Ja, we hebben een uur vertraagd.',0,'El retraso se tiene: «we hebben een uur vertraging».'],
  ['Ja, we vertrekken pas om tien uur.',1,'']],
  r:'Wat vervelend! Heb je iets te lezen bij je?',t:'viajes'},
 

@@ -125,7 +125,7 @@ addChat([
 
 {q:'Stoor ik even?',qe:'¿Te molesto un momento?',o:[
  ['Graag gedaan, kom maar binnen.',0,'«Graag gedaan» es «de nada»; nadie te ha dado las gracias.'],
- ['Ja hoor, kom maar binnen.',0,'«Ja» sería «sí, molestas»; lo amable es «nee hoor».'],
+ ['Nee hoor, kom maar buiten.',0,'buiten es «fuera»; «pasa» es kom maar binnen.'],
  ['Nee hoor, kom maar binnen.',1,'']],
  r:'Heb je vijf minuutjes voor me?',t:'trabajo'},
 
@@ -181,7 +181,7 @@ addChat([
 {q:'Welk vak vond je het leukst tijdens je master?',qe:'¿Qué asignatura te gustó más del máster?',o:[
  ['Jachtontwerp vond ik het leukst.',1,''],
  ['Ik had vier vakken per kwartaal.',0,'Eso dice cuántas tenías, no cuál te gustó más.'],
- ['Jachtontwerp vond ik het meest leuk.',0,'El superlativo de leuk es «het leukst», no «het meest leuk».']],
+ ['Jachtontwerp vond ik het leuker.',0,'leuker es comparativo («más divertido que»); aquí va el superlativo: «het leukst».']],
  r:'Logisch, daar werk je nu ook aan!',t:'estudios'},
 
 {q:'Hoe lang volg je al Nederlandse les?',qe:'¿Cuánto tiempo llevas yendo a clases de neerlandés?',o:[
@@ -231,7 +231,7 @@ addChat([
  ['Eén keer, maar ik kan nog niet goed te schaatsen.',0,'Tras kunnen, el infinitivo va sin te.'],
  ['Eén keer, en ik ben drie keer gevallen.',1,''],
  ['Eén keer, en ik heb drie keer gevallen.',0,'vallen forma el perfecto con zijn: «ik ben gevallen».']],
- r:'Haha, dat hoort erbij! Volgende winter ga je met mij.',t:'deporte'},
+ r:'Haha, dat hoort erbij! Volgende winter ga je met mij mee.',t:'deporte'},
 
 {q:'Doe je mee aan het toernooi volgende maand?',qe:'¿Vas a jugar el torneo del mes que viene?',o:[
  ['In Leiden, in het grote zwembad.',0,'Eso dice dónde es; te pregunta si participas.'],

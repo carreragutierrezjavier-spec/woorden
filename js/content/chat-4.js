@@ -35,7 +35,7 @@ addChat([
 {q:'Weet je al wat ‘gezellig’ betekent?',qe:'¿Ya sabes lo que significa «gezellig»?',o:[
  ['Ja, het is een dorp bij Delft.',0,'gezellig no es un lugar: describe un ambiente agradable.'],
  ['Zoiets als knus en fijn samen zijn, toch?',1,''],
- ['Ja, ik weet wat het betekend.',0,'Presente con het: «het betekent», con t; betekend es el participio.']],
+ ['Ja, ik weet wat betekent het.',0,'En la pregunta indirecta, el verbo va al final: «wat het betekent».']],
  r:'Precies! Dit, nu, met koffie: dat is gezellig.',t:'cultura'},
 
 {q:'Weet je waarom er bij ons een verjaardagskalender op de wc hangt?',qe:'¿Sabes por qué tenemos un calendario de cumpleaños en el váter?',o:[
@@ -177,11 +177,11 @@ addChat([
 {q:'Ben je zenuwachtig voor je presentatie morgen?',qe:'¿Estás nervioso por tu presentación de mañana?',o:[
  ['Een beetje, maar ik heb goed geoefend.',1,''],
  ['Om twee uur, in zaal drie.',0,'Eso dice cuándo y dónde; te pregunta si estás nervioso.'],
- ['Een beetje, maar ik ben goed geoefend.',0,'oefenen forma el perfecto con hebben: «ik heb geoefend».']],
+ ['Een beetje, maar ik heb goed gepraktiseerd.',0,'praktiseren es ejercer una profesión (como un médico); «practicar» es oefenen.']],
  r:'Komt goed! Ik duim voor je.',t:'sentimientos'},
 
 {q:'Waar word jij echt blij van?',qe:'¿Qué te hace feliz de verdad?',o:[
- ['Ik word blij als schijnt de zon.',0,'Tras als, sujeto y verbo al final: «als de zon schijnt».'],
+ ['Ik word blij als schijnt de zon.',0,'Tras als, el verbo va al final: «als de zon schijnt».'],
  ['Op een goede wedstrijd en een zonnige dag.',0,'«Alegrarse con algo» es blij worden van: «van een goede wedstrijd».'],
  ['Van een goede wedstrijd en een zonnige dag.',1,'']],
  r:'Mooi! Bij mij is het koffie en een goed boek.',t:'sentimientos'},
@@ -238,7 +238,7 @@ addChat([
 {q:'Heb je je sinterklaasgedicht al geschreven?',qe:'¿Ya has escrito tu poema de Sinterklaas?',o:[
  ['Een boek over zeilen, voor Daan.',0,'Eso dice qué regalo has comprado; te pregunta por el poema.'],
  ['Bijna, maar rijmen in het Nederlands is lastig!',1,''],
- ['Ja, ik heb hem gisteren geschrijven.',0,'El participio de schrijven es geschreven.']],
+ ['Ja, ik heb het gisteren geschrijven.',0,'El participio de schrijven es geschreven.']],
  r:'Haha, het hoeft niet perfect te zijn!',t:'fiestas'}
 
 ]);

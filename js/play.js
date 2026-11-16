@@ -269,7 +269,7 @@ RENDER.type=RENDER.ear=function(s,st){
     autoSay(w.nl,0.9);
     /* palabra que no habías visto: si la sabías, se da por sabida; si no, se enseña con un ejemplo y vuelve enseguida */
     const ex=s.probe&&!good?exampleFor(w):null;
-    const pnote=s.probe?(good?'No te la vuelvo a preguntar hasta dentro de unos días.':'Es nueva para ti. Te la pregunto otra vez dentro de un momento.'):'';
+    const pnote=s.probe?(good?'No te la vuelvo a preguntar hasta dentro de unos días.':(j.v==='near'?'':'Es nueva para ti. ')+'Te la pregunto otra vez dentro de un momento.'):'';
     showFb({kind:j.v,title:good?(s.probe?'¡Ya la sabías!':'Correcto'):(j.v==='near'?'Casi':(give?'Era esto':'No era eso')),nl:w.nl,es:w.es,
       note:[j.note,pnote].filter(Boolean).join(' '),speak:w.nl,auto:s.probe?1700:0,
       node:ex?H('div.introex.fbex',null,H('p',null,H('span',{text:ex[0]}),speakBtn(ex[0],true,0.9)),H('small',{text:ex[1]})):null,
