@@ -205,7 +205,8 @@ const LEVELS=[[0,'Toerist'],[300,'Nieuwkomer'],[800,'Fietser'],[1600,'Kaasliefhe
   [8000,'Polderaar'],[12000,'Stroopwafelmeester'],[17000,'Echte Hollander'],[25000,'Kaaskop'],[36000,'Grachtenkenner'],
   [50000,'Molenaar'],[70000,'Dijkgraaf'],[95000,'Burgemeester'],[130000,'Koning van de polder']];
 function levelOf(xp){ let i=0; for(let k=0;k<LEVELS.length;k++) if(xp>=LEVELS[k][0]) i=k; return i; }
-const GOALS={short:150,normal:250,long:400};
+/* objetivo del día: unas tres rondas del día (15–20 minutos) */
+const GOALS={short:400,normal:600,long:850};
 const goalXp=()=>GOALS[S.opt.size]||250;
 
 /* ---------- comprobar respuestas ---------- */

@@ -82,7 +82,7 @@ const CATS={
  'verbs-reg':{label:'Verbos regulares',tip:'Regla ’t kofschip: si la raíz acaba en t, k, f, s, ch o p, va -te / -t (werkte, gewerkt). Si no, -de / -d (woonde, gewoond).',go:()=>play('verbs','reg')},
  'verbs-sep':{label:'Verbos separables',tip:'En pasado se separan (ik belde op) y en el participio ge- va en medio (opgebeld). El prefijo lleva el acento.',go:()=>play('verbs','sep')},
  countries:{label:'Países y nacionalidades',tip:'Para tu nacionalidad usa el adjetivo: Ik ben Spaans, no Spanjaard. Casi todos acaban en -s o en -isch.',go:()=>play('countries')},
- chat:{label:'Entender preguntas',tip:'Escucha la pregunta entera y fíjate en la palabra interrogativa: hoe lang (cuánto tiempo) no es hoe oud (qué edad) ni hoeveel (cuántos).',go:()=>play('chat')},
+ chat:{label:'Entender preguntas',tip:'Escucha la pregunta entera y fíjate en la palabra interrogativa: hoe lang (cuánto tiempo) no es hoe oud (qué edad) ni hoeveel (cuántos).',go:()=>play('daily')},
  'num-time':{label:'Las horas',tip:'half drie = 2:30, media PARA las tres. tien voor half drie = 2:20. kwart voor drie = 2:45.',go:()=>play('numbers')},
  'num-num':{label:'Los números',tip:'La unidad va primero: zevenenveertig = siete-y-cuarenta = 47. Las decenas están al final de la palabra.',go:()=>play('numbers')},
  pairs:{label:'Vocales largas y cortas',tip:'Una vocal escrita doble suena larga (maan), una sola en sílaba cerrada suena corta y seca (man). Y uu, oe, eu y ui son cuatro sonidos distintos: huur, hoer, deur, huis.',go:()=>play('pairs')}
@@ -101,7 +101,7 @@ function catInfo(cat){
     const k=cat.slice(4); if(!PUZ[k]) return null;
     return {label:'Frases · '+PUZ[k][0],tip:PTIPS[k]||'',go:()=>play('puzzle',k)};
   }
-  if(cat==='listen') return {label:'Entender frases de oído',tip:'Escucha la frase entera antes de mirar las opciones, y repítela en voz alta. Si se te escapa, pulsa «Más despacio».',go:()=>play('hearTiles')};
+  if(cat==='listen') return {label:'Entender frases de oído',tip:'Escucha la frase entera antes de mirar las opciones, y repítela en voz alta. Si se te escapa, pulsa «Más despacio».',go:()=>play('daily')};
   return null;
 }
 function weaknesses(){
@@ -123,7 +123,7 @@ const MISSIONS=[
  {id:'blitz25',txt:'Haz 25 aciertos en un Blitz',n:1,c:45,m:e=>e.t==='blitz'&&e.v>=25,go:()=>play('blitz')},
  {id:'verbs4',txt:'Clava 4 verbos con sus cuatro formas',n:4,c:40,m:e=>e.t==='ok'&&e.type==='verb',go:()=>play('verbs','all')},
  {id:'puz4',txt:'Monta 4 frases a la primera',n:4,c:35,m:e=>e.t==='puzFirst',go:()=>play('puzzle')},
- {id:'listen8',txt:'Acierta 8 de oído',n:8,c:35,m:e=>e.t==='ok'&&e.listen,go:()=>play('dictation')},
+ {id:'listen8',txt:'Acierta 8 de oído',n:8,c:35,m:e=>e.t==='ok'&&e.listen,go:()=>play('daily')},
  {id:'crit1',txt:'Consigue un golpe crítico',n:1,c:25,m:e=>e.t==='crit'},
  {id:'acc90',txt:'Termina una ronda con un 90 % de acierto',n:1,c:45,m:e=>e.t==='session'&&e.acc>=0.9&&e.n>=10},
  {id:'weak',txt:'',n:10,c:50,m:()=>false}

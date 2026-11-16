@@ -586,5 +586,11 @@ textarea.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;m
 .mbtn.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);opacity:.55}
 .mbtn.bad{border-color:var(--bad);background:var(--bad-soft);animation:fbad .35s}
 .qcard.fresh .vforms{margin-top:12px}
+.stats.three{grid-template-columns:repeat(3,1fr)}
+.xpchart.words .xb{position:relative}
+.xpchart.words .xb em{font-style:normal;font-size:10.5px;color:var(--muted);margin-bottom:2px}
+.bar2{display:flex;height:8px;border-radius:99px;background:var(--trk);overflow:hidden}
+.bar2 i{display:block;height:100%}.bar2 i.m{background:var(--ok)}.bar2 i.s{background:var(--delft);opacity:.45}
+.lg{display:inline-block;width:10px;height:10px;border-radius:3px;vertical-align:-1px}.lg.m{background:var(--ok)}.lg.s{background:var(--delft);opacity:.45}
 @media (max-width:359px){.blocks{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.hero{padding:28px 18px 20px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

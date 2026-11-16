@@ -4,8 +4,10 @@
    en gramática se mide la destreza, y las frases se van sacando del banco sin repetir hasta agotarlo. */
 
 const NSEQ=['n1','n1','t','n2','n2','t','n2','y','t','n3','t','y'];
-const ROUND={short:8,normal:12,long:16};
-const roundN=()=>ROUND[S.opt.size]||12;
+/* la ronda del día es larga (ahí entra de todo); las de practicar, cortas */
+const ROUND={short:15,normal:20,long:25};
+const roundN=()=>ROUND[S.opt.size]||20;
+const practiceN=()=>S.opt.size==='short'?10:S.opt.size==='long'?16:12;
 
 /* ---------- pasos ---------- */
 /* modo de las palabras: 'type' = presentar y luego escribir (por defecto) · 'mix' = elegir al principio, escribir después · 'mc' = solo elegir */
@@ -202,7 +204,7 @@ function puzBlockSteps(n){
 }
 /* la ronda de un bloque */
 function blockSteps(bk,n){
-  n=n||Math.max(10,roundN());
+  n=n||practiceN();
   if(bk==='frases') return puzBlockSteps(n);
   let steps=[];
   if(bk==='prep'){
@@ -310,7 +312,8 @@ function exampleFor(w){
 /* ---------- la ronda principal ---------- */
 function otherSteps(n){
   const hasVoice=!!voice;
-  const kinds=[['verb',2],['puz',2],['chat',1.4],['hear',hasVoice?1.4:0],['hearTiles',hasVoice?1.2:0],['country',0.6],['num',hasVoice?0.7:0],['pair',hasVoice?0.6:0]];
+  /* conversación y oído solo salen aquí, en la ronda del día: les doy más peso */
+  const kinds=[['verb',1.6],['puz',1.6],['chat',2.2],['hear',hasVoice?2.2:0],['hearTiles',hasVoice?1.8:0],['country',0.5],['num',hasVoice?0.8:0],['pair',hasVoice?0.7:0]];
   const make={
     verb:()=>verbStep(pickSrs(VERBS,v=>'v:'+v[0],1)[0]),
     puz:()=>puzStep(pickBank(ALLPUZ,p=>'p:'+p.n,1)[0]),
@@ -336,15 +339,15 @@ function otherSteps(n){
 /* plan de la próxima ronda: cuántas nuevas, cuántos repasos, qué gramática */
 let NEXT=null;
 function planRound(){
-  const N=roundN(), sc=N/12;
+  const N=roundN(), sc=N/20;
   const due=dueOf(ALLW,w=>w.k), unseen=ALLW.filter(w=>!seen(w.k)).length;
-  /* cuantos más repasos pendientes, menos palabras nuevas (pero siempre al menos una); y con más de 25 nuevas en el día, solo una por ronda */
-  let nNew=due.length>60?1:due.length>30?2:3;
+  /* cuantos más repasos pendientes, menos palabras nuevas (pero siempre alguna); con más de 30 nuevas en el día, solo una por ronda */
+  let nNew=due.length>60?2:due.length>30?3:5;
   nNew=Math.min(unseen,Math.max(1,Math.round(nNew*sc)));
-  if((logDay().n||0)>=25) nNew=Math.min(nNew,1);
-  let nRev=Math.min(due.length,Math.round((due.length>30?6:4)*sc));
+  if((logDay().n||0)>=30) nNew=Math.min(nNew,1);
+  let nRev=Math.min(due.length,Math.round((due.length>30?8:6)*sc));
   if(nRev<2&&unseen>nNew) nNew=Math.min(unseen,nNew+1);
-  const nGram=Math.max(2,Math.round(3*sc));
+  const nGram=Math.max(2,Math.round(4*sc));
   const nOther=Math.max(1,N-(nNew+nRev+nGram));
   const skills=pickSkills(nGram>=4?2:(Math.random()<0.5?2:1));
   return NEXT={t:T(),at:Date.now(),N,nNew,nRev,nGram,nOther,skills,due:due.length,news:newWordsFrom(ALLW,nNew),revs:due.slice(0,nRev)};
@@ -450,6 +453,6 @@ function play(kind,arg){
   if(!cfg.timed&&!cfg.steps.length){ toast('Aquí no hay nada que practicar ahora mismo. Vuelve mañana.'); return; }
   cfg.mode=kind; cfg.arg=arg;
   /* cuántas veces has hecho cada grupo o bloque: lo menos hecho sale arriba */
-  if(['sub','group','block','random','countries'].includes(kind)){ S.gp=S.gp||{}; const gk=kind+':'+(arg||''); S.gp[gk]=(S.gp[gk]||0)+1; }
+  if(['sub','group','block','random','countries','verbs','blitz'].includes(kind)){ S.gp=S.gp||{}; const gk=kind+':'+(arg||''); S.gp[gk]=(S.gp[gk]||0)+1; }
   startRun(cfg);
 }

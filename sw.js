@@ -3,23 +3,23 @@
    - Los archivos con ?v=N no cambian nunca para ese número: se sirven de la caché si están y, si no, de la red,
      sin límite de tiempo. Nunca se mezcla un archivo de una versión con otro de otra.
    - Fuentes e iconos, de la caché. */
-const CACHE='woorden-422';
-const V='?v=422';
+const CACHE='woorden-424';
+const V='?v=424';
 const ASSETS=['./',
   'index.html',
   'manifest.webmanifest',
-  'css/app.css?v=422',
-  'js/data-base.js?v=422',
-  'js/data-more.js?v=422',
-  'js/data-grammar.js?v=422',
-  'js/contenido.js?v=422',
-  'js/data-build.js?v=422',
-  'js/core.js?v=422',
-  'js/game.js?v=422',
-  'js/play.js?v=422',
-  'js/plan.js?v=422',
-  'js/story.js?v=422',
-  'js/ui.js?v=422',
+  'css/app.css?v=424',
+  'js/data-base.js?v=424',
+  'js/data-more.js?v=424',
+  'js/data-grammar.js?v=424',
+  'js/contenido.js?v=424',
+  'js/data-build.js?v=424',
+  'js/core.js?v=424',
+  'js/game.js?v=424',
+  'js/play.js?v=424',
+  'js/plan.js?v=424',
+  'js/story.js?v=424',
+  'js/ui.js?v=424',
   'fonts/fraunces.woff2',
   'fonts/plex-400.woff2',
   'fonts/plex-500.woff2',
