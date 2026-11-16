@@ -124,11 +124,11 @@ addPrep([
  ['Het is ___ mij te laat om nog te bellen.','volgens','bij|van|tegen','Creo que ya es demasiado tarde para llamar.','volgens mij = creo que, en mi opinión'],
  ['Het gaat morgen ___ de weerman de hele dag regenen.','volgens','van|bij|door','Según el hombre del tiempo, mañana va a llover todo el día.','volgens = según'],
  ['We moeten ___ het rooster om half negen beginnen.','volgens','op|in|met','Según el horario, tenemos que empezar a las ocho y media.','volgens = según'],
- ['De film duurt ___ de website twee uur en tien minuten.','volgens','op|in|van','Según la web, la película dura dos horas y diez minutos.','volgens = según'],
+ ['De film duurt ___ de website twee uur en tien minuten.','volgens','aan|in|van','Según la web, la película dura dos horas y diez minutos.','volgens = según'],
 
  /* ondanks */
  ['Ze zwemmen ___ de kou elke ochtend in zee.','ondanks','van|op|om','A pesar del frío nadan en el mar todas las mañanas.','ondanks = a pesar de'],
  ['Hij is ___ zijn blessure toch gaan spelen.','ondanks','van|aan|tot','A pesar de la lesión, jugó igualmente.','ondanks … toch = a pesar de … igualmente'],
  ['Het was ___ alles een geweldige dag.','ondanks','tot|van|op','A pesar de todo, fue un día genial.','ondanks alles = a pesar de todo'],
- ['Ik woon hier graag, ___ de hoge huur.','ondanks','voor|bij|tot','Me gusta vivir aquí, a pesar del alquiler tan alto.','ondanks = a pesar de']
+ ['Ik woon hier graag, ___ de hoge huur.','ondanks','van|naar|tot','Me gusta vivir aquí, a pesar del alquiler tan alto.','ondanks = a pesar de']
 ]);

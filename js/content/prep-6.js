@@ -18,7 +18,7 @@ addPrep([
  ['Waar woon jij ___ vijf jaar, denk je?','over','sinds|tijdens|om','¿Dónde crees que vivirás dentro de cinco años?','over = dentro de (tiempo)'],
  ['De les begint om kwart ___ negen.','over','voor|na|tot','La clase empieza a las nueve y cuarto.','kwart over negen = las nueve y cuarto'],
  ['We fietsen ___ de brug naar de andere kant van de stad.','over','door|uit|tegen','Cruzamos el puente en bici para ir al otro lado de la ciudad.','over = por encima, cruzando'],
- ['In de EU kun je zonder paspoort gewoon ___ de grens.','over','door|bij|uit','En la UE puedes cruzar la frontera sin pasaporte, sin más.','over de grens = cruzar la frontera'],
+ ['In de EU kun je zonder paspoortcontrole gewoon ___ de grens.','over','door|bij|uit','En la UE puedes cruzar la frontera sin control de pasaportes, sin más.','over de grens = cruzar la frontera'],
  ['Nederlandse jachten varen ___ de hele wereld.','over','tot|uit|tegen','Los yates holandeses navegan por todo el mundo.','over de hele wereld = por todo el mundo'],
  ['Ik heb gisteren met Daan ___ zijn nieuwe baan gepraat.','over','van|op|om','Ayer hablé con Daan de su nuevo trabajo.','praten met iemand over iets'],
  ['Mijn huisgenoten discussiëren eindeloos ___ de afwas.','over','van|om|tegen','Mis compañeros de piso discuten sin parar sobre los platos.','discussiëren over = discutir sobre'],

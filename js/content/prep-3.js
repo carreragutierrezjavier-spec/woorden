@@ -69,6 +69,6 @@ addPrep([
  ['Je mag de bal ___ waterpolo niet met twee handen pakken.','bij','aan|naar|over','En waterpolo no puedes coger el balón con las dos manos.','bij + deporte o actividad = en'],
  ['Kom je zaterdag ___ ons eten?','bij','naar|aan|uit','¿Vienes el sábado a cenar a casa?','bij iemand eten = comer en su casa'],
  ['Ik woon tijdelijk ___ een Nederlands gezin in.','bij','met|op|voor','Vivo temporalmente en casa de una familia holandesa.','inwonen bij iemand'],
- ['Ik heb mijn tas ___ Femke laten liggen.','bij','naar|op|tegen','Me he dejado el bolso en casa de Femke.','bij iemand = en casa de alguien'],
+ ['Ik heb mijn tas ___ Femke laten liggen.','bij','naar|op|tegen','Me he dejado la bolsa en casa de Femke.','bij iemand = en casa de alguien'],
  ['Ik was ___ de opening van het nieuwe zwembad.','bij','naar|in|tijdens','Estuve en la inauguración de la nueva piscina.','bij = presente en (un acto)']
 ]);
