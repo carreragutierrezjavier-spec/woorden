@@ -5,6 +5,7 @@ Neerlandés para hispanohablantes. App web instalable (funciona sin conexión).
 **Abrirla:** https://carreragutierrezjavier-spec.github.io/woorden/
 
 - **Rondas cortas** (8, 12 o 16 preguntas): repasos, palabras nuevas al azar de todos los temas, gramática y oído.
+- **Palabras nuevas**: primero se preguntan. Si ya la sabes, se da por sabida; si no, se enseña con un ejemplo y vuelve unos pasos después.
   Lo que ya ha salido hoy no vuelve, salvo lo fallado (hasta tres veces).
 - **Repaso espaciado** con intervalos propios de cada palabra: lo fácil se espacia rápido, lo difícil vuelve antes.
 - **Vocabulario por grupos**: sustantivos, verbos, adjetivos, palabras útiles y expresiones, cada uno por temas.
